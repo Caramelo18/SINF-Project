@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
-    <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.min.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -21,88 +21,13 @@
     <div class="container-fluid">
         <div class="row">
 
-            <!---------------
-                SIDE BAR
-            ----------------->
-
             <div class="col-sm-3">
-                <div class="nav-side-menu">
-                    <div class="brand">@Html.ActionLink("Dashboard", "Index", "Home", new { area = "" }, null)</div>
-                    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
-                    <div class="menu-list">
-                        <ul id="menu-content" class="menu-content collapse out">
-                            <li data-toggle="collapse" data-target="#orders" class="collapsed">
-                                <a href="#">
-                                    <i class="fa fa-bar-chart fa-lg"></i> Orders <span class="arrow"></span>
-                                </a>
-                            </li>
-                            <ul class="sub-menu collapse" id="orders">
-                                <li>Sales Orders</li>
-                                <li>Purchase Orders</li>
-                            </ul>
-
-                            <li data-toggle="collapse" data-target="#sales" class="collapsed">
-                                <a href="#"><i class="fa  fa-eur fa-lg"></i> Sales <span class="arrow"></span></a>
-                            </li>
-                            <ul class="sub-menu collapse" id="sales">
-                                <li>Sales Details</li>
-                                <li>Sales by Product</li>
-                                <li>Sales by Client</li>
-                            </ul>
-
-                            <li data-toggle="collapse" data-target="#clients" class="collapsed">
-                                <a href="#"><i class="fa fa-user fa-lg"></i> Clients <span class="arrow"></span></a>
-                            </li>
-                            <ul class="sub-menu collapse" id="clients">
-                                <li>Clients Details</li>
-                            </ul>
-
-                            <li data-toggle="collapse" data-target="#suppliers" class="collapsed">
-                                <a href="#"><i class="fa fa-archive fa-lg"></i> Suppliers <span class="arrow"></span></a>
-                            </li>
-                            <ul class="sub-menu collapse" id="suppliers">
-                                <li>Suppliers Details</li>
-                            </ul>
-
-                            <li data-toggle="collapse" data-target="#inventory" class="collapsed">
-                                <a href="#"><i class="fa fa-shopping-cart fa-lg"></i> Inventory<span class="arrow"></span></a>
-                            </li>
-                            <ul class="sub-menu collapse" id="inventory">
-                                <li>Product Details</li>
-                            </ul>
-
-                            <li data-toggle="collapse" data-target="#financial" class="collapsed">
-                                <a href="#"><i class="fa fa-line-chart fa-lg"></i> Financial Overview <span class="arrow"></span></a>
-                            </li>
-                            <ul class="sub-menu collapse" id="financial">
-                                <li>Accounts Receivable</li>
-                                <li>Accounts Payable</li>
-                            </ul>
-                        </ul>
-                    </div>
-                </div>
+                @RenderPage("SideMenu.cshtml")
             </div>
 
-            <!---------------
-                MENU BAR
-            ----------------->
-            <!--<div class="col-sm-9">
-                <div class="menu-bar">
-                    <div class="container-fluid">
-                        <div class="row">
-
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" placeholder="Search">
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="login">
-                                    <a href=#><i class="fa fa-user fa-lg"></i>Login</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
+            <div class="col-sm-9">
+                @RenderPage("MainMenu.cshtml")
+            </div>
         </div>
     </div>
 
@@ -110,6 +35,6 @@
 
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
-    
+
 </body>
 </html>

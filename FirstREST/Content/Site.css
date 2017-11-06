@@ -3,6 +3,12 @@
     padding: 0;
 }
 
+.col-sm-9, .col-sm-3{
+    padding-right: 0;
+    padding-left: 0;
+}
+
+
 /*-------------------------------*/
 /*           Side Menu           */
 /*-------------------------------*/
@@ -17,6 +23,7 @@
     margin: 0;
     padding: 0;
 }
+
 .nav-side-menu .brand {
     background-color: #23282e;
     line-height: 60px;
@@ -128,14 +135,63 @@
     }
 }
 
+.fa.fa-bars.fa-2x.toggle-btn{
+   color: white;
+   background: black;
+}
 
 /*-------------------------------*/
 /*           Menu Bar            */
 /*-------------------------------*/
 
-.menu-bar{
-    margin: 0 -15px; /*ver estas margens ??*/
-    padding: 0;
-    background: #9a9999;
-    line-height: 60px;
+
+.navbar.navbar-toggleable-md.navbar-light.bg-faded{
+    background-color: #9f9191;
+    margin: 0;
+    height: 60px;
+}
+
+#search-bar{
+    width: 100%;
+    border-radius: 30px;
+    box-shadow: none;
+    text-shadow: none;
+    padding-left: 10px;
+}
+
+.login{
+    text-align: center;
+}
+.login a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+.login a:hover{
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
+
+
+.loginmodal-container{
+    background: white;
+    margin-top: 25%;
+    padding: 20px;
+    border-radius: 10px;
+    display: block;
+}
+
+.loginmodal-container h1{
+   text-align: center;
+}
+
+.login-field{
+    margin:20px 0;
+    padding: 10px 0 10px 10px;
+}
+
+.loginmodal-submit{
+    background: #9f9191;
+    color: white;
 }
