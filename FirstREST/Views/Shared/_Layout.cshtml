@@ -20,6 +20,11 @@
 <body>
     <div class="container-fluid">
         <div class="row">
+
+            <!---------------
+                SIDE BAR
+            ----------------->
+
             <div class="col-sm-3">
                 <div class="nav-side-menu">
                     <div class="brand">@Html.ActionLink("Dashboard", "Index", "Home", new { area = "" }, null)</div>
@@ -77,72 +82,34 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-9 col-sm-offset-1">
-                
-            </div>
+
+            <!---------------
+                MENU BAR
+            ----------------->
+            <!--<div class="col-sm-9">
+                <div class="menu-bar">
+                    <div class="container-fluid">
+                        <div class="row">
+
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="Search">
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="login">
+                                    <a href=#><i class="fa fa-user fa-lg"></i>Login</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
         </div>
     </div>
-    
-    <!-- /#wrapper -->
-          <!--
-        <div class="content-wrapper">
-            <div class="float-left">
-                <p class="site-title">
-                    <a href="~/">ASP.NET Web API</a></p>
-            </div>
-            <div class="float-right">
-                <nav>
-                    <ul id="menu">
-                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                        <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-            
-    </header>
-              -->
-    <!-- Side Bar -->
-
-
-    <script>
-        $(document).ready(function () {
-            var trigger = $('.hamburger'),
-                overlay = $('.overlay'),
-               isClosed = false;
-
-            trigger.click(function () {
-                hamburger_cross();
-            });
-
-            function hamburger_cross() {
-
-                if (isClosed == true) {
-                    overlay.hide();
-                    trigger.removeClass('is-open');
-                    trigger.addClass('is-closed');
-                    isClosed = false;
-                } else {
-                    overlay.show();
-                    trigger.removeClass('is-closed');
-                    trigger.addClass('is-open');
-                    isClosed = true;
-                }
-            }
-
-            $('[data-toggle="offcanvas"]').click(function () {
-                $('#wrapper').toggleClass('toggled');
-            });
-        });
-    </script>
-
 
     @RenderBody()
 
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
-
-   
     
 </body>
 </html>

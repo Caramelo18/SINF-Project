@@ -14,13 +14,15 @@
     height: 100%;
     width: 25%;
     left: 0;
+    margin: 0;
+    padding: 0;
 }
 .nav-side-menu .brand {
     background-color: #23282e;
-    line-height: 50px;
+    line-height: 60px;
     display: block;
     text-align: center;
-    font-size: 14px; 
+    font-size: 18px; 
 }
 
 .nav-side-menu .brand a{
@@ -125,7 +127,15 @@
         display: block;
     }
 }
-body {
-    margin: 0px;
-    padding: 0px;
+
+
+/*-------------------------------*/
+/*           Menu Bar            */
+/*-------------------------------*/
+
+.menu-bar{
+    margin: 0 -15px; /*ver estas margens ??*/
+    padding: 0;
+    background: #9a9999;
+    line-height: 60px;
 }
