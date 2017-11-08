@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-sm-3">
                 <div class="nav-side-menu">
-                    <div class="brand">@Html.ActionLink("Dashboard", "Index", "Home", new { area = "" }, null)</div>
+                    <div class="brand">@Html.ActionLink("360 Dashboard", "Index", "Home", new { area = "" }, null)</div>
                     <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
                     <div class="menu-list">
                         <ul id="menu-content" class="menu-content collapse out">
@@ -32,8 +32,8 @@
                                 </a>
                             </li>
                             <ul class="sub-menu collapse" id="orders">
-                                <li>Sales Orders</li>
-                                <li>Purchase Orders</li>
+                                <li>@Html.ActionLink("Sales Orders", "Index", "Home", new { area = "SalesOrder" }, null)</li>
+                                <li>@Html.ActionLink("Purchase Orders", "Index", "Home", new { area = "PurchaseOrder" }, null)</li>
                             </ul>
 
                             <li data-toggle="collapse" data-target="#sales" class="collapsed">
@@ -78,7 +78,7 @@
                 </div>
             </div>
             <div class="col-sm-9 col-sm-offset-1">
-                
+                @RenderBody()
             </div>
         </div>
     </div>
@@ -137,7 +137,6 @@
     </script>
 
 
-    @RenderBody()
 
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)

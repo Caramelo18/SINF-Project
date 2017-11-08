@@ -260,6 +260,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Clients\ClientsAreaRegistration.cs" />
+    <Compile Include="Areas\Clients\Controllers\HomeController.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
     <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
@@ -274,6 +276,18 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Areas\PurchaseOrders\Controllers\HomeController.cs" />
+    <Compile Include="Areas\PurchaseOrders\PurchaseOrdersAreaRegistration.cs" />
+    <Compile Include="Areas\SalesClient\Controllers\HomeController.cs" />
+    <Compile Include="Areas\SalesClient\SalesClientAreaRegistration.cs" />
+    <Compile Include="Areas\SalesDetails\Controllers\HomeController.cs" />
+    <Compile Include="Areas\SalesDetails\SalesDetailsAreaRegistration.cs" />
+    <Compile Include="Areas\SalesOrders\Controllers\HomeController.cs" />
+    <Compile Include="Areas\SalesOrders\SalesOrdersAreaRegistration.cs" />
+    <Compile Include="Areas\SalesProduct\Controllers\HomeController.cs" />
+    <Compile Include="Areas\SalesProduct\SalesProductAreaRegistration.cs" />
+    <Compile Include="Areas\Suppliers\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Suppliers\SuppliersAreaRegistration.cs" />
     <Compile Include="Controllers\ArtigosController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\DocCompraController.cs" />
@@ -388,6 +402,27 @@
     <Content Include="Content\bootstrap\js\bootstrap.bundle.min.js.map" />
     <Content Include="Content\bootstrap\js\bootstrap.js.map" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js.map" />
+    <Content Include="Areas\SalesOrders\Views\Web.config" />
+    <Content Include="Areas\SalesOrders\Views\Home\Index.cshtml" />
+    <Content Include="Areas\SalesOrders\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\PurchaseOrders\Views\Web.config" />
+    <Content Include="Areas\PurchaseOrders\Views\Home\Index.cshtml" />
+    <Content Include="Areas\PurchaseOrders\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\SalesDetails\Views\Web.config" />
+    <Content Include="Areas\SalesDetails\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\SalesDetails\Views\Home\Index.cshtml" />
+    <Content Include="Areas\SalesProduct\Views\Web.config" />
+    <Content Include="Areas\SalesProduct\Views\Home\Index.cshtml" />
+    <Content Include="Areas\SalesProduct\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\SalesClient\Views\Web.config" />
+    <Content Include="Areas\SalesClient\Views\Home\Index.cshtml" />
+    <Content Include="Areas\SalesClient\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Clients\Views\Web.config" />
+    <Content Include="Areas\Clients\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Clients\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Suppliers\Views\Web.config" />
+    <Content Include="Areas\Suppliers\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Suppliers\Views\_ViewStart.cshtml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -442,6 +477,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Clients\Models\" />
+    <Folder Include="Areas\Clients\Views\Shared\" />
+    <Folder Include="Areas\PurchaseOrders\Models\" />
+    <Folder Include="Areas\PurchaseOrders\Views\Shared\" />
+    <Folder Include="Areas\SalesClient\Models\" />
+    <Folder Include="Areas\SalesClient\Views\Shared\" />
+    <Folder Include="Areas\SalesDetails\Models\" />
+    <Folder Include="Areas\SalesDetails\Views\Shared\" />
+    <Folder Include="Areas\SalesOrders\Models\" />
+    <Folder Include="Areas\SalesOrders\Views\Shared\" />
+    <Folder Include="Areas\SalesProduct\Models\" />
+    <Folder Include="Areas\SalesProduct\Views\Shared\" />
+    <Folder Include="Areas\Suppliers\Models\" />
+    <Folder Include="Areas\Suppliers\Views\Shared\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
