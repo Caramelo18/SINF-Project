@@ -1,0 +1,58 @@
+﻿<!---------------
+    SIDE BAR
+----------------->
+<div class="nav-side-menu">
+    <div class="brand">@Html.ActionLink("Dashboard", "Index", "Home", new { area = "" }, null)</div>
+    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+    <div class="menu-list">
+        <ul id="menu-content" class="menu-content collapse out">
+            <li data-toggle="collapse" data-target="#orders" class="collapsed">
+                <a href="#">
+                    <i class="fa fa-bar-chart fa-lg"></i> Orders <span class="arrow"></span>
+                </a>
+            </li>
+            <ul class="sub-menu collapse" id="orders">
+                <li>Sales Orders</li>
+                <li>Purchase Orders</li>
+            </ul>
+
+            <li data-toggle="collapse" data-target="#sales" class="collapsed">
+                <a href="#"><i class="fa  fa-eur fa-lg"></i> Sales <span class="arrow"></span></a>
+            </li>
+            <ul class="sub-menu collapse" id="sales">
+                <li>Sales Details</li>
+                <li>Sales by Product</li>
+                <li>Sales by Client</li>
+            </ul>
+
+            <li data-toggle="collapse" data-target="#clients" class="collapsed">
+                <a href="#"><i class="fa fa-user fa-lg"></i> Clients <span class="arrow"></span></a>
+            </li>
+            <ul class="sub-menu collapse" id="clients">
+                <li>Clients Details</li>
+            </ul>
+
+            <li data-toggle="collapse" data-target="#suppliers" class="collapsed">
+                <a href="#"><i class="fa fa-archive fa-lg"></i> Suppliers <span class="arrow"></span></a>
+            </li>
+            <ul class="sub-menu collapse" id="suppliers">
+                <li>Suppliers Details</li>
+            </ul>
+
+            <li data-toggle="collapse" data-target="#inventory" class="collapsed">
+                <a href="#"><i class="fa fa-shopping-cart fa-lg"></i> Inventory<span class="arrow"></span></a>
+            </li>
+            <ul class="sub-menu collapse" id="inventory">
+                <li>Product Details</li>
+            </ul>
+
+            <li data-toggle="collapse" data-target="#financial" class="collapsed">
+                <a href="#"><i class="fa fa-line-chart fa-lg"></i> Financial Overview <span class="arrow"></span></a>
+            </li>
+            <ul class="sub-menu collapse" id="financial">
+                <li>Accounts Receivable</li>
+                <li>Accounts Payable</li>
+            </ul>
+        </ul>
+    </div>
+</div>
