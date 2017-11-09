@@ -292,11 +292,13 @@
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\DocCompraController.cs" />
     <Compile Include="Controllers\DocVendaController.cs" />
+    <Compile Include="Controllers\FornecedorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Lib_Primavera\Model\Fornecedor.cs" />
     <Compile Include="Lib_Primavera\PriIntegration.cs" />
     <Compile Include="Lib_Primavera\Model\Artigo.cs" />
     <Compile Include="Lib_Primavera\Model\Cliente.cs" />
@@ -423,6 +425,7 @@
     <Content Include="Areas\Suppliers\Views\Web.config" />
     <Content Include="Areas\Suppliers\Views\Home\Index.cshtml" />
     <Content Include="Areas\Suppliers\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\SalesOrders\Views\Home\Get.cshtml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

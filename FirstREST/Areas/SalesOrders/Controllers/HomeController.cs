@@ -13,7 +13,15 @@ namespace FirstREST.Areas.SalesOrders.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            List<Lib_Primavera.Model.DocVenda> vendas = Lib_Primavera.PriIntegration.Encomendas_List();
+            return View(vendas);
+        }
+
+        public ActionResult Get(string id)
+        {
+            Lib_Primavera.Model.DocVenda docVenda = Lib_Primavera.PriIntegration.Encomenda_Get(id);
+
+            return View(docVenda);
         }
 
     }
