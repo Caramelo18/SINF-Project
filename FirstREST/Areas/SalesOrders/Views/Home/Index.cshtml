@@ -1,0 +1,10 @@
+﻿@model List<FirstREST.Lib_Primavera.Model.DocVenda>
+@{
+    ViewBag.Title = "Sales Orders";
+}
+
+<h2>SalesOrder</h2>
+@foreach(var doc in Model)
+{
+    <p>@doc.NumDoc</p>
+}

@@ -370,6 +370,61 @@ namespace FirstREST.Lib_Primavera
             return listdc;
         }
 
+
+        public static Model.DocCompra DocCompra(string id)
+        {
+
+            StdBELista objListCab;
+            StdBELista objListLin;
+            Model.DocCompra dc = new Model.DocCompra();
+            List<Model.DocCompra> listdc = new List<Model.DocCompra>();
+            Model.LinhaDocCompra lindc = new Model.LinhaDocCompra();
+            List<Model.LinhaDocCompra> listlindc = new List<Model.LinhaDocCompra>();
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+                objListCab = PriEngine.Engine.Consulta("SELECT id, NumDocExterno, Entidade, DataDoc, NumDoc, TotalMerc, Serie From CabecCompras where TipoDoc='VGR' AND NumDoc='" + id + "'");
+                while (!objListCab.NoFim())
+                {
+                    dc = new Model.DocCompra();
+                    dc.id = objListCab.Valor("id");
+                    dc.NumDocExterno = objListCab.Valor("NumDocExterno");
+                    dc.Entidade = objListCab.Valor("Entidade");
+                    dc.NumDoc = objListCab.Valor("NumDoc");
+                    dc.Data = objListCab.Valor("DataDoc");
+                    dc.TotalMerc = objListCab.Valor("TotalMerc");
+                    dc.Serie = objListCab.Valor("Serie");
+                    objListLin = PriEngine.Engine.Consulta("SELECT idCabecCompras, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido, Armazem, Lote from LinhasCompras where IdCabecCompras='" + dc.id + "' order By NumLinha");
+                    listlindc = new List<Model.LinhaDocCompra>();
+
+                    while (!objListLin.NoFim())
+                    {
+                        lindc = new Model.LinhaDocCompra();
+                        lindc.IdCabecDoc = objListLin.Valor("idCabecCompras");
+                        lindc.CodArtigo = objListLin.Valor("Artigo");
+                        lindc.DescArtigo = objListLin.Valor("Descricao");
+                        lindc.Quantidade = objListLin.Valor("Quantidade");
+                        lindc.Unidade = objListLin.Valor("Unidade");
+                        lindc.Desconto = objListLin.Valor("Desconto1");
+                        lindc.PrecoUnitario = objListLin.Valor("PrecUnit");
+                        lindc.TotalILiquido = objListLin.Valor("TotalILiquido");
+                        lindc.TotalLiquido = objListLin.Valor("PrecoLiquido");
+                        lindc.Armazem = objListLin.Valor("Armazem");
+                        lindc.Lote = objListLin.Valor("Lote");
+
+                        listlindc.Add(lindc);
+                        objListLin.Seguinte();
+                    }
+
+                    dc.LinhasDoc = listlindc;
+
+                    listdc.Add(dc);
+                    objListCab.Seguinte();
+                }
+            }
+            return listdc.ElementAt(0);
+        }
+
                 
         public static Model.RespostaErro VGR_New(Model.DocCompra dc)
         {
@@ -600,5 +655,43 @@ namespace FirstREST.Lib_Primavera
         }
 
         #endregion DocsVenda
+
+        #region Fornecedor
+
+        public static List<Model.Fornecedor> SupplierList()
+        {
+            StdBELista objList;
+
+            List<Model.Fornecedor> listFornecedor = new List<Model.Fornecedor>();
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+
+                //objList = PriEngine.Engine.Comercial.Clientes.LstClientes();
+
+                objList = PriEngine.Engine.Consulta("SELECT * FROM  FORNECEDORES");
+                //PriEngine.Engine.Comercial.
+                
+                while (!objList.NoFim())
+                {
+                    listFornecedor.Add(new Model.Fornecedor
+                    {
+                        CodFornecedor = objList.Valor("Fornecedor"),
+                        Nome = objList.Valor("Nome"),
+                        NomeFiscal = objList.Valor("NomeFiscal"),
+                        //Telefone = objList.Valor("Contribuinte")
+                    });
+                    objList.Seguinte();
+
+                }
+            
+
+                return listFornecedor;
+            }
+            else
+                return null;
+        }
+
+        #endregion
     }
 }
