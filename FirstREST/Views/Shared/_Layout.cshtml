@@ -27,12 +27,11 @@
 
             <div class="col-sm-9">
                 @RenderPage("MainMenu.cshtml")
+                @RenderBody()
             </div>
         </div>
     </div>
-
-    @RenderBody()
-
+    
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
 
