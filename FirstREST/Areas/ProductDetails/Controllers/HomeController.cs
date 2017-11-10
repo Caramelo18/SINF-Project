@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml;
 
 namespace FirstREST.Areas.ProductDetails.Controllers
 {
@@ -13,9 +14,10 @@ namespace FirstREST.Areas.ProductDetails.Controllers
 
         public ActionResult Index()
         {
-            //Artigos
-            List<Lib_Primavera.Model.Artigo> artigos = Lib_Primavera.PriIntegration.ListaArtigos();
-            ViewBag.artigos = artigos;
+
+            List<Models.Artigo> listaArtigos = Saft.SaftIntegration.ParseArtigos();
+
+            ViewBag.artigos = listaArtigos;
 
             return View();
         }
