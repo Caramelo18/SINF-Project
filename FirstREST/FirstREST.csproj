@@ -276,6 +276,8 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Areas\ProductDetails\Controllers\HomeController.cs" />
+    <Compile Include="Areas\ProductDetails\ProductDetailsAreaRegistration.cs" />
     <Compile Include="Areas\PurchaseOrders\Controllers\HomeController.cs" />
     <Compile Include="Areas\PurchaseOrders\PurchaseOrdersAreaRegistration.cs" />
     <Compile Include="Areas\SalesClient\Controllers\HomeController.cs" />
@@ -426,6 +428,9 @@
     <Content Include="Areas\Suppliers\Views\Home\Index.cshtml" />
     <Content Include="Areas\Suppliers\Views\_ViewStart.cshtml" />
     <Content Include="Areas\SalesOrders\Views\Home\Get.cshtml" />
+    <Content Include="Areas\ProductDetails\Views\Home\Index.cshtml" />
+    <Content Include="Areas\ProductDetails\Views\Web.config" />
+    <Content Include="Areas\ProductDetails\Views\_ViewStart.cshtml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -484,6 +489,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Clients\Models\" />
     <Folder Include="Areas\Clients\Views\Shared\" />
+    <Folder Include="Areas\ProductDetails\Models\" />
+    <Folder Include="Areas\ProductDetails\Views\Shared\" />
     <Folder Include="Areas\PurchaseOrders\Models\" />
     <Folder Include="Areas\PurchaseOrders\Views\Shared\" />
     <Folder Include="Areas\SalesClient\Models\" />

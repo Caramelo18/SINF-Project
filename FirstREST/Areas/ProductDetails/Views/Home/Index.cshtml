@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "ProductDetails";
+}
+
+<h2>Product Details</h2>
+
+@foreach (var artigo in ViewBag.artigos)
+{
+    <div class="artigos">
+        @artigo.CodArtigo
+        @artigo.DescArtigo
+        @artigo.STKAtual
+    </div>
+}
