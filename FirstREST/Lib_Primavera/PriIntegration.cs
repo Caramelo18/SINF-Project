@@ -12,7 +12,7 @@ namespace FirstREST.Lib_Primavera
 {
     public class PriIntegration
     {
-        
+        public const string currDate = "'2016-12-31'";
 
         # region Cliente
 
@@ -719,9 +719,15 @@ namespace FirstREST.Lib_Primavera
             if (period != "1m" && period != "3m" && period != "1y")
                 return null;
 
+            string queryPeriod = "1";
+            if (period == "3m")
+                queryPeriod = "3";
+            else
+                queryPeriod = "12";
+
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade, Data, NumDoc, TotalMerc, Serie From CabecDoc where TipoDoc='ECL'");
+                objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade, Data, NumDoc, TotalMerc, Serie From CabecDoc where TipoDoc='ECL' AND DATEDIFF(month, Data," + currDate + ") < '" + queryPeriod + "'");
                 while (!objListCab.NoFim())
                 {
                     dv = new Model.DocVenda();

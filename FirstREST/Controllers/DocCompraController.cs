@@ -13,10 +13,12 @@ namespace FirstREST.Controllers
     public class DocCompraController : ApiController
     {
 
-
         public IEnumerable<Lib_Primavera.Model.DocCompra> Get()
         {
-            return Lib_Primavera.PriIntegration.VGR_List();
+           // if (period == null)
+                return Lib_Primavera.PriIntegration.VGR_List();
+          //  else
+            //    return Lib_Primavera.PriIntegration.Encomendas_List(period);
         }
 
         
