@@ -14,6 +14,7 @@ namespace FirstREST.Saft
 
         public static List<Models.Artigo> ParseArtigos()
         {
+            //Loads xml file
             XmlDocument doc = new XmlDocument();
             doc.Load(@"C:\Users\user\Desktop\SINF\saft.xml");
 
@@ -21,9 +22,8 @@ namespace FirstREST.Saft
 
             XmlNodeList artigos = doc.GetElementsByTagName("Product");
 
-            for (int i = 0; i < artigos.Count; i++)
+            foreach (XmlNode node in artigos)
             {
-                XmlNode node = artigos[i];
 
                 if (node.HasChildNodes)
                 {
