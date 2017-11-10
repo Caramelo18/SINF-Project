@@ -15,10 +15,12 @@ namespace FirstREST.Controllers
 
         public IEnumerable<Lib_Primavera.Model.DocCompra> Get()
         {
-           // if (period == null)
+            var allUrlKeyValues = ControllerContext.Request.GetQueryNameValuePairs();
+            string period = allUrlKeyValues.LastOrDefault(x => x.Key == "period").Value;
+            if (period == null)
                 return Lib_Primavera.PriIntegration.VGR_List();
-          //  else
-            //    return Lib_Primavera.PriIntegration.Encomendas_List(period);
+            else
+                return Lib_Primavera.PriIntegration.VGR_List(period);
         }
 
         
