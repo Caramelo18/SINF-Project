@@ -195,3 +195,21 @@
     background: #9f9191;
     color: white;
 }
+
+/*-------------------------------*/
+/*           Dashboard Content   */
+/*-------------------------------*/
+
+#body{
+    padding: 1rem;
+    background: #edecec
+}
+
+#body div{
+    padding: 1rem;
+}
+
+.white-background{
+    background-color: #FFFFFF;
+}
+
