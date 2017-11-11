@@ -1,24 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Xml;
+using FirstREST.Models;
 
 namespace FirstREST.Areas.ProductDetails.Controllers
 {
     public class HomeController : Controller
     {
+
+        DbEntities db = new DbEntities();
+
         //
         // GET: /ProductDetails/Home/
 
         public ActionResult Index()
         {
 
-            List<Models.Artigo> listaArtigos = Saft.SaftIntegration.ParseArtigos();
+            Saft.SaftIntegration.ParseArtigos();
 
-            ViewBag.artigos = listaArtigos;
+            var artigos = from m in db.Artigo
+                          select m;
 
+
+            ViewBag.artigos = artigos;
+                       
             return View();
         }
 

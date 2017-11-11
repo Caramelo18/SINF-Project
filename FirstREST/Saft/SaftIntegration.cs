@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using ADODB;
 using System.Xml;
+using System.Web.Mvc;
+using FirstREST.Models;
 
 namespace FirstREST.Saft
 {
@@ -12,6 +11,7 @@ namespace FirstREST.Saft
 
         # region Cliente
 
+        /*
         public static List<Models.Artigo> ParseArtigos()
         {
             //Loads xml file
@@ -40,13 +40,49 @@ namespace FirstREST.Saft
             }
 
             return listaArtigos;
-        }
+        }*/
 
         #endregion Cliente;   // -----------------------------  END   CLIENTE    -----------------------
 
 
         #region Artigo
 
+
+        public static void ParseArtigos()
+        {
+
+            DbEntities db = new DbEntities();
+
+            //Loads xml file
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"C:\Users\user\Desktop\SINF\saft.xml");
+
+            XmlNodeList artigos = doc.GetElementsByTagName("Product");
+
+            foreach (XmlNode node in artigos)
+            {
+
+                if (node.HasChildNodes)
+                {
+                    Models.Artigo artigo = new Models.Artigo
+                    {
+                        Tipo = node.ChildNodes[0].InnerText,
+                        Code = node.ChildNodes[1].InnerText,
+                        Grupo = node.ChildNodes[2].InnerText,
+                        Descricao = node.ChildNodes[3].InnerText,
+                        NumberCode = node.ChildNodes[4].InnerText
+                    };
+
+                    db.Artigo.Add(artigo);
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception e) { }
+                    
+                }
+            }
+        }
 
 
         #endregion Artigo
