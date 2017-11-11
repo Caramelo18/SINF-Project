@@ -60,30 +60,13 @@ namespace FirstREST.Saft
 
             foreach (XmlNode node in artigos)
             {
-
                 if (node.HasChildNodes)
                 {
-
                     var exists = db.Artigo.Find(node.ChildNodes[1].InnerText);
 
                     if (exists == null)
                     {
-
-                        System.Diagnostics.Debug.WriteLine("|" + node.ChildNodes[1].InnerText + "|");
-                        Models.Artigo artigo = new Models.Artigo
-                        {
-                            Tipo = node.ChildNodes[0].InnerText,
-                            Code = node.ChildNodes[1].InnerText,
-                            Grupo = node.ChildNodes[2].InnerText,
-                            Descricao = node.ChildNodes[3].InnerText,
-                            NumberCode = node.ChildNodes[4].InnerText
-                        };
-                        try
-                        {
-                            db.Artigo.Add(artigo);
-                            db.SaveChanges();
-                        }
-                        catch (Exception e) { }
+                        AddArtigoToDb(node, db);
                     }
                     else
                     {
@@ -93,6 +76,23 @@ namespace FirstREST.Saft
             }
         }
 
+        public static void AddArtigoToDb(XmlNode node, DbEntities db)
+        {
+            Models.Artigo artigo = new Models.Artigo
+            {
+                Tipo = node.ChildNodes[0].InnerText,
+                Code = node.ChildNodes[1].InnerText,
+                Grupo = node.ChildNodes[2].InnerText,
+                Descricao = node.ChildNodes[3].InnerText,
+                NumberCode = node.ChildNodes[4].InnerText
+            };
+            try
+            {
+                db.Artigo.Add(artigo);
+                db.SaveChanges();
+            }
+            catch (Exception e) { }
+        }
 
         #endregion Artigo
 
