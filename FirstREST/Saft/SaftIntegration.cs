@@ -62,15 +62,21 @@ namespace FirstREST.Saft
             {
                 if (node.HasChildNodes)
                 {
-                    var exists = db.Artigo.Find(node.ChildNodes[1].InnerText);
+                    var artigo = db.Artigo.Find(node.ChildNodes[1].InnerText);
 
-                    if (exists == null)
+                    if (artigo == null)
                     {
                         AddArtigoToDb(node, db);
                     }
                     else
                     {
-                        System.Diagnostics.Debug.WriteLine("Tenho que fazer update");
+                        artigo.Descricao = node.ChildNodes[3].InnerText;
+                        artigo.Grupo = node.ChildNodes[2].InnerText;
+                        artigo.NumberCode = node.ChildNodes[4].InnerText;
+                        artigo.Tipo = node.ChildNodes[0].InnerText;
+
+                        try { db.SaveChanges(); }
+                        catch (Exception e) { }
                     }
                 }
             }
