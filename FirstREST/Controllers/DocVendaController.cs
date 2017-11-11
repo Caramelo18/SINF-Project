@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -15,7 +14,6 @@ namespace FirstREST.Controllers
     {
         //
         // GET: /Clientes/
-
         public IEnumerable<Lib_Primavera.Model.DocVenda> Get()
         {
             var allUrlKeyValues = ControllerContext.Request.GetQueryNameValuePairs();
@@ -43,6 +41,21 @@ namespace FirstREST.Controllers
             }
         }
 
+        [HttpGet]
+        public IEnumerable<Lib_Primavera.Model.DocVenda> ProductSales()
+        {
+            var allUrlKeyValues = ControllerContext.Request.GetQueryNameValuePairs();
+            string period = allUrlKeyValues.LastOrDefault(x => x.Key == "period").Value;
+            string product = allUrlKeyValues.LastOrDefault(x => x.Key == "product").Value;
+
+            return Lib_Primavera.PriIntegration.Encomendas_Produto_List(product, period);
+        }
+
+        [HttpGet]
+        public IEnumerable<Lib_Primavera.Model.DocVenda> AccountsReceivable()
+        {
+            return Lib_Primavera.PriIntegration.Accounts_Receivable_List();
+        }
 
         public HttpResponseMessage Post(Lib_Primavera.Model.DocVenda dv)
         {
