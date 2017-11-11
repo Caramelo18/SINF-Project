@@ -3,6 +3,7 @@ using System.Linq;
 using System.Xml;
 using System.Web.Mvc;
 using FirstREST.Models;
+using System.Collections.Generic;
 
 namespace FirstREST.Saft
 {
@@ -62,13 +63,10 @@ namespace FirstREST.Saft
             {
                 if (node.HasChildNodes)
                 {
-                    var artigo = db.Artigo.Find(node.ChildNodes[1].InnerText);
+                    string id = node.ChildNodes[1].InnerText;
+                    var artigo = db.Artigo.Find(id);
 
-                    if (artigo == null)
-                    {
-                        AddArtigoToDb(node, db);
-                    }
-                    else
+                    if (artigo != null)
                     {
                         artigo.Descricao = node.ChildNodes[3].InnerText;
                         artigo.Grupo = node.ChildNodes[2].InnerText;
@@ -78,12 +76,18 @@ namespace FirstREST.Saft
                         try { db.SaveChanges(); }
                         catch (Exception e) { }
                     }
+                    else
+                    {
+                        AddArtigoToDb(node, db);
+                    }
                 }
             }
         }
 
         public static void AddArtigoToDb(XmlNode node, DbEntities db)
         {
+            string id = node.ChildNodes[1].InnerText;
+
             Models.Artigo artigo = new Models.Artigo
             {
                 Tipo = node.ChildNodes[0].InnerText,
@@ -98,6 +102,38 @@ namespace FirstREST.Saft
                 db.SaveChanges();
             }
             catch (Exception e) { }
+        }
+
+        public static void addProductsFromPrimaveraToDb()
+        {
+            DbEntities db = new DbEntities();
+            List<Lib_Primavera.Model.Artigo> listaArtigos = Lib_Primavera.PriIntegration.ListaArtigos();
+
+            foreach (var item in listaArtigos)
+            {
+                var artigo = db.Artigo.Find(item.CodArtigo);
+
+                if (artigo != null)
+                {
+                    artigo.Stock = Convert.ToInt32(item.STKAtual);
+                }
+                else
+                {
+                    Models.Artigo artigoNovo = new Models.Artigo
+                    {
+                        Code = item.CodArtigo,
+                        Descricao = item.DescArtigo,
+                        Stock = Convert.ToInt32(item.STKAtual)
+                    };
+                    db.Artigo.Add(artigoNovo);
+                }
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e) { }
+
+            }
         }
 
         #endregion Artigo

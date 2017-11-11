@@ -6,5 +6,9 @@
 
 @foreach (var artigo in ViewBag.artigos)
 {
-    @artigo.Code
+    <div class="artigo">
+        @artigo.Code
+        @artigo.Tipo
+        @artigo.Stock
+    </div>
 }
