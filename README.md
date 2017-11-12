@@ -17,7 +17,7 @@ To run this project you must:
 
 To create a db:
 
-1. In "Solution Explorer", right click App_Data > Add > SQL Server Database
+1. In "Solution Explorer", right click App_Data > Add > SQL Server Database or right click App_Data > Add > New Item > SQL Server Database (in Installed > Data)
 2. Open "Server Explorer" (View > Server Explorer), right click Tables > New Query
 3. Copy the script (in folder db > script.sql) and execute
 4. Now, if right click Tables > Refresh, you can see the new tables
