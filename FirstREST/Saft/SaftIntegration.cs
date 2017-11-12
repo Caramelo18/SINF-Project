@@ -58,12 +58,8 @@ namespace FirstREST.Saft
         # region Cliente
 
 
-        public static void ParseClientes()
+        public static void ParseCustomers(XmlDocument doc, DatabaseEntities db)
         {
-            DatabaseEntities db = new DatabaseEntities();
-
-            XmlDocument doc = new XmlDocument();
-            doc.Load(@"C:\Users\user\Desktop\saft.xml");
             XmlNodeList clientsList = doc.GetElementsByTagName("Customer");
 
             foreach (XmlNode xml in clientsList)
@@ -90,58 +86,35 @@ namespace FirstREST.Saft
 
         #region Artigo
 
-
-        public static void ParseArtigos()
+        public static void ParseProducts(XmlDocument doc, DatabaseEntities db)
         {
+            XmlNodeList productsList = doc.GetElementsByTagName("Product");
 
-            DatabaseEntities db = new DatabaseEntities();
-
-            XmlDocument doc = new XmlDocument();
-            doc.Load(@"C:\Users\user\Desktop\SINF\saft.xml");
-
-            XmlNodeList artigos = doc.GetElementsByTagName("Product");
-
-            foreach (XmlNode node in artigos)
+            foreach (XmlNode xml in productsList)
             {
-                if (node.HasChildNodes)
+                if (xml.HasChildNodes)
                 {
-                    string id = node.ChildNodes[1].InnerText;
-                    var product = db.Product.Find(id);
+
+                    string id = xml.ChildNodes[1].InnerText;
+                    Models.Product product = db.Product.Find(id);
 
                     if (product != null)
                     {
-                        product.ProductDescription = node.ChildNodes[3].InnerText;
-                        product.ProductGroup = node.ChildNodes[2].InnerText;
-                        product.ProductNumberCode = node.ChildNodes[4].InnerText;
-                        product.ProductType = node.ChildNodes[0].InnerText;
+                        //TO DO: update
+                        //product = (Models.Product)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Product");
 
-                        try { db.SaveChanges(); }
-                        catch (Exception e) { }
                     }
                     else
                     {
-                        AddArtigoToDb(node, db);
+                        Models.Product newProduct = (Models.Product)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Product");
+
+                        db.Product.Add(newProduct);
                     }
+
+                    try { db.SaveChanges(); }
+                    catch (Exception e) { }
                 }
             }
-        }
-
-        public static void AddArtigoToDb(XmlNode node, DatabaseEntities db)
-        {
-            Models.Product product = new Models.Product
-            {
-                ProductType = node.ChildNodes[0].InnerText,
-                ProductCode = node.ChildNodes[1].InnerText,
-                ProductGroup = node.ChildNodes[2].InnerText,
-                ProductDescription = node.ChildNodes[3].InnerText,
-                ProductNumberCode = node.ChildNodes[4].InnerText
-            };
-            try
-            {
-                db.Product.Add(product);
-                db.SaveChanges();
-            }
-            catch (Exception e) { }
         }
 
         public static void addProductsFromPrimaveraToDb()
