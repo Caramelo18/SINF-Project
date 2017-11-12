@@ -8,6 +8,12 @@ using FirstREST.Models;
 
 namespace FirstREST.Areas.Clients.Controllers
 {
+    public class CustomerViewModel
+    {
+        public Models.Customer Client { get; set; }
+        public string Address { get; set; }
+    }
+
     public class HomeController : Controller
     {
 
@@ -19,19 +25,21 @@ namespace FirstREST.Areas.Clients.Controllers
         {
             // The last element of the breadcrumbs list is the current page
             ViewBag.breadcrumbs = new List<string> { "Home", "Clientes" };
-            
+
 
             XmlDocument doc = new XmlDocument();
             doc.Load(Server.MapPath(@"~\Content\saft.xml"));
 
             Saft.SaftIntegration.ParseCustomers(doc, db);
             Saft.SaftIntegration.addClientsFromPrimaveraToDb(db);
+           
+            var clients = (from c in db.Customer
+                          join a in db.BillingAddress
+                          on c.BillingAddressID equals a.ID
+                          select new CustomerViewModel{Client = c, Address = a.AddressDetail}).ToList();
 
-            var clients = from m in db.Customer
-                          select m;
-            
             ViewBag.clients = clients;
-            
+
             return View();
         }
 
