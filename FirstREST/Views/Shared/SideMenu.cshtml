@@ -12,38 +12,38 @@
                 </a>
             </li>
             <ul class="sub-menu collapse" id="orders">
-                <li>Sales Orders</li>
-                <li>Purchase Orders</li>
+                <li>@Html.ActionLink("Sales Orders", "Index", "Home", new { area = "SalesOrders" }, null)</li>
+                <li>@Html.ActionLink("Purchase Orders", "Index", "Home", new { area = "PurchaseOrders" }, null)</li>
             </ul>
 
             <li data-toggle="collapse" data-target="#sales" class="collapsed">
                 <a href="#"><i class="fa  fa-eur fa-lg"></i> Sales <span class="arrow"></span></a>
             </li>
             <ul class="sub-menu collapse" id="sales">
-                <li>Sales Details</li>
-                <li>Sales by Product</li>
-                <li>Sales by Client</li>
+                <li>@Html.ActionLink("Sales Details", "Index", "Home", new { area = "SalesDetails" }, null)</li>
+                <li>@Html.ActionLink("Sales By Product", "Index", "Home", new { area = "SalesProduct" }, null)</li>
+                <li>@Html.ActionLink("Sales By Client", "Index", "Home", new { area = "SalesClient" }, null)</li>
             </ul>
 
             <li data-toggle="collapse" data-target="#clients" class="collapsed">
                 <a href="#"><i class="fa fa-user fa-lg"></i> Clients <span class="arrow"></span></a>
             </li>
-            <ul class="sub-menu collapse" id="clients">
-                <li>Clients Details</li>
+            <ul class="sub-menu" id="clients">
+                <li>@Html.ActionLink("Clients Details", "Index", "Home", new { area = "Clients" }, null)</li>
             </ul>
 
             <li data-toggle="collapse" data-target="#suppliers" class="collapsed">
                 <a href="#"><i class="fa fa-archive fa-lg"></i> Suppliers <span class="arrow"></span></a>
             </li>
-            <ul class="sub-menu collapse" id="suppliers">
-                <li>Suppliers Details</li>
+            <ul class="sub-menu" id="suppliers">
+                <li>@Html.ActionLink("Suppliers Details", "Index", "Home", new { area = "Suppliers" }, null)</li>
             </ul>
 
             <li data-toggle="collapse" data-target="#inventory" class="collapsed">
                 <a href="#"><i class="fa fa-shopping-cart fa-lg"></i> Inventory<span class="arrow"></span></a>
             </li>
-            <ul class="sub-menu collapse" id="inventory">
-                <li>Product Details</li>
+            <ul class="sub-menu" id="inventory">
+                <li>@Html.ActionLink("Product Details", "Index", "Home", new { area = "ProductDetails" }, null)</li>
             </ul>
 
             <li data-toggle="collapse" data-target="#financial" class="collapsed">

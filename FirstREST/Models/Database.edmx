@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AllSalesInvoicesInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="NumberOfEntries" Type="int" />
+          <Property Name="TotalDebit" Type="float" />
+          <Property Name="TotalCredit" Type="float" />
+        </EntityType>
+        <EntityType Name="BillingAddress">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AddressDetail" Type="varchar" MaxLength="200" />
+          <Property Name="City" Type="varchar" MaxLength="200" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="20" />
+          <Property Name="Country" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyID" />
+          </Key>
+          <Property Name="CompanyID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TaxRegistrationNumber" Type="varbinary" MaxLength="50" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AccountID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerTaxID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="200" />
+          <Property Name="BillingAddressID" Type="int" />
+          <Property Name="Telephone" Type="varchar" MaxLength="10" />
+          <Property Name="SelfBillingIndicator" Type="int" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductCode" />
+          </Key>
+          <Property Name="ProductType" Type="varchar" MaxLength="10" />
+          <Property Name="ProductCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductGroup" Type="varchar" MaxLength="50" />
+          <Property Name="ProductDescription" Type="varchar" MaxLength="200" />
+          <Property Name="ProductNumberCode" Type="varchar" MaxLength="50" />
+          <Property Name="ProductStock" Type="int" />
+        </EntityType>
+        <EntityType Name="SaleInvoice">
+          <Key>
+            <PropertyRef Name="InvoiceNo" />
+          </Key>
+          <Property Name="InvoiceNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="InvoiceStatus" Type="varchar" MaxLength="10" />
+          <Property Name="Period" Type="varchar" MaxLength="10" />
+          <Property Name="InvoiceDate" Type="date" />
+          <Property Name="SystemEntryDate" Type="datetime" />
+          <Property Name="CustomerID" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SaleInvoiceLine">
+          <Key>
+            <PropertyRef Name="LineNumber" />
+            <PropertyRef Name="SaleInvoiceNo" />
+          </Key>
+          <Property Name="LineNumber" Type="int" Nullable="false" />
+          <Property Name="SaleInvoiceNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="UnitOfMeasure" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="UnitPrice" Type="float" Nullable="false" />
+          <Property Name="TaxPointDate" Type="date" />
+          <Property Name="CreditAmount" Type="float" />
+        </EntityType>
+        <EntityType Name="SaleInvoiceTotal">
+          <Key>
+            <PropertyRef Name="SaleInvoiceNo" />
+          </Key>
+          <Property Name="SaleInvoiceNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TaxPayable" Type="float" Nullable="false" />
+          <Property Name="NetTotal" Type="float" Nullable="false" />
+          <Property Name="GrossTotal" Type="float" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Customer_BillingAddress">
+          <End Role="BillingAddress" Type="Self.BillingAddress" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BillingAddress">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="BillingAddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleInvoice_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SaleInvoice" Type="Self.SaleInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="SaleInvoice">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleInvoiceLine_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="SaleInvoiceLine" Type="Self.SaleInvoiceLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductCode" />
+            </Principal>
+            <Dependent Role="SaleInvoiceLine">
+              <PropertyRef Name="ProductCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleInvoiceLine_SaleInvoice">
+          <End Role="SaleInvoice" Type="Self.SaleInvoice" Multiplicity="1" />
+          <End Role="SaleInvoiceLine" Type="Self.SaleInvoiceLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SaleInvoice">
+              <PropertyRef Name="InvoiceNo" />
+            </Principal>
+            <Dependent Role="SaleInvoiceLine">
+              <PropertyRef Name="SaleInvoiceNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleInvoiceTotal_SaleInvoice">
+          <End Role="SaleInvoice" Type="Self.SaleInvoice" Multiplicity="1" />
+          <End Role="SaleInvoiceTotal" Type="Self.SaleInvoiceTotal" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SaleInvoice">
+              <PropertyRef Name="InvoiceNo" />
+            </Principal>
+            <Dependent Role="SaleInvoiceTotal">
+              <PropertyRef Name="SaleInvoiceNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseModelStoreContainer">
+          <EntitySet Name="AllSalesInvoicesInfo" EntityType="Self.AllSalesInvoicesInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BillingAddress" EntityType="Self.BillingAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SaleInvoice" EntityType="Self.SaleInvoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SaleInvoiceLine" EntityType="Self.SaleInvoiceLine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SaleInvoiceTotal" EntityType="Self.SaleInvoiceTotal" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Customer_BillingAddress" Association="Self.FK_Customer_BillingAddress">
+            <End Role="BillingAddress" EntitySet="BillingAddress" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleInvoice_Customer" Association="Self.FK_SaleInvoice_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="SaleInvoice" EntitySet="SaleInvoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleInvoiceLine_Product" Association="Self.FK_SaleInvoiceLine_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="SaleInvoiceLine" EntitySet="SaleInvoiceLine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleInvoiceLine_SaleInvoice" Association="Self.FK_SaleInvoiceLine_SaleInvoice">
+            <End Role="SaleInvoice" EntitySet="SaleInvoice" />
+            <End Role="SaleInvoiceLine" EntitySet="SaleInvoiceLine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleInvoiceTotal_SaleInvoice" Association="Self.FK_SaleInvoiceTotal_SaleInvoice">
+            <End Role="SaleInvoice" EntitySet="SaleInvoice" />
+            <End Role="SaleInvoiceTotal" EntitySet="SaleInvoiceTotal" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AllSalesInvoicesInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfEntries" Type="Int32" />
+          <Property Name="TotalDebit" Type="Double" />
+          <Property Name="TotalCredit" Type="Double" />
+        </EntityType>
+        <EntityType Name="BillingAddress">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AddressDetail" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PostalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Customer_BillingAddress" FromRole="BillingAddress" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyID" />
+          </Key>
+          <Property Name="CompanyID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TaxRegistrationNumber" Type="Binary" MaxLength="50" FixedLength="false" Nullable="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AccountID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CustomerTaxID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="BillingAddressID" Type="Int32" />
+          <Property Name="Telephone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SelfBillingIndicator" Type="Int32" />
+          <NavigationProperty Name="BillingAddress" Relationship="Self.FK_Customer_BillingAddress" FromRole="Customer" ToRole="BillingAddress" />
+          <NavigationProperty Name="SaleInvoice" Relationship="Self.FK_SaleInvoice_Customer" FromRole="Customer" ToRole="SaleInvoice" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductCode" />
+          </Key>
+          <Property Name="ProductType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ProductCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProductGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProductDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ProductNumberCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProductStock" Type="Int32" />
+          <NavigationProperty Name="SaleInvoiceLine" Relationship="Self.FK_SaleInvoiceLine_Product" FromRole="Product" ToRole="SaleInvoiceLine" />
+        </EntityType>
+        <EntityType Name="SaleInvoice">
+          <Key>
+            <PropertyRef Name="InvoiceNo" />
+          </Key>
+          <Property Name="InvoiceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InvoiceStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Period" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="InvoiceDate" Type="DateTime" Precision="0" />
+          <Property Name="SystemEntryDate" Type="DateTime" Precision="3" />
+          <Property Name="CustomerID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_SaleInvoice_Customer" FromRole="SaleInvoice" ToRole="Customer" />
+          <NavigationProperty Name="SaleInvoiceLine" Relationship="Self.FK_SaleInvoiceLine_SaleInvoice" FromRole="SaleInvoice" ToRole="SaleInvoiceLine" />
+          <NavigationProperty Name="SaleInvoiceTotal" Relationship="Self.FK_SaleInvoiceTotal_SaleInvoice" FromRole="SaleInvoice" ToRole="SaleInvoiceTotal" />
+        </EntityType>
+        <EntityType Name="SaleInvoiceLine">
+          <Key>
+            <PropertyRef Name="LineNumber" />
+            <PropertyRef Name="SaleInvoiceNo" />
+          </Key>
+          <Property Name="LineNumber" Type="Int32" Nullable="false" />
+          <Property Name="SaleInvoiceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProductCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="UnitOfMeasure" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UnitPrice" Type="Double" Nullable="false" />
+          <Property Name="TaxPointDate" Type="DateTime" Precision="0" />
+          <Property Name="CreditAmount" Type="Double" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_SaleInvoiceLine_Product" FromRole="SaleInvoiceLine" ToRole="Product" />
+          <NavigationProperty Name="SaleInvoice" Relationship="Self.FK_SaleInvoiceLine_SaleInvoice" FromRole="SaleInvoiceLine" ToRole="SaleInvoice" />
+        </EntityType>
+        <EntityType Name="SaleInvoiceTotal">
+          <Key>
+            <PropertyRef Name="SaleInvoiceNo" />
+          </Key>
+          <Property Name="SaleInvoiceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TaxPayable" Type="Double" Nullable="false" />
+          <Property Name="NetTotal" Type="Double" Nullable="false" />
+          <Property Name="GrossTotal" Type="Double" Nullable="false" />
+          <NavigationProperty Name="SaleInvoice" Relationship="Self.FK_SaleInvoiceTotal_SaleInvoice" FromRole="SaleInvoiceTotal" ToRole="SaleInvoice" />
+        </EntityType>
+        <Association Name="FK_Customer_BillingAddress">
+          <End Role="BillingAddress" Type="Self.BillingAddress" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BillingAddress">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="BillingAddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleInvoice_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SaleInvoice" Type="Self.SaleInvoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="SaleInvoice">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleInvoiceLine_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="SaleInvoiceLine" Type="Self.SaleInvoiceLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductCode" />
+            </Principal>
+            <Dependent Role="SaleInvoiceLine">
+              <PropertyRef Name="ProductCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleInvoiceLine_SaleInvoice">
+          <End Role="SaleInvoice" Type="Self.SaleInvoice" Multiplicity="1" />
+          <End Role="SaleInvoiceLine" Type="Self.SaleInvoiceLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SaleInvoice">
+              <PropertyRef Name="InvoiceNo" />
+            </Principal>
+            <Dependent Role="SaleInvoiceLine">
+              <PropertyRef Name="SaleInvoiceNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SaleInvoiceTotal_SaleInvoice">
+          <End Role="SaleInvoice" Type="Self.SaleInvoice" Multiplicity="1" />
+          <End Role="SaleInvoiceTotal" Type="Self.SaleInvoiceTotal" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SaleInvoice">
+              <PropertyRef Name="InvoiceNo" />
+            </Principal>
+            <Dependent Role="SaleInvoiceTotal">
+              <PropertyRef Name="SaleInvoiceNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AllSalesInvoicesInfo" EntityType="Self.AllSalesInvoicesInfo" />
+          <EntitySet Name="BillingAddress" EntityType="Self.BillingAddress" />
+          <EntitySet Name="Company" EntityType="Self.Company" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="SaleInvoice" EntityType="Self.SaleInvoice" />
+          <EntitySet Name="SaleInvoiceLine" EntityType="Self.SaleInvoiceLine" />
+          <EntitySet Name="SaleInvoiceTotal" EntityType="Self.SaleInvoiceTotal" />
+          <AssociationSet Name="FK_Customer_BillingAddress" Association="Self.FK_Customer_BillingAddress">
+            <End Role="BillingAddress" EntitySet="BillingAddress" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleInvoice_Customer" Association="Self.FK_SaleInvoice_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="SaleInvoice" EntitySet="SaleInvoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleInvoiceLine_Product" Association="Self.FK_SaleInvoiceLine_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="SaleInvoiceLine" EntitySet="SaleInvoiceLine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleInvoiceLine_SaleInvoice" Association="Self.FK_SaleInvoiceLine_SaleInvoice">
+            <End Role="SaleInvoice" EntitySet="SaleInvoice" />
+            <End Role="SaleInvoiceLine" EntitySet="SaleInvoiceLine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SaleInvoiceTotal_SaleInvoice" Association="Self.FK_SaleInvoiceTotal_SaleInvoice">
+            <End Role="SaleInvoice" EntitySet="SaleInvoice" />
+            <End Role="SaleInvoiceTotal" EntitySet="SaleInvoiceTotal" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+          <EntitySetMapping Name="AllSalesInvoicesInfo">
+            <EntityTypeMapping TypeName="DatabaseModel.AllSalesInvoicesInfo">
+              <MappingFragment StoreEntitySet="AllSalesInvoicesInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NumberOfEntries" ColumnName="NumberOfEntries" />
+                <ScalarProperty Name="TotalDebit" ColumnName="TotalDebit" />
+                <ScalarProperty Name="TotalCredit" ColumnName="TotalCredit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BillingAddress">
+            <EntityTypeMapping TypeName="DatabaseModel.BillingAddress">
+              <MappingFragment StoreEntitySet="BillingAddress">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AddressDetail" ColumnName="AddressDetail" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Company">
+            <EntityTypeMapping TypeName="DatabaseModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="TaxRegistrationNumber" ColumnName="TaxRegistrationNumber" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customer">
+            <EntityTypeMapping TypeName="DatabaseModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="CustomerTaxID" ColumnName="CustomerTaxID" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="BillingAddressID" ColumnName="BillingAddressID" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="SelfBillingIndicator" ColumnName="SelfBillingIndicator" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="DatabaseModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ProductType" ColumnName="ProductType" />
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+                <ScalarProperty Name="ProductGroup" ColumnName="ProductGroup" />
+                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+                <ScalarProperty Name="ProductNumberCode" ColumnName="ProductNumberCode" />
+                <ScalarProperty Name="ProductStock" ColumnName="ProductStock" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SaleInvoice">
+            <EntityTypeMapping TypeName="DatabaseModel.SaleInvoice">
+              <MappingFragment StoreEntitySet="SaleInvoice">
+                <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+                <ScalarProperty Name="InvoiceStatus" ColumnName="InvoiceStatus" />
+                <ScalarProperty Name="Period" ColumnName="Period" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="SystemEntryDate" ColumnName="SystemEntryDate" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SaleInvoiceLine">
+            <EntityTypeMapping TypeName="DatabaseModel.SaleInvoiceLine">
+              <MappingFragment StoreEntitySet="SaleInvoiceLine">
+                <ScalarProperty Name="LineNumber" ColumnName="LineNumber" />
+                <ScalarProperty Name="SaleInvoiceNo" ColumnName="SaleInvoiceNo" />
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitOfMeasure" ColumnName="UnitOfMeasure" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="TaxPointDate" ColumnName="TaxPointDate" />
+                <ScalarProperty Name="CreditAmount" ColumnName="CreditAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SaleInvoiceTotal">
+            <EntityTypeMapping TypeName="DatabaseModel.SaleInvoiceTotal">
+              <MappingFragment StoreEntitySet="SaleInvoiceTotal">
+                <ScalarProperty Name="SaleInvoiceNo" ColumnName="SaleInvoiceNo" />
+                <ScalarProperty Name="TaxPayable" ColumnName="TaxPayable" />
+                <ScalarProperty Name="NetTotal" ColumnName="NetTotal" />
+                <ScalarProperty Name="GrossTotal" ColumnName="GrossTotal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
