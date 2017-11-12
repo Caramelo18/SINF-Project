@@ -67,16 +67,38 @@ namespace FirstREST.Saft
             {
                 if (xml.HasChildNodes)
                 {
-                    Models.Customer client = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Customer");
-                    try
+
+                    string id = xml.ChildNodes[0].InnerText;
+                    Models.Customer client = db.Customer.Find(id);
+
+                    if (client != null)
                     {
-                        db.Customer.Add(client);
-                        db.SaveChanges();
+                        System.Diagnostics.Debug.WriteLine("vou dar update");
+                        //TO DO: update
+                        //client = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Customer");
 
                     }
-                    catch (Exception e)
+                    else
                     {
+                        Models.Customer newClient = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Customer");
+                        db.Customer.Add(newClient);
+                    }
 
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (DbEntityValidationException e)
+                    {
+                        var errorMessages = e.EntityValidationErrors
+                        .SelectMany(x => x.ValidationErrors)
+                        .Select(x => x.ErrorMessage);
+
+                        var fullError = string.Join("; ", errorMessages);
+
+                        var exception = string.Concat(e.Message, "Errors: ", fullError);
+
+                        throw new DbEntityValidationException(exception, e.EntityValidationErrors);
                     }
                 }
             }
@@ -108,13 +130,14 @@ namespace FirstREST.Saft
                         CustomerTaxID = item.NumContribuinte
                     };
                     db.Customer.Add(newClient);
-                    
+
                 }
                 try
                 {
                     db.SaveChanges();
                 }
-                catch (DbEntityValidationException e) {
+                catch (DbEntityValidationException e)
+                {
                     var errorMessages = e.EntityValidationErrors
                         .SelectMany(x => x.ValidationErrors)
                         .Select(x => x.ErrorMessage);

@@ -25,7 +25,7 @@ namespace FirstREST.Areas.Clients.Controllers
             doc.Load(Server.MapPath(@"~\Content\saft.xml"));
 
             Saft.SaftIntegration.ParseCustomers(doc, db);
-            //Saft.SaftIntegration.addClientsFromPrimaveraToDb(db);
+            Saft.SaftIntegration.addClientsFromPrimaveraToDb(db);
 
             var clients = from m in db.Customer
                           select m;

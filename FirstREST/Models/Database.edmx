@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AllSalesInvoicesInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -22,7 +22,7 @@
           <Property Name="AddressDetail" Type="varchar" MaxLength="200" />
           <Property Name="City" Type="varchar" MaxLength="200" />
           <Property Name="PostalCode" Type="varchar" MaxLength="20" />
-          <Property Name="Country" Type="varchar" MaxLength="10" />
+          <Property Name="Country" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Company">
           <Key>
@@ -41,7 +41,7 @@
           <Property Name="CustomerTaxID" Type="varchar" MaxLength="50" />
           <Property Name="CompanyName" Type="varchar" MaxLength="200" />
           <Property Name="BillingAddressID" Type="int" />
-          <Property Name="Telephone" Type="varchar" MaxLength="10" />
+          <Property Name="Telephone" Type="varchar" MaxLength="20" />
           <Property Name="SelfBillingIndicator" Type="int" Nullable="false" />
           <Property Name="CustomerName" Type="varchar" MaxLength="50" />
           <Property Name="Currency" Type="varchar" MaxLength="10" />
@@ -188,8 +188,7 @@
             <End Role="SaleInvoiceTotal" EntitySet="SaleInvoiceTotal" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -210,7 +209,7 @@
           <Property Name="AddressDetail" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="City" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="PostalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Country" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Customer_BillingAddress" FromRole="BillingAddress" ToRole="Customer" />
         </EntityType>
         <EntityType Name="Company">
@@ -230,7 +229,7 @@
           <Property Name="CustomerTaxID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CompanyName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="BillingAddressID" Type="Int32" />
-          <Property Name="Telephone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Telephone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="SelfBillingIndicator" Type="Int32" Nullable="false" />
           <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Currency" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
