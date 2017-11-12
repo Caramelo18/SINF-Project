@@ -13,7 +13,8 @@ namespace FirstREST.Areas.Clients.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var clientes = Lib_Primavera.PriIntegration.ListaClientes();
+            return View(clientes);
         }
 
     }
