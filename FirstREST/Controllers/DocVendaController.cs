@@ -51,6 +51,16 @@ namespace FirstREST.Controllers
             return Lib_Primavera.PriIntegration.Encomendas_Produto_List(product, period);
         }
 
+
+        [HttpGet]
+        public IEnumerable<Lib_Primavera.Model.DocVenda> ClientSales()
+        {
+            var allUrlKeyValues = ControllerContext.Request.GetQueryNameValuePairs();
+            string client = allUrlKeyValues.LastOrDefault(x => x.Key == "client").Value;
+
+            return Lib_Primavera.PriIntegration.Encomendas_Cliente_List(client);
+        }
+
         [HttpGet]
         public IEnumerable<Lib_Primavera.Model.DocVenda> AccountsReceivable()
         {

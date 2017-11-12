@@ -1,10 +1,29 @@
-﻿@{
+﻿@model List<FirstREST.Lib_Primavera.Model.Cliente>
+
+@{
     ViewBag.Title = "Clients";
 }
 
 <h2>Clients</h2>
 
-@foreach (var client in ViewBag.clients)
-{
-    @client.CustomerID
-}
+<table style="width:50%">
+    <tr>
+        <th>Client Code</th>
+        <th>Name</th>
+        <th>Total Sales YTD(€)</th>
+    </tr>
+    @foreach (var cliente in Model)
+    {
+        <tr>
+            <td>@cliente.CodCliente</td>
+            <td>@cliente.NomeCliente</td>
+            <td>10</td>
+        </tr>
+    }
+</table>
+
+<div id="client-card">
+
+
+
+</div>
