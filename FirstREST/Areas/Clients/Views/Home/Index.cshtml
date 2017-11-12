@@ -13,8 +13,7 @@
         <th>Name</th>
         <th>Total Sales YTD(€)</th>
     </tr>
-    <foreach (var cliente in Model)
-    {
+    @foreach (var cliente in Model){
         <tr>
             <td>cliente.CodCliente</td>
             <td>cliente.NomeCliente</td>
@@ -49,15 +48,7 @@
 
 </table>
 
-<div id="client-card" style="width:500px;height:800px;border:1px solid #000;">
-    <p>Código: </p>
-    <p>Nome: </p>
-    <p>E-mail: </p>
-    <p>Morada: </p>
-    <p>Número de Contribuinte: </p>
-    <h6>Total de Vendas: </h6>
-    <img src="~/Images/avatar.jpg">
-</div>
+
 
 
 
