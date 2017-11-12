@@ -6,6 +6,7 @@ using System.Xml;
 using System.Web.Mvc;
 using FirstREST.Models;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 
 namespace FirstREST.Saft
 {
@@ -66,18 +67,88 @@ namespace FirstREST.Saft
             {
                 if (xml.HasChildNodes)
                 {
-                    Models.Customer client = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Customer");
+
+                    string id = xml.ChildNodes[0].InnerText;
+                    Models.Customer client = db.Customer.Find(id);
+
+                    if (client != null)
+                    {
+                        System.Diagnostics.Debug.WriteLine("vou dar update");
+                        //TO DO: update
+                        //client = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Customer");
+
+                    }
+                    else
+                    {
+                        Models.Customer newClient = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Customer");
+                        db.Customer.Add(newClient);
+                    }
+
                     try
                     {
-                        db.Customer.Add(client);
                         db.SaveChanges();
-
                     }
-                    catch (Exception e)
+                    catch (DbEntityValidationException e)
                     {
+                        var errorMessages = e.EntityValidationErrors
+                        .SelectMany(x => x.ValidationErrors)
+                        .Select(x => x.ErrorMessage);
 
+                        var fullError = string.Join("; ", errorMessages);
+
+                        var exception = string.Concat(e.Message, "Errors: ", fullError);
+
+                        throw new DbEntityValidationException(exception, e.EntityValidationErrors);
                     }
                 }
+            }
+        }
+
+        public static void addClientsFromPrimaveraToDb(DatabaseEntities db)
+        {
+            List<Lib_Primavera.Model.Cliente> clientsList = Lib_Primavera.PriIntegration.ListaClientes();
+
+            foreach (var item in clientsList)
+            {
+                var client = db.Customer.Find(item.CodCliente);
+
+                if (client != null)
+                {
+                    client.CustomerName = item.NomeCliente;
+                    client.CustomerEmail = item.Email;
+                    client.Currency = item.Moeda;
+                    client.CustomerTaxID = item.NumContribuinte;
+                }
+                else
+                {
+                    Models.Customer newClient = new Models.Customer
+                    {
+                        CustomerID = item.CodCliente,
+                        CustomerName = item.NomeCliente,
+                        Currency = item.Moeda,
+                        CustomerEmail = item.Email,
+                        CustomerTaxID = item.NumContribuinte
+                    };
+                    db.Customer.Add(newClient);
+
+                }
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException e)
+                {
+                    var errorMessages = e.EntityValidationErrors
+                        .SelectMany(x => x.ValidationErrors)
+                        .Select(x => x.ErrorMessage);
+
+                    var fullError = string.Join("; ", errorMessages);
+
+                    var exception = string.Concat(e.Message, "Errors: ", fullError);
+
+                    throw new DbEntityValidationException(exception, e.EntityValidationErrors);
+                }
+
             }
         }
 
@@ -117,9 +188,8 @@ namespace FirstREST.Saft
             }
         }
 
-        public static void addProductsFromPrimaveraToDb()
+        public static void addProductsFromPrimaveraToDb(DatabaseEntities db)
         {
-            DatabaseEntities db = new DatabaseEntities();
             List<Lib_Primavera.Model.Artigo> listaArtigos = Lib_Primavera.PriIntegration.ListaArtigos();
 
             foreach (var item in listaArtigos)

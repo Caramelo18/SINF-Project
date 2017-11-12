@@ -15,7 +15,7 @@ namespace FirstREST.Models
     public partial class AllSalesInvoicesInfo
     {
         public int Id { get; set; }
-        public Nullable<int> NumberOfEntries { get; set; }
+        public int NumberOfEntries { get; set; }
         public Nullable<double> TotalDebit { get; set; }
         public Nullable<double> TotalCredit { get; set; }
     }

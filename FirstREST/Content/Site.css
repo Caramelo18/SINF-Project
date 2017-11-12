@@ -140,6 +140,18 @@
    background: black;
 }
 
+#refresh-btn{
+    color: white;
+    background: none;
+    width: 100%;
+    height: 50px;
+}
+
+#refresh-btn:hover{
+    color: black;
+    background: white;
+}
+
 /*-------------------------------*/
 /*           Menu Bar            */
 /*-------------------------------*/

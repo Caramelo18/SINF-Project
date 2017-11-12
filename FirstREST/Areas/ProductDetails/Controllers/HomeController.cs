@@ -22,9 +22,7 @@ namespace FirstREST.Areas.ProductDetails.Controllers
             doc.Load(@"C:\Users\user\Desktop\SINF\saft.xml");
 
             Saft.SaftIntegration.ParseProducts(doc, db);
-
-            //Saft.SaftIntegration.ParseArtigos();
-            //Saft.SaftIntegration.addProductsFromPrimaveraToDb();
+            //Saft.SaftIntegration.addProductsFromPrimaveraToDb(db);
 
             var artigos = from m in db.Product
                           select m;
