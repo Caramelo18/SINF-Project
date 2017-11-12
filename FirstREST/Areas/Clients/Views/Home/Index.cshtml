@@ -12,14 +12,14 @@
         <th>Name</th>
         <th>Total Sales YTD(€)</th>
     </tr>
-    <!--foreach (var cliente in Model)
+    @foreach (var client in ViewBag.clients)
     {
         <tr>
-            <td>cliente.CodCliente</td>
-            <td>cliente.NomeCliente</td>
+            <td>@client.CustomerID</td>
+            <td>@client.CustomerName</td>
             <td>10</td>
         </tr>
-    }-->
+    }
 </table>
 
 <div id="client-card">

@@ -6,6 +6,7 @@ using System.Xml;
 using System.Web.Mvc;
 using FirstREST.Models;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 
 namespace FirstREST.Saft
 {
@@ -81,6 +82,53 @@ namespace FirstREST.Saft
             }
         }
 
+        public static void addClientsFromPrimaveraToDb(DatabaseEntities db)
+        {
+            List<Lib_Primavera.Model.Cliente> clientsList = Lib_Primavera.PriIntegration.ListaClientes();
+
+            foreach (var item in clientsList)
+            {
+                var client = db.Customer.Find(item.CodCliente);
+
+                if (client != null)
+                {
+                    client.CustomerName = item.NomeCliente;
+                    client.CustomerEmail = item.Email;
+                    client.Currency = item.Moeda;
+                    client.CustomerTaxID = item.NumContribuinte;
+                }
+                else
+                {
+                    Models.Customer newClient = new Models.Customer
+                    {
+                        CustomerID = item.CodCliente,
+                        CustomerName = item.NomeCliente,
+                        Currency = item.Moeda,
+                        CustomerEmail = item.Email,
+                        CustomerTaxID = item.NumContribuinte
+                    };
+                    db.Customer.Add(newClient);
+                    
+                }
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException e) {
+                    var errorMessages = e.EntityValidationErrors
+                        .SelectMany(x => x.ValidationErrors)
+                        .Select(x => x.ErrorMessage);
+
+                    var fullError = string.Join("; ", errorMessages);
+
+                    var exception = string.Concat(e.Message, "Errors: ", fullError);
+
+                    throw new DbEntityValidationException(exception, e.EntityValidationErrors);
+                }
+
+            }
+        }
+
         #endregion Cliente;   // -----------------------------  END   CLIENTE    -----------------------
 
 
@@ -117,9 +165,8 @@ namespace FirstREST.Saft
             }
         }
 
-        public static void addProductsFromPrimaveraToDb()
+        public static void addProductsFromPrimaveraToDb(DatabaseEntities db)
         {
-            DatabaseEntities db = new DatabaseEntities();
             List<Lib_Primavera.Model.Artigo> listaArtigos = Lib_Primavera.PriIntegration.ListaArtigos();
 
             foreach (var item in listaArtigos)
