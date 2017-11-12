@@ -40,15 +40,15 @@ namespace FirstREST.Saft
                     bool isSubClass = (node.ChildNodes.Count > 1);
                     if (isSubClass)
                     {
-                        string newClassName = className + "+" + node.Name;
-                        PropertyInfo subClassProperty = classModel.GetType().GetProperty(node.Name.ToLower());
+                        string newClassName = "FirstREST.Models." + node.Name;
+                        PropertyInfo subClassProperty = classModel.GetType().GetProperty(node.Name);
                         object subClass = ParseRecursive(node.ChildNodes, newClassName);
                         subClassProperty.SetValue(classModel, subClass);
                     }
                     else
                     {
                         PropertyInfo propertyInfo = classModel.GetType().GetProperty(node.Name);
-                        propertyInfo.SetValue(classModel, node.InnerText);
+                        propertyInfo.SetValue(classModel, Convert.ChangeType(node.InnerText, propertyInfo.PropertyType), null);
                     }
                 }
             }

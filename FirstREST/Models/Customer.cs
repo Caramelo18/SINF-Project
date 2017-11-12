@@ -25,6 +25,7 @@ namespace FirstREST.Models
         public string CompanyName { get; set; }
         public Nullable<int> BillingAddressID { get; set; }
         public string Telephone { get; set; }
+        public Nullable<int> SelfBillingIndicator { get; set; }
     
         public virtual BillingAddress BillingAddress { get; set; }
         public virtual ICollection<SaleInvoice> SaleInvoice { get; set; }
