@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "ProductDetails";
+}
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        @foreach (var artigo in ViewBag.artigos)
+        {
+            <div class="col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-block">
+                        <h4 class="card-title">@artigo.ProductCode</h4>
+                        <h6 class="card-subtitle mb-2 text-muted">@artigo.ProductGroup</h6>
+                        <p class="card-text">@artigo.ProductDescription</p>
+                        <div class="availability">
+                            @if (@artigo.ProductStock == 0)
+                            {
+                                <h5 class="unavailable">Unavailable</h5>
+                            }
+                            else
+                            {
+                                <h5 class="available">Available</h5>
+                            }
+                        </div>
+
+                        <a href="#" class="card-link">See Orders</a><br/>
+                        <a href="#" class="card-link">See warehouse distribution</a>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
