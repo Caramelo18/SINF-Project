@@ -4,34 +4,31 @@
     ViewBag.Title = "Clients";
 }
 
-<h2>Clients</h2>
-
-
 <table style="width:90%">
     <tr>
         <th>Client Code</th>
         <th>Name</th>
         <th>Total Sales YTD(€)</th>
     </tr>
-    @foreach (var cliente in Model){
+    @foreach (var client in ViewBag.clients){
         <tr>
-            <td>cliente.CodCliente</td>
-            <td>cliente.NomeCliente</td>
+            <td>@client.CustomerID</td>
+            <td>@client.CustomerName</td>
             <td>10</td>
         </tr>
 
     <tr style="border-bottom:1px solid #e6e6e6;">
         <td colspan="3">
-            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#@cliente.NumContribuinte" style="width:30px; height:20px; background-color:gray; opacity: 0.5; font-size: 10px;padding-left:0;">+info</button>
-            <div id="@cliente.NumContribuinte" class="collapse">
+            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#@client.CustomerTaxID" style="width:30px; height:20px; background-color:gray; opacity: 0.5; font-size: 10px;padding-left:0;">+info</button>
+            <div id="@client.CustomerTaxID" class="collapse">
                 <div class="row">
                     <div class="col-5">
                         <br />
-                        <p>Código: @cliente.CodCliente</p>
-                        <p>Nome: @cliente.NomeCliente</p>
-                        <p>E-mail: @cliente.Email</p>
-                        <p>Morada: @cliente.Morada</p>
-                        <p>Número de Contribuinte: @cliente.NumContribuinte</p>
+                        <p>Código: @client.CustomerID</p>
+                        <p>Nome: @client.CustomerName</p>
+                        <p>E-mail: @client.CustomerEmail</p>
+                        <p>Morada: ADICIONAR</p>
+                        <p>Número de Contribuinte: @client.CustomerTaxID</p>
                         <h6>Total de Vendas: 10</h6>
                         <br />
                     </div>

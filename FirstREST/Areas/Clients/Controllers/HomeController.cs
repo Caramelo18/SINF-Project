@@ -24,12 +24,12 @@ namespace FirstREST.Areas.Clients.Controllers
             XmlDocument doc = new XmlDocument();
             doc.Load(Server.MapPath(@"~\Content\saft.xml"));
 
-            //Saft.SaftIntegration.ParseCustomers(doc, db);
-            Saft.SaftIntegration.addClientsFromPrimaveraToDb(db);
+            Saft.SaftIntegration.ParseCustomers(doc, db);
+            //Saft.SaftIntegration.addClientsFromPrimaveraToDb(db);
 
             var clients = from m in db.Customer
                           select m;
-
+            
             ViewBag.clients = clients;
             
             return View();
