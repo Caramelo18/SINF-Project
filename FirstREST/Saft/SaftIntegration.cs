@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Xml;
 using System.Web.Mvc;
 using FirstREST.Models;
@@ -9,38 +11,74 @@ namespace FirstREST.Saft
     public class SaftIntegration
     {
 
-        # region Cliente
-
-        /*
-        public static List<Models.Artigo> ParseArtigos()
+        public static object GetInstance(string strFullyQualifiedName)
         {
-            //Loads xml file
-            XmlDocument doc = new XmlDocument();
-            doc.Load(@"C:\Users\user\Desktop\SINF\saft.xml");
+            Type type = Type.GetType(strFullyQualifiedName);
+            if (type != null)
+                return Activator.CreateInstance(type);
 
-            List<Models.Artigo> listaArtigos = new List<Models.Artigo>();
-
-            XmlNodeList artigos = doc.GetElementsByTagName("Product");
-
-            foreach (XmlNode node in artigos)
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            var types = Assembly.GetExecutingAssembly().GetTypes();
+            foreach (var asm in assemblies)
             {
+                type = asm.GetType(strFullyQualifiedName);
+                if (type != null)
+                    return Activator.CreateInstance(type);
+            }
+            return null;
+        }
 
+        public static object ParseRecursive(XmlNodeList list, string className)
+        {
+            object classModel = GetInstance(className);
+            if (classModel == null) return null;
+            foreach (XmlNode node in list)
+	        {
                 if (node.HasChildNodes)
                 {
-                    Models.Artigo artigo = new Models.Artigo
+                    bool isSubClass = (node.ChildNodes.Count > 1);
+                    if (isSubClass)
                     {
-                        TipoArtigo = node.ChildNodes[0].InnerText,
-                        CodArtigo = node.ChildNodes[1].InnerText,
-                        GrupoArtigo = node.ChildNodes[2].InnerText,
-                        DescArtigo = node.ChildNodes[3].InnerText
-                    };
+                        string newClassName = className + "+" + node.Name;
+                        PropertyInfo subClassProperty = classModel.GetType().GetProperty(node.Name.ToLower());
+                        object subClass = ParseRecursive(node.ChildNodes, newClassName);
+                        subClassProperty.SetValue(classModel, subClass);
+                    }
+                    else
+                    {
+                        PropertyInfo propertyInfo = classModel.GetType().GetProperty(node.Name);
+                        propertyInfo.SetValue(classModel, node.InnerText);
+                    }
+                }
+	        }
+            return classModel;
+        }
 
-                    listaArtigos.Add(artigo);
+        # region Cliente
+
+
+        public static void ParseClientes(XmlDocument doc, DbEntities db)
+        {
+            XmlNodeList clientsList = doc.GetElementsByTagName("Customer");
+
+            foreach (XmlNode xml in clientsList)
+            {
+                if (xml.HasChildNodes)
+                {
+                    Models.Cliente client = (Models.Cliente)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Cliente");
+                    try
+                    {
+                        db.Customer.Add(client);
+                        db.SaveChanges();
+                        
+                    }
+                    catch (Exception e)
+                    {
+                        
+                    }
                 }
             }
-
-            return listaArtigos;
-        }*/
+        }
 
         #endregion Cliente;   // -----------------------------  END   CLIENTE    -----------------------
 
