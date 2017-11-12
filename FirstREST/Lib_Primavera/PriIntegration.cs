@@ -34,6 +34,8 @@ namespace FirstREST.Lib_Primavera
                 
                 while (!objList.NoFim())
                 {
+                    StdBELista numCompList = PriEngine.Engine.Consulta("SELECT COUNT(*) AS NumCompras From CabecDoc where TipoDoc='ECL' AND Entidade='"+ objList.Valor("Cliente") +"'"); ;
+
                     listClientes.Add(new Model.Cliente
                     {
                         CodCliente = objList.Valor("Cliente"),
@@ -41,7 +43,8 @@ namespace FirstREST.Lib_Primavera
                         Moeda = objList.Valor("Moeda"),
                         NumContribuinte = objList.Valor("NumContribuinte"),
                         Morada = objList.Valor("campo_exemplo"),
-                        Email = objList.Valor("Email")
+                        Email = objList.Valor("Email"),
+                        NumCompras = numCompList.Valor("NumCompras")
                     });
                     objList.Seguinte();
 
