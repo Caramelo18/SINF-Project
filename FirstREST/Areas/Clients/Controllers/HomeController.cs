@@ -21,12 +21,12 @@ namespace FirstREST.Areas.Clients.Controllers
             XmlDocument doc = new XmlDocument();
             doc.Load(@"C:\Users\user\Desktop\SINF\saft.xml");
 
-            //Saft.SaftIntegration.ParseCustomers(doc, db);
+            /*Saft.SaftIntegration.ParseCustomers(doc, db);
 
             var clients = from m in db.Customer
                           select m;
 
-            ViewBag.clients = clients;
+            ViewBag.clients = clients;*/
             
             return View();
         }
