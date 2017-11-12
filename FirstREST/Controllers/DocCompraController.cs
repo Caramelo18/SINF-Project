@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -38,6 +37,12 @@ namespace FirstREST.Controllers
             {
                 return doccompra;
             }
+        }
+
+        [HttpGet]
+        public IEnumerable<Lib_Primavera.Model.DocCompra> AccountsPayable()
+        {
+            return Lib_Primavera.PriIntegration.Accounts_Payable_List();
         }
         
 
