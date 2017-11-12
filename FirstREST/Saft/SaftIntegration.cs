@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Xml;
 using System.Web.Mvc;
 using FirstREST.Models;
+using System.Collections.Generic;
 
 namespace FirstREST.Saft
 {
@@ -33,7 +34,7 @@ namespace FirstREST.Saft
             object classModel = GetInstance(className);
             if (classModel == null) return null;
             foreach (XmlNode node in list)
-	        {
+            {
                 if (node.HasChildNodes)
                 {
                     bool isSubClass = (node.ChildNodes.Count > 1);
@@ -50,14 +51,14 @@ namespace FirstREST.Saft
                         propertyInfo.SetValue(classModel, node.InnerText);
                     }
                 }
-	        }
+            }
             return classModel;
         }
 
         # region Cliente
 
 
-        public static void ParseClientes(XmlDocument doc, DbEntities db)
+        /*public static void ParseClientes(XmlDocument doc, DbEntities db)
         {
             XmlNodeList clientsList = doc.GetElementsByTagName("Customer");
 
@@ -70,15 +71,15 @@ namespace FirstREST.Saft
                     {
                         db.Customer.Add(client);
                         db.SaveChanges();
-                        
+
                     }
                     catch (Exception e)
                     {
-                        
+
                     }
                 }
             }
-        }
+        }*/
 
         #endregion Cliente;   // -----------------------------  END   CLIENTE    -----------------------
 
@@ -89,7 +90,7 @@ namespace FirstREST.Saft
         public static void ParseArtigos()
         {
 
-            DbEntities db = new DbEntities();
+            DatabaseEntities db = new DatabaseEntities();
 
             XmlDocument doc = new XmlDocument();
             doc.Load(@"C:\Users\user\Desktop\SINF\saft.xml");
@@ -100,42 +101,75 @@ namespace FirstREST.Saft
             {
                 if (node.HasChildNodes)
                 {
-                    var artigo = db.Artigo.Find(node.ChildNodes[1].InnerText);
+                    string id = node.ChildNodes[1].InnerText;
+                    var product = db.Product.Find(id);
 
-                    if (artigo == null)
+                    if (product != null)
                     {
-                        AddArtigoToDb(node, db);
-                    }
-                    else
-                    {
-                        artigo.Descricao = node.ChildNodes[3].InnerText;
-                        artigo.Grupo = node.ChildNodes[2].InnerText;
-                        artigo.NumberCode = node.ChildNodes[4].InnerText;
-                        artigo.Tipo = node.ChildNodes[0].InnerText;
+                        product.ProductDescription = node.ChildNodes[3].InnerText;
+                        product.ProductGroup = node.ChildNodes[2].InnerText;
+                        product.ProductNumberCode = node.ChildNodes[4].InnerText;
+                        product.ProductType = node.ChildNodes[0].InnerText;
 
                         try { db.SaveChanges(); }
                         catch (Exception e) { }
+                    }
+                    else
+                    {
+                        AddArtigoToDb(node, db);
                     }
                 }
             }
         }
 
-        public static void AddArtigoToDb(XmlNode node, DbEntities db)
+        public static void AddArtigoToDb(XmlNode node, DatabaseEntities db)
         {
-            Models.Artigo artigo = new Models.Artigo
+            Models.Product product = new Models.Product
             {
-                Tipo = node.ChildNodes[0].InnerText,
-                Code = node.ChildNodes[1].InnerText,
-                Grupo = node.ChildNodes[2].InnerText,
-                Descricao = node.ChildNodes[3].InnerText,
-                NumberCode = node.ChildNodes[4].InnerText
+                ProductType = node.ChildNodes[0].InnerText,
+                ProductCode = node.ChildNodes[1].InnerText,
+                ProductGroup = node.ChildNodes[2].InnerText,
+                ProductDescription = node.ChildNodes[3].InnerText,
+                ProductNumberCode = node.ChildNodes[4].InnerText
             };
             try
             {
-                db.Artigo.Add(artigo);
+                db.Product.Add(product);
                 db.SaveChanges();
             }
             catch (Exception e) { }
+        }
+
+        public static void addProductsFromPrimaveraToDb()
+        {
+            DatabaseEntities db = new DatabaseEntities();
+            List<Lib_Primavera.Model.Artigo> listaArtigos = Lib_Primavera.PriIntegration.ListaArtigos();
+
+            foreach (var item in listaArtigos)
+            {
+                var product = db.Product.Find(item.CodArtigo);
+
+                if (product != null)
+                {
+                    product.ProductStock = Convert.ToInt32(item.STKAtual);
+                }
+                else
+                {
+                    Models.Product newProduct = new Models.Product
+                    {
+                        ProductCode = item.CodArtigo,
+                        ProductDescription = item.DescArtigo,
+                        ProductStock = Convert.ToInt32(item.STKAtual)
+                    };
+                    db.Product.Add(newProduct);
+                }
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e) { }
+
+            }
         }
 
         #endregion Artigo

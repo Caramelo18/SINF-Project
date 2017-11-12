@@ -12,13 +12,19 @@ namespace FirstREST.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Artigo
+    public partial class BillingAddress
     {
-        public string Code { get; set; }
-        public string Tipo { get; set; }
-        public string Grupo { get; set; }
-        public string Descricao { get; set; }
-        public string NumberCode { get; set; }
-        public int Stock { get; set; }
+        public BillingAddress()
+        {
+            this.Customer = new HashSet<Customer>();
+        }
+    
+        public int ID { get; set; }
+        public string AddressDetail { get; set; }
+        public string City { get; set; }
+        public string PostalCode { get; set; }
+        public string Country { get; set; }
+    
+        public virtual ICollection<Customer> Customer { get; set; }
     }
 }

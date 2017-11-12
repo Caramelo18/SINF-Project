@@ -13,10 +13,10 @@ namespace FirstREST.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DbEntities : DbContext
+    public partial class DatabaseEntities : DbContext
     {
-        public DbEntities()
-            : base("name=DbEntities")
+        public DatabaseEntities()
+            : base("name=DatabaseEntities")
         {
         }
     
@@ -25,6 +25,13 @@ namespace FirstREST.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Artigo> Artigo { get; set; }
+        public virtual DbSet<AllSalesInvoicesInfo> AllSalesInvoicesInfo { get; set; }
+        public virtual DbSet<BillingAddress> BillingAddress { get; set; }
+        public virtual DbSet<Company> Company { get; set; }
+        public virtual DbSet<Customer> Customer { get; set; }
+        public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<SaleInvoice> SaleInvoice { get; set; }
+        public virtual DbSet<SaleInvoiceLine> SaleInvoiceLine { get; set; }
+        public virtual DbSet<SaleInvoiceTotal> SaleInvoiceTotal { get; set; }
     }
 }
