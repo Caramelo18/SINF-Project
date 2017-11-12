@@ -10,7 +10,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="NumberOfEntries" Type="int" />
+          <Property Name="NumberOfEntries" Type="int" Nullable="false" />
           <Property Name="TotalDebit" Type="float" />
           <Property Name="TotalCredit" Type="float" />
         </EntityType>
@@ -42,10 +42,11 @@
           <Property Name="CompanyName" Type="varchar" MaxLength="200" />
           <Property Name="BillingAddressID" Type="int" />
           <Property Name="Telephone" Type="varchar" MaxLength="10" />
-          <Property Name="SelfBillingIndicator" Type="int" />
+          <Property Name="SelfBillingIndicator" Type="int" Nullable="false" />
           <Property Name="CustomerName" Type="varchar" MaxLength="50" />
-          <Property Name="Currency" Type="varchar" MaxLength="50" />
+          <Property Name="Currency" Type="varchar" MaxLength="10" />
           <Property Name="CustomerEmail" Type="varchar" MaxLength="250" />
+          <Property Name="Fax" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -56,7 +57,7 @@
           <Property Name="ProductGroup" Type="varchar" MaxLength="50" />
           <Property Name="ProductDescription" Type="varchar" MaxLength="200" />
           <Property Name="ProductNumberCode" Type="varchar" MaxLength="50" />
-          <Property Name="ProductStock" Type="int" />
+          <Property Name="ProductStock" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SaleInvoice">
           <Key>
@@ -195,7 +196,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="NumberOfEntries" Type="Int32" />
+          <Property Name="NumberOfEntries" Type="Int32" Nullable="false" />
           <Property Name="TotalDebit" Type="Double" />
           <Property Name="TotalCredit" Type="Double" />
         </EntityType>
@@ -228,12 +229,13 @@
           <Property Name="CompanyName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="BillingAddressID" Type="Int32" />
           <Property Name="Telephone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="SelfBillingIndicator" Type="Int32" />
+          <Property Name="SelfBillingIndicator" Type="Int32" Nullable="false" />
           <NavigationProperty Name="BillingAddress" Relationship="Self.FK_Customer_BillingAddress" FromRole="Customer" ToRole="BillingAddress" />
           <NavigationProperty Name="SaleInvoice" Relationship="Self.FK_SaleInvoice_Customer" FromRole="Customer" ToRole="SaleInvoice" />
           <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Currency" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Currency" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="CustomerEmail" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -244,7 +246,7 @@
           <Property Name="ProductGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ProductDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="ProductNumberCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ProductStock" Type="Int32" />
+          <Property Name="ProductStock" Type="Int32" Nullable="false" />
           <NavigationProperty Name="SaleInvoiceLine" Relationship="Self.FK_SaleInvoiceLine_Product" FromRole="Product" ToRole="SaleInvoiceLine" />
         </EntityType>
         <EntityType Name="SaleInvoice">
@@ -420,6 +422,7 @@
           <EntitySetMapping Name="Customer">
             <EntityTypeMapping TypeName="DatabaseModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
                 <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
                 <ScalarProperty Name="Currency" ColumnName="Currency" />
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />

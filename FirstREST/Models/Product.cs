@@ -24,7 +24,7 @@ namespace FirstREST.Models
         public string ProductGroup { get; set; }
         public string ProductDescription { get; set; }
         public string ProductNumberCode { get; set; }
-        public Nullable<int> ProductStock { get; set; }
+        public int ProductStock { get; set; }
     
         public virtual ICollection<SaleInvoiceLine> SaleInvoiceLine { get; set; }
     }
