@@ -22,7 +22,7 @@ namespace FirstREST.Areas.Clients.Controllers
             
 
             XmlDocument doc = new XmlDocument();
-            doc.Load(@"C:\Users\user\Desktop\SINF\saft.xml");
+            doc.Load(Server.MapPath(@"~\Content\saft.xml"));
 
             //Saft.SaftIntegration.ParseCustomers(doc, db);
             Saft.SaftIntegration.addClientsFromPrimaveraToDb(db);
