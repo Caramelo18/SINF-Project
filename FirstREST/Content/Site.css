@@ -213,3 +213,28 @@
     background-color: #FFFFFF;
 }
 
+/*-------------------------------*/
+/*       Product Details Card    */
+/*-------------------------------*/
+
+.card {
+    background: #edecec;
+    padding: 5px 5px 5px 8px;
+    margin: 10px 0;
+}
+
+.card-title, .availability{
+    text-align: center;
+}
+
+.available{
+    color: green;
+}
+
+.unavailable{
+    color: red;
+}
+
+.card-link{
+    text-align: center;
+}

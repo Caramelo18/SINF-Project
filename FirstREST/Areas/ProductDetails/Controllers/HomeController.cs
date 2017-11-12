@@ -17,8 +17,8 @@ namespace FirstREST.Areas.ProductDetails.Controllers
         {
             //TODO: change this to only be called once
 
-            Saft.SaftIntegration.ParseArtigos();
-            Saft.SaftIntegration.addProductsFromPrimaveraToDb();
+            //Saft.SaftIntegration.ParseArtigos();
+            //Saft.SaftIntegration.addProductsFromPrimaveraToDb();
 
             var artigos = from m in db.Artigo
                           select m;
