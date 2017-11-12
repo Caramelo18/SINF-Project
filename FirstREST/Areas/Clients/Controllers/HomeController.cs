@@ -14,7 +14,7 @@ namespace FirstREST.Areas.Clients.Controllers
         public ActionResult Index()
         {
 
-            Saft.SaftIntegration.ParseClientes();
+            //Saft.SaftIntegration.ParseClientes();
 
             //ViewBag.clientes = clients;
             return View();

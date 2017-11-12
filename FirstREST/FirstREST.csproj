@@ -315,23 +315,44 @@
     <Compile Include="Lib_Primavera\Model\LinhaDocVenda.cs" />
     <Compile Include="Lib_Primavera\Model\RespostaErro.cs" />
     <Compile Include="Lib_Primavera\PriEngine.cs" />
-    <Compile Include="Models\Artigo.Context.cs">
+    <Compile Include="Models\AllSalesInvoicesInfo.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BillingAddress.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Company.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Customer.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Database.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Artigo.Context.tt</DependentUpon>
+      <DependentUpon>Database.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Artigo.cs">
-      <DependentUpon>Artigo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Artigo.Designer.cs">
+    <Compile Include="Models\Database.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Artigo.edmx</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Artigo1.cs">
+    <Compile Include="Models\Database.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Artigo.tt</DependentUpon>
+      <DependentUpon>Database.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SaleInvoice.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SaleInvoiceLine.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SaleInvoiceTotal.cs">
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -460,22 +481,22 @@
     <Content Include="Areas\ProductDetails\Views\Home\Index.cshtml" />
     <Content Include="Areas\ProductDetails\Views\Web.config" />
     <Content Include="Areas\ProductDetails\Views\_ViewStart.cshtml" />
-    <EntityDeploy Include="Models\Artigo.edmx">
+    <EntityDeploy Include="Models\Database.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Artigo.Designer.cs</LastGenOutput>
+      <LastGenOutput>Database.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Artigo.Context.tt">
+    <Content Include="Models\Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Artigo.edmx</DependentUpon>
-      <LastGenOutput>Artigo.Context.cs</LastGenOutput>
+      <DependentUpon>Database.edmx</DependentUpon>
+      <LastGenOutput>Database.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Artigo.edmx.diagram">
-      <DependentUpon>Artigo.edmx</DependentUpon>
+    <Content Include="Models\Database.edmx.diagram">
+      <DependentUpon>Database.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\Artigo.tt">
+    <Content Include="Models\Database.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Artigo.edmx</DependentUpon>
-      <LastGenOutput>Artigo1.cs</LastGenOutput>
+      <DependentUpon>Database.edmx</DependentUpon>
+      <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

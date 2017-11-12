@@ -11,11 +11,11 @@
             <div class="col-lg-4 col-md-6">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title">@artigo.Code</h4>
-                        <h6 class="card-subtitle mb-2 text-muted">@artigo.Grupo</h6>
-                        <p class="card-text">@artigo.Descricao</p>
+                        <h4 class="card-title">@artigo.ProductCode</h4>
+                        <h6 class="card-subtitle mb-2 text-muted">@artigo.ProductGroup</h6>
+                        <p class="card-text">@artigo.ProductDescription</p>
                         <div class="availability">
-                            @if (@artigo.Stock == 0)
+                            @if (@artigo.ProductStock == 0)
                             {
                                 <h5 class="unavailable">Unavailable</h5>
                             }
