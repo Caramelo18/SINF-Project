@@ -5,5 +5,17 @@
 
 <nav class="breadcrumb">
    
+@{
+    if(breadcrumbs != null )
+    {
+        for (i = 0; i < breadcrumbs.Count - 1; i++)
+        {
+            <a class="breadcrumb-item" href="#">@breadcrumbs[i]</a>
+        }
+            
+        <span class="breadcrumb-item active">@breadcrumbs[i]</span>
+    }
+}
+    
     
 </nav>
