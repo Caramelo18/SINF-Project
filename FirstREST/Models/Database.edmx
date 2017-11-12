@@ -42,6 +42,7 @@
           <Property Name="CompanyName" Type="varchar" MaxLength="200" />
           <Property Name="BillingAddressID" Type="int" />
           <Property Name="Telephone" Type="varchar" MaxLength="10" />
+          <Property Name="SelfBillingIndicator" Type="int" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -225,6 +226,7 @@
           <Property Name="CompanyName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="BillingAddressID" Type="Int32" />
           <Property Name="Telephone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SelfBillingIndicator" Type="Int32" />
           <NavigationProperty Name="BillingAddress" Relationship="Self.FK_Customer_BillingAddress" FromRole="Customer" ToRole="BillingAddress" />
           <NavigationProperty Name="SaleInvoice" Relationship="Self.FK_SaleInvoice_Customer" FromRole="Customer" ToRole="SaleInvoice" />
         </EntityType>
@@ -419,6 +421,7 @@
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="BillingAddressID" ColumnName="BillingAddressID" />
                 <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="SelfBillingIndicator" ColumnName="SelfBillingIndicator" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

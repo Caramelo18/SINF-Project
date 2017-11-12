@@ -40,15 +40,15 @@ namespace FirstREST.Saft
                     bool isSubClass = (node.ChildNodes.Count > 1);
                     if (isSubClass)
                     {
-                        string newClassName = className + "+" + node.Name;
-                        PropertyInfo subClassProperty = classModel.GetType().GetProperty(node.Name.ToLower());
+                        string newClassName = "FirstREST.Models." + node.Name;
+                        PropertyInfo subClassProperty = classModel.GetType().GetProperty(node.Name);
                         object subClass = ParseRecursive(node.ChildNodes, newClassName);
                         subClassProperty.SetValue(classModel, subClass);
                     }
                     else
                     {
                         PropertyInfo propertyInfo = classModel.GetType().GetProperty(node.Name);
-                        propertyInfo.SetValue(classModel, node.InnerText);
+                        propertyInfo.SetValue(classModel, Convert.ChangeType(node.InnerText, propertyInfo.PropertyType), null);
                     }
                 }
             }
@@ -58,15 +58,19 @@ namespace FirstREST.Saft
         # region Cliente
 
 
-        /*public static void ParseClientes(XmlDocument doc, DbEntities db)
+        public static void ParseClientes()
         {
+            DatabaseEntities db = new DatabaseEntities();
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"C:\Users\user\Desktop\saft.xml");
             XmlNodeList clientsList = doc.GetElementsByTagName("Customer");
 
             foreach (XmlNode xml in clientsList)
             {
                 if (xml.HasChildNodes)
                 {
-                    Models.Cliente client = (Models.Cliente)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Cliente");
+                    Models.Customer client = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Customer");
                     try
                     {
                         db.Customer.Add(client);
@@ -79,7 +83,7 @@ namespace FirstREST.Saft
                     }
                 }
             }
-        }*/
+        }
 
         #endregion Cliente;   // -----------------------------  END   CLIENTE    -----------------------
 
