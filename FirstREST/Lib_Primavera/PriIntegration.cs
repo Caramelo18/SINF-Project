@@ -284,14 +284,14 @@ namespace FirstREST.Lib_Primavera
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
 
-                objList = PriEngine.Engine.Comercial.Artigos.LstArtigos();
+                objList = PriEngine.Engine.Consulta("SELECT artigo, descricao, stkactual FROM Artigo");
 
                 while (!objList.NoFim())
                 {
                     art = new Model.Artigo();
                     art.CodArtigo = objList.Valor("artigo");
                     art.DescArtigo = objList.Valor("descricao");
-  //                  art.STKAtual = objList.Valor("stkatual");
+                    art.STKAtual = (double) objList.Valor("stkactual");
                   
                     
                     listArts.Add(art);
@@ -601,7 +601,42 @@ namespace FirstREST.Lib_Primavera
             return listdc;
         }
 
+        public static List<Model.DocCompra> Accounts_Payable_List()
+        {
 
+            StdBELista objListCab;
+            Model.DocCompra dv = new Model.DocCompra();
+            List<Model.DocCompra> listdv = new List<Model.DocCompra>();
+            Model.LinhaDocVenda lindv = new Model.LinhaDocVenda();
+            List<Model.LinhaDocVenda> listlindv = new
+            List<Model.LinhaDocVenda>();
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+                StdBELista valorQ = PriEngine.Engine.Consulta("SELECT SUM(ValorPendente) AS Total From Pendentes WHERE ValorPendente < 0");
+                objListCab = PriEngine.Engine.Consulta("SELECT NumDoc, Entidade, DataDoc, ValorPendente From Pendentes WHERE ValorPendente < 0 ORDER BY ValorPendente ASC ");
+
+                dv = new Model.DocCompra();
+                dv.Entidade = "Total";
+                dv.TotalMerc = - valorQ.Valor("Total");
+                listdv.Add(dv);
+
+                while (!objListCab.NoFim())
+                {
+                    dv = new Model.DocCompra();
+                    dv.id = objListCab.Valor("NumDoc");
+                    dv.Entidade = objListCab.Valor("Entidade");
+                    dv.Data = objListCab.Valor("DataDoc");
+                    dv.TotalMerc = - objListCab.Valor("ValorPendente");
+
+                    //dv.LinhasDoc = listlindv;
+                    listdv.Add(dv);
+                    objListCab.Seguinte();
+                }
+            }
+
+            return listdv;
+        }
 
         #endregion DocCompra
 
@@ -903,7 +938,6 @@ namespace FirstREST.Lib_Primavera
         {
 
             StdBELista objListCab;
-            StdBELista objListLin;
             Model.DocVenda dv = new Model.DocVenda();
             List<Model.DocVenda> listdv = new List<Model.DocVenda>();
             Model.LinhaDocVenda lindv = new Model.LinhaDocVenda();
@@ -912,41 +946,28 @@ namespace FirstREST.Lib_Primavera
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                objListCab = PriEngine.Engine.Consulta("SELECT id, Entidade, Data, NumDoc, TotalMerc, Serie, TipoDoc From CabecDoc");
+                StdBELista valorQ = PriEngine.Engine.Consulta("SELECT SUM(ValorPendente) AS Total From Pendentes WHERE ValorPendente > 0");
+                objListCab = PriEngine.Engine.Consulta("SELECT NumDoc, Entidade, DataDoc, ValorPendente From Pendentes WHERE ValorPendente > 0 ORDER BY ValorPendente DESC ");
+
+                dv = new Model.DocVenda();
+                dv.Entidade = "Total";
+                dv.TotalMerc = valorQ.Valor("Total");
+                listdv.Add(dv);
+
                 while (!objListCab.NoFim())
                 {
                     dv = new Model.DocVenda();
-                    dv.id = objListCab.Valor("id");
-                    dv.Entidade = objListCab.Valor("TipoDoc");
-                    dv.NumDoc = objListCab.Valor("NumDoc");
-                    dv.Data = objListCab.Valor("Data");
-                    dv.TotalMerc = objListCab.Valor("TotalMerc");
-                    dv.Serie = objListCab.Valor("Serie");
-                    objListLin = PriEngine.Engine.Consulta("SELECT idCabecDoc, Artigo, Descricao, Quantidade, Unidade, PrecUnit, Desconto1, TotalILiquido, PrecoLiquido from LinhasDoc where IdCabecDoc='" + dv.id + "' order By NumLinha");
-                    listlindv = new List<Model.LinhaDocVenda>();
+                    dv.id = objListCab.Valor("NumDoc");
+                    dv.Entidade = objListCab.Valor("Entidade");
+                    dv.Data = objListCab.Valor("DataDoc");
+                    dv.TotalMerc = objListCab.Valor("ValorPendente");               
 
-                    while (!objListLin.NoFim())
-                    {
-                        lindv = new Model.LinhaDocVenda();
-                        lindv.IdCabecDoc = objListLin.Valor("idCabecDoc");
-                        lindv.CodArtigo = objListLin.Valor("Artigo");
-                        lindv.DescArtigo = objListLin.Valor("Descricao");
-                        lindv.Quantidade = objListLin.Valor("Quantidade");
-                        lindv.Unidade = objListLin.Valor("Unidade");
-                        lindv.Desconto = objListLin.Valor("Desconto1");
-                        lindv.PrecoUnitario = objListLin.Valor("PrecUnit");
-                        lindv.TotalILiquido = objListLin.Valor("TotalILiquido");
-                        lindv.TotalLiquido = objListLin.Valor("PrecoLiquido");
-
-                        listlindv.Add(lindv);
-                        objListLin.Seguinte();
-                    }
-
-                    dv.LinhasDoc = listlindv;
+                    //dv.LinhasDoc = listlindv;
                     listdv.Add(dv);
                     objListCab.Seguinte();
                 }
             }
+
             return listdv;
         }
 
