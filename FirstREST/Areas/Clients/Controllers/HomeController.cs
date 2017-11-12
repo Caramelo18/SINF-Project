@@ -20,7 +20,7 @@ namespace FirstREST.Areas.Clients.Controllers
             var clientes = Lib_Primavera.PriIntegration.ListaClientes();
 
             XmlDocument doc = new XmlDocument();
-            doc.Load(@"C:\Users\user\Desktop\SINF\saft.xml");
+            doc.Load(Server.MapPath(@"~\Content\saft.xml"));
 
             /*Saft.SaftIntegration.ParseCustomers(doc, db);
 
