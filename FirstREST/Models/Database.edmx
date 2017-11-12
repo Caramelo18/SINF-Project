@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AllSalesInvoicesInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -47,6 +47,7 @@
           <Property Name="Currency" Type="varchar" MaxLength="10" />
           <Property Name="CustomerEmail" Type="varchar" MaxLength="250" />
           <Property Name="Fax" Type="varchar" MaxLength="50" />
+          <Property Name="Website" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -157,7 +158,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DatabaseModelStoreContainer">
+        <EntityContainer Name="DbModelStoreContainer">
           <EntitySet Name="AllSalesInvoicesInfo" EntityType="Self.AllSalesInvoicesInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BillingAddress" EntityType="Self.BillingAddress" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
@@ -187,10 +188,11 @@
             <End Role="SaleInvoiceTotal" EntitySet="SaleInvoiceTotal" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="DbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="AllSalesInvoicesInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -230,12 +232,13 @@
           <Property Name="BillingAddressID" Type="Int32" />
           <Property Name="Telephone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="SelfBillingIndicator" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="BillingAddress" Relationship="Self.FK_Customer_BillingAddress" FromRole="Customer" ToRole="BillingAddress" />
-          <NavigationProperty Name="SaleInvoice" Relationship="Self.FK_SaleInvoice_Customer" FromRole="Customer" ToRole="SaleInvoice" />
           <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Currency" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="CustomerEmail" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BillingAddress" Relationship="Self.FK_Customer_BillingAddress" FromRole="Customer" ToRole="BillingAddress" />
+          <NavigationProperty Name="SaleInvoice" Relationship="Self.FK_SaleInvoice_Customer" FromRole="Customer" ToRole="SaleInvoice" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -388,9 +391,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+        <EntityContainerMapping StorageEntityContainer="DbModelStoreContainer" CdmEntityContainer="DatabaseEntities">
           <EntitySetMapping Name="AllSalesInvoicesInfo">
-            <EntityTypeMapping TypeName="DatabaseModel.AllSalesInvoicesInfo">
+            <EntityTypeMapping TypeName="DbModel.AllSalesInvoicesInfo">
               <MappingFragment StoreEntitySet="AllSalesInvoicesInfo">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="NumberOfEntries" ColumnName="NumberOfEntries" />
@@ -400,7 +403,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="BillingAddress">
-            <EntityTypeMapping TypeName="DatabaseModel.BillingAddress">
+            <EntityTypeMapping TypeName="DbModel.BillingAddress">
               <MappingFragment StoreEntitySet="BillingAddress">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="AddressDetail" ColumnName="AddressDetail" />
@@ -411,7 +414,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Company">
-            <EntityTypeMapping TypeName="DatabaseModel.Company">
+            <EntityTypeMapping TypeName="DbModel.Company">
               <MappingFragment StoreEntitySet="Company">
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
                 <ScalarProperty Name="TaxRegistrationNumber" ColumnName="TaxRegistrationNumber" />
@@ -420,12 +423,8 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Customer">
-            <EntityTypeMapping TypeName="DatabaseModel.Customer">
+            <EntityTypeMapping TypeName="DbModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="Fax" ColumnName="Fax" />
-                <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
-                <ScalarProperty Name="Currency" ColumnName="Currency" />
-                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
                 <ScalarProperty Name="CustomerTaxID" ColumnName="CustomerTaxID" />
@@ -433,11 +432,16 @@
                 <ScalarProperty Name="BillingAddressID" ColumnName="BillingAddressID" />
                 <ScalarProperty Name="Telephone" ColumnName="Telephone" />
                 <ScalarProperty Name="SelfBillingIndicator" ColumnName="SelfBillingIndicator" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Product">
-            <EntityTypeMapping TypeName="DatabaseModel.Product">
+            <EntityTypeMapping TypeName="DbModel.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="ProductType" ColumnName="ProductType" />
                 <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
@@ -449,7 +453,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SaleInvoice">
-            <EntityTypeMapping TypeName="DatabaseModel.SaleInvoice">
+            <EntityTypeMapping TypeName="DbModel.SaleInvoice">
               <MappingFragment StoreEntitySet="SaleInvoice">
                 <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
                 <ScalarProperty Name="InvoiceStatus" ColumnName="InvoiceStatus" />
@@ -461,7 +465,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SaleInvoiceLine">
-            <EntityTypeMapping TypeName="DatabaseModel.SaleInvoiceLine">
+            <EntityTypeMapping TypeName="DbModel.SaleInvoiceLine">
               <MappingFragment StoreEntitySet="SaleInvoiceLine">
                 <ScalarProperty Name="LineNumber" ColumnName="LineNumber" />
                 <ScalarProperty Name="SaleInvoiceNo" ColumnName="SaleInvoiceNo" />
@@ -475,7 +479,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SaleInvoiceTotal">
-            <EntityTypeMapping TypeName="DatabaseModel.SaleInvoiceTotal">
+            <EntityTypeMapping TypeName="DbModel.SaleInvoiceTotal">
               <MappingFragment StoreEntitySet="SaleInvoiceTotal">
                 <ScalarProperty Name="SaleInvoiceNo" ColumnName="SaleInvoiceNo" />
                 <ScalarProperty Name="TaxPayable" ColumnName="TaxPayable" />
