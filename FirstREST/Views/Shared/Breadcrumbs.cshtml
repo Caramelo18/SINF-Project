@@ -1,6 +1,12 @@
-﻿<nav class="breadcrumb">
-    <a class="breadcrumb-item" href="#">Home</a>
-    <a class="breadcrumb-item" href="#">Library</a>
-    <a class="breadcrumb-item" href="#">Data</a>
-    <span class="breadcrumb-item active">Bootstrap</span>
+﻿@{
+    List<string> breadcrumbs = ViewBag.breadcrumbs;
+    int i;
+}
+
+<nav class="breadcrumb">
+   
+    @for(i = 0; i < breadcrumbs.Count - 1; i++){
+        <a class="breadcrumb-item" href="#">@breadcrumbs[i]</a>
+    }
+    <span class="breadcrumb-item active">@breadcrumbs[i]</span>
 </nav>
