@@ -40,6 +40,16 @@ namespace FirstREST.Controllers
         }
 
         [HttpGet]
+        public IEnumerable<Lib_Primavera.Model.DocCompra> ProductPurchases()
+        {
+            var allUrlKeyValues = ControllerContext.Request.GetQueryNameValuePairs();
+            string period = allUrlKeyValues.LastOrDefault(x => x.Key == "period").Value;
+            string product = allUrlKeyValues.LastOrDefault(x => x.Key == "product").Value;
+
+            return Lib_Primavera.PriIntegration.Compras_Produto_List(product, period);
+        }
+
+        [HttpGet]
         public IEnumerable<Lib_Primavera.Model.DocCompra> AccountsPayable()
         {
             return Lib_Primavera.PriIntegration.Accounts_Payable_List();

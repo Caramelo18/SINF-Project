@@ -13,13 +13,14 @@
         <th>Name</th>
         <th>Total Sales YTD(€)</th>
     </tr>
-    @foreach (var cliente in Model)
+    <foreach (var cliente in Model)
     {
         <tr>
-            <td>@cliente.CodCliente</td>
-            <td>@cliente.NomeCliente</td>
+            <td>cliente.CodCliente</td>
+            <td>cliente.NomeCliente</td>
             <td>10</td>
         </tr>
+
     <tr style="border-bottom:1px solid #e6e6e6;">
         <td colspan="3">
             <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#@cliente.NumContribuinte" style="width:30px; height:20px; background-color:gray; opacity: 0.5; font-size: 10px;padding-left:0;">+info</button>
@@ -45,6 +46,7 @@
         </td>
     </tr>
     }
+
 </table>
 
 <div id="client-card" style="width:500px;height:800px;border:1px solid #000;">
