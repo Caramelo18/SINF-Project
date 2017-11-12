@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using System.Xml;
 using FirstREST.Models;
 
 namespace FirstREST.Areas.ProductDetails.Controllers
@@ -17,8 +18,13 @@ namespace FirstREST.Areas.ProductDetails.Controllers
         {
             //TODO: change this to only be called once
 
-            Saft.SaftIntegration.ParseArtigos();
-            Saft.SaftIntegration.addProductsFromPrimaveraToDb();
+            XmlDocument doc = new XmlDocument();
+            doc.Load(@"C:\Users\user\Desktop\SINF\saft.xml");
+
+            Saft.SaftIntegration.ParseProducts(doc, db);
+
+            //Saft.SaftIntegration.ParseArtigos();
+            //Saft.SaftIntegration.addProductsFromPrimaveraToDb();
 
             var artigos = from m in db.Product
                           select m;

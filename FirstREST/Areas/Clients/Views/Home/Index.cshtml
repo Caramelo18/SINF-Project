@@ -3,3 +3,8 @@
 }
 
 <h2>Clients</h2>
+
+@foreach (var client in ViewBag.clients)
+{
+    @client.CustomerID
+}
