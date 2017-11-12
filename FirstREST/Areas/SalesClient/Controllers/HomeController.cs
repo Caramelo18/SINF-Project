@@ -13,6 +13,9 @@ namespace FirstREST.Areas.SalesClient.Controllers
 
         public ActionResult Index()
         {
+            // The last element of the breadcrumbs list is the current page
+            ViewBag.breadcrumbs = new List<string> { "Home", "Vendas ao Cliente" };
+
             return View();
         }
 

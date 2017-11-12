@@ -13,6 +13,9 @@ namespace FirstREST.Areas.Clients.Controllers
 
         public ActionResult Index()
         {
+            // The last element of the breadcrumbs list is the current page
+            ViewBag.breadcrumbs = new List<string> { "Home", "Clientes" };
+
             var clientes = Lib_Primavera.PriIntegration.ListaClientes();
             return View(clientes);
         }
