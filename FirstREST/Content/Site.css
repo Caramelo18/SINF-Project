@@ -218,7 +218,7 @@
 }
 
 #body div{
-    padding: 1rem;
+    padding: 0.5rem;
 }
 
 .white-background{
@@ -238,8 +238,11 @@
 /*       Product Details Card    */
 /*-------------------------------*/
 
-.card {
-    background: #edecec;
+/*-------------------------------*/
+/*      Home                     */
+/*-------------------------------*/
+
+.card { 
     padding: 5px 5px 5px 8px;
     margin: 10px 0;
 }
