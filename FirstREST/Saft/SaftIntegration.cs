@@ -38,6 +38,9 @@ namespace FirstREST.Saft
         public static object ParseRecursive(XmlNodeList list, string className)
         {
             object classModel = GetInstance(className);
+            db.Set(classModel.GetType()).Add(classModel);
+            saveToDb(db);
+
             if (classModel == null) return null;
             foreach (XmlNode node in list)
             {
@@ -51,22 +54,25 @@ namespace FirstREST.Saft
                         object subClass = ParseRecursive(node.ChildNodes, newClassName);
 
                         removeKey(node.Name);
-                        saveToDb(db);
+                        
                         bool belongsToClass = subClassProperty != null;
 
                         if (belongsToClass && !subClassProperty.GetGetMethod().IsVirtual)
                         {
                             PropertyAttributes attr = subClassProperty.Attributes;
                             subClassProperty.SetValue(classModel, subClass);
+                            saveToDb(db);
+
                         }
                         else
                         {
                             
                             Type classType = GetInstance(newClassName).GetType();
                             //adicionar fk
-                            object newObject = addForeignKey(subClass, node.Name);
-                            db.Set(classType).Add(newObject);
-                            
+                            classModel = addForeignKey(subClass, node.Name);
+                            db.Entry(classModel).State = System.Data.Entity.EntityState.Modified;
+                            saveToDb(db);
+
                             //ver ids das connected tables
                         }
                     }
@@ -76,6 +82,8 @@ namespace FirstREST.Saft
 
                         PropertyInfo propertyInfo = classModel.GetType().GetProperty(node.Name);
                         propertyInfo.SetValue(classModel, Convert.ChangeType(node.InnerText, propertyInfo.PropertyType), null);
+                        db.Entry(classModel).State = System.Data.Entity.EntityState.Modified;
+                        saveToDb(db);
                     }
                 }
             }
@@ -104,12 +112,22 @@ namespace FirstREST.Saft
 
         private static object addForeignKey(object parsedClass, string className)
         {
+            PropertyInfo classProperty;
             switch (className)
             {
                 case "DocumentTotals":
                 case "Line":
+                    classProperty = parsedClass.GetType().GetProperty(keys.Peek().Item1);
+                    classProperty.SetValue(parsedClass, keys.Peek().Item2);
+                    
+                    break;
                 case "Tax":
-                    PropertyInfo classProperty = parsedClass.GetType().GetProperty(keys.Peek().Item1);
+                    Tuple<string, string> temp = keys.Peek();
+                    keys.Pop();
+                    classProperty = parsedClass.GetType().GetProperty(keys.Peek().Item1);
+                    classProperty.SetValue(parsedClass, keys.Peek().Item2);
+                    keys.Push(temp);
+                    classProperty = parsedClass.GetType().GetProperty(keys.Peek().Item1);
                     classProperty.SetValue(parsedClass, keys.Peek().Item2);
                     break;
             }
@@ -164,6 +182,8 @@ namespace FirstREST.Saft
                     {
                         Models.Customer newClient = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Customer");
                         db.Customer.Add(newClient);
+                        saveToDb(db);
+                        int i = 0;
                     }
 
                     saveToDb(db);
