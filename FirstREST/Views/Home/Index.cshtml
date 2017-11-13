@@ -2,9 +2,9 @@
 
 <div id="body">
     <div class="container-fluid">
-        <div class="row" style="margin-top: 40px;height:90px;">
+        <div class="row" style="margin-top: 40px">
             <div class="col-sm-4">
-                <div class="card white" style="height:90px;">
+                <div class="card white">
                     <div class="card-block">
                         <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">1,2 M</h2>
                         <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Total Revenue</h6>
@@ -14,7 +14,7 @@
             </div>
 
             <div class="col-sm-4">
-                <div class="card white-background" style="height:90px;">
+                <div class="card white-background">
                     <div class="card-block">
                         <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">@ViewBag.totalSales € </h2>
                         <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Sales</h6>
@@ -23,7 +23,7 @@
             </div>
 
             <div class="col-sm-4">
-                <div class="card white-background" style="height:90px;">
+                <div class="card white-background">
                     <div class="card-block">
                         <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">
                             @ViewBag.accountsPayable €<h2>
@@ -35,8 +35,8 @@
 
 
     <div class="row" style="margin-top: 40px;">
-        <div class="col-sm-4" style="height:220px;">
-            <div class="card white" style="height:220px;">
+        <div class="col-sm-4">
+            <div class="card white">
                 <div class="card-block">
 
                     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -70,11 +70,9 @@
             </div>
         </div>
 
-        <div class="col-sm-4" style="height:220px;">
-            <div class="card white" style="height:220px;">
+        <div class="col-sm-4">
+            <div class="card white">
                 <div class="card-block">
-
-                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                     <script type="text/javascript">
                         google.charts.load('current', { 'packages': ['corechart'] });
                         google.charts.setOnLoadCallback(drawChart);
@@ -104,9 +102,9 @@
             </div>
         </div>
 
-        <div class="col-sm-4" style="height:90px;">
+        <div class="col-sm-4">
 
-            <div class="card white-background" style="height:90px;">
+            <div class="card white-background">
                 <div class="card-block">
                     <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">@ViewBag.accountsReceivable €</h2>
                     <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Accounts Receivable</h6>
@@ -114,7 +112,7 @@
             </div>
 
 
-            <div class="card white-background" style="margin-top:40px;height:90px;">
+            <div class="card white-background" style="margin-top:40px;">
                 <div class="card-block">
                     <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">@ViewBag.numSales</h2>
                     <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Sales Orders</h6>
@@ -126,8 +124,8 @@
     </div>
 
     <div class="row" style="margin-top: 40px;">
-        <div class="col-sm-8" style="height:220px;">
-            <div class="card white" style="height:220px;">
+        <div class="col-sm-8" >
+            <div class="card white">
                 <div class="card-block">
                     <table style="width:100%;table-layout:fixed;text-align:center;">
                         <tr style="border-bottom: 1px solid #e6e6e6;">
@@ -174,8 +172,8 @@
             </div>
         </div>
 
-        <div class="col-sm-4" style="height:90px;">
-            <div class="card white-background" style="height:90px;">
+        <div class="col-sm-4">
+            <div class="card white-background">
                 <div class="card-block">
                     <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">@ViewBag.numPurchases</h2>
                     <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Purchase Orders</h6>
