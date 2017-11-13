@@ -56,6 +56,26 @@ namespace FirstREST.Saft
             return classModel;
         }
 
+        private static void saveToDb(DatabaseEntities db)
+        {
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                var errorMessages = e.EntityValidationErrors
+                .SelectMany(x => x.ValidationErrors)
+                .Select(x => x.ErrorMessage);
+
+                var fullError = string.Join("; ", errorMessages);
+
+                var exception = string.Concat(e.Message, "Errors: ", fullError);
+
+                throw new DbEntityValidationException(exception, e.EntityValidationErrors);
+            }
+        }
+
         # region Cliente
 
 
@@ -84,22 +104,7 @@ namespace FirstREST.Saft
                         db.Customer.Add(newClient);
                     }
 
-                    try
-                    {
-                        db.SaveChanges();
-                    }
-                    catch (DbEntityValidationException e)
-                    {
-                        var errorMessages = e.EntityValidationErrors
-                        .SelectMany(x => x.ValidationErrors)
-                        .Select(x => x.ErrorMessage);
-
-                        var fullError = string.Join("; ", errorMessages);
-
-                        var exception = string.Concat(e.Message, "Errors: ", fullError);
-
-                        throw new DbEntityValidationException(exception, e.EntityValidationErrors);
-                    }
+                    saveToDb(db);
                 }
             }
         }
@@ -182,8 +187,7 @@ namespace FirstREST.Saft
                         db.Product.Add(newProduct);
                     }
 
-                    try { db.SaveChanges(); }
-                    catch (Exception e) { }
+                    saveToDb(db);
                 }
             }
         }
@@ -225,6 +229,35 @@ namespace FirstREST.Saft
 
         #region DocCompra
 
+        public static void ParseSalesInvoice(XmlDocument doc, DatabaseEntities db)
+        {
+            XmlNodeList salesList = doc.GetElementsByTagName("SalesInvoice");
+
+            foreach (XmlNode xml in salesList)
+            {
+                if (xml.HasChildNodes)
+                {
+
+                    string id = xml.ChildNodes[0].InnerText;
+                    Models.Customer client = db.Customer.Find(id);
+
+                    if (client != null)
+                    {
+                        System.Diagnostics.Debug.WriteLine("vou dar update");
+                        //TO DO: update
+                        //client = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.SalesInvoice");
+
+                    }
+                    else
+                    {
+                        Models.Customer newClient = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.SalesInvoice");
+                        db.Customer.Add(newClient);
+                    }
+
+                    saveToDb(db);
+                }
+            }
+        }
 
         #endregion DocCompra
 
