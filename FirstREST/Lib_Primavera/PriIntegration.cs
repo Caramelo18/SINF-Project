@@ -34,6 +34,8 @@ namespace FirstREST.Lib_Primavera
                 
                 while (!objList.NoFim())
                 {
+                    StdBELista numCompList = PriEngine.Engine.Consulta("SELECT COUNT(*) AS NumCompras From CabecDoc where TipoDoc='ECL' AND Entidade='"+ objList.Valor("Cliente") +"'"); ;
+
                     listClientes.Add(new Model.Cliente
                     {
                         CodCliente = objList.Valor("Cliente"),
@@ -41,7 +43,8 @@ namespace FirstREST.Lib_Primavera
                         Moeda = objList.Valor("Moeda"),
                         NumContribuinte = objList.Valor("NumContribuinte"),
                         Morada = objList.Valor("campo_exemplo"),
-                        Email = objList.Valor("Email")
+                        Email = objList.Valor("Email"),
+                        NumCompras = numCompList.Valor("NumCompras")
                     });
                     objList.Seguinte();
 
@@ -260,8 +263,8 @@ namespace FirstREST.Lib_Primavera
                     objArtigo = PriEngine.Engine.Comercial.Artigos.Edita(codArtigo);
                     myArt.CodArtigo = objArtigo.get_Artigo();
                     myArt.DescArtigo = objArtigo.get_Descricao();
-                    myArt.STKAtual = objArtigo.get_StkActual(); 
-
+                    myArt.STKAtual = objArtigo.get_StkActual();
+                    myArt.Localizacao = objArtigo.get_LocalizacaoSugestao();
                     return myArt;
                 }
                 
@@ -284,7 +287,7 @@ namespace FirstREST.Lib_Primavera
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
 
-                objList = PriEngine.Engine.Consulta("SELECT artigo, descricao, stkactual FROM Artigo");
+                objList = PriEngine.Engine.Consulta("SELECT artigo, descricao, stkactual, LocalizacaoSugestao FROM Artigo");
 
                 while (!objList.NoFim())
                 {
@@ -292,7 +295,7 @@ namespace FirstREST.Lib_Primavera
                     art.CodArtigo = objList.Valor("artigo");
                     art.DescArtigo = objList.Valor("descricao");
                     art.STKAtual = (double) objList.Valor("stkactual");
-                  
+                    art.Localizacao = objList.Valor("LocalizacaoSugestao");
                     
                     listArts.Add(art);
                     objList.Seguinte();
@@ -662,6 +665,18 @@ namespace FirstREST.Lib_Primavera
             }
             return listdc;
            
+        }
+
+        public static int NumCompras()
+        {
+            StdBELista objListCab;
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+                objListCab = PriEngine.Engine.Consulta("SELECT COUNT(*) AS Num From CabecCompras where TipoDoc='VGR'");
+                return objListCab.Valor("Num");
+            }
+            return 0;
         }
 
 
@@ -1055,6 +1070,30 @@ namespace FirstREST.Lib_Primavera
             return listdv;
         }
 
+        public static int NumVendas()
+        {
+            StdBELista objListCab;
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+                objListCab = PriEngine.Engine.Consulta("SELECT COUNT(*) AS Num From CabecDoc where TipoDoc='ECL'");
+                return objListCab.Valor("Num");
+            }
+            return 0;
+        }
+
+
+        public static double TotalVendas()
+        {
+            StdBELista objListCab;
+
+            if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
+            {
+                objListCab = PriEngine.Engine.Consulta("SELECT SUM(TotalMerc) AS Num From CabecDoc where TipoDoc='ECL'");
+                return objListCab.Valor("Num");
+            }
+            return 0;
+        }
 
         #endregion DocsVenda
 

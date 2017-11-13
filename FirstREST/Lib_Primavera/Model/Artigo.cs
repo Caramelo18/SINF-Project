@@ -25,5 +25,11 @@ namespace FirstREST.Lib_Primavera.Model
             set;
         }
 
+        public string Localizacao
+        {
+            get;
+            set;
+        }
+
     }
 }

@@ -7,13 +7,16 @@ using System.Web.Mvc;
 using FirstREST.Models;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 
 namespace FirstREST.Saft
 {
     public class SaftIntegration
     {
+        static Stack<Tuple<string, string>> keys = new Stack<Tuple<string,string>>();
 
-        DatabaseEntities db = new DatabaseEntities();
+        static DatabaseEntities db = new DatabaseEntities();
 
         public static object GetInstance(string strFullyQualifiedName)
         {
@@ -47,21 +50,92 @@ namespace FirstREST.Saft
                         PropertyInfo subClassProperty = classModel.GetType().GetProperty(node.Name);
                         object subClass = ParseRecursive(node.ChildNodes, newClassName);
 
+                        removeKey(node.Name);
+                        saveToDb(db);
                         bool belongsToClass = subClassProperty != null;
 
                         if (belongsToClass && !subClassProperty.GetGetMethod().IsVirtual)
                         {
+                            PropertyAttributes attr = subClassProperty.Attributes;
                             subClassProperty.SetValue(classModel, subClass);
+                        }
+                        else
+                        {
+                            
+                            Type classType = GetInstance(newClassName).GetType();
+                            //adicionar fk
+                            object newObject = addForeignKey(subClass, node.Name);
+                            db.Set(classType).Add(newObject);
+                            
+                            //ver ids das connected tables
                         }
                     }
                     else
                     {
+                        saveKey(className, node.Name, node.InnerText);
+
                         PropertyInfo propertyInfo = classModel.GetType().GetProperty(node.Name);
                         propertyInfo.SetValue(classModel, Convert.ChangeType(node.InnerText, propertyInfo.PropertyType), null);
                     }
                 }
             }
             return classModel;
+        }
+
+        # region shitty stuff cause c# is shitty
+        private static void saveKey(string className, string property, string value)
+        {
+               
+            if((className ==  "FirstREST.Models.Customer" && property == "CustomerId") ||
+                (className == "FirstREST.Models.Invoice" && property == "InvoiceNo") ||
+                (className == "FirstREST.Models.Line" && property == "LineNumber"))
+            {
+                keys.Push(new Tuple<string, string>(property, value));
+            }
+        }
+
+        private static void removeKey(string className)
+        {
+            if(className ==  "Customer" || className ==  "Invoice" || className == "Line")
+            {
+                keys.Pop();
+            }
+        }
+
+        private static object addForeignKey(object parsedClass, string className)
+        {
+            switch (className)
+            {
+                case "DocumentTotals":
+                case "Line":
+                case "Tax":
+                    PropertyInfo classProperty = parsedClass.GetType().GetProperty(keys.Peek().Item1);
+                    classProperty.SetValue(parsedClass, keys.Peek().Item2);
+                    break;
+            }
+            return parsedClass;
+        }
+
+        # endregion end of shitty stuff
+
+        private static void saveToDb(DatabaseEntities db)
+        {
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                var errorMessages = e.EntityValidationErrors
+                .SelectMany(x => x.ValidationErrors)
+                .Select(x => x.ErrorMessage);
+
+                var fullError = string.Join("; ", errorMessages);
+
+                var exception = string.Concat(e.Message, "Errors: ", fullError);
+
+                throw new DbEntityValidationException(exception, e.EntityValidationErrors);
+            }
         }
 
         # region Cliente
@@ -92,22 +166,7 @@ namespace FirstREST.Saft
                         db.Customer.Add(newClient);
                     }
 
-                    try
-                    {
-                        db.SaveChanges();
-                    }
-                    catch (DbEntityValidationException e)
-                    {
-                        var errorMessages = e.EntityValidationErrors
-                        .SelectMany(x => x.ValidationErrors)
-                        .Select(x => x.ErrorMessage);
-
-                        var fullError = string.Join("; ", errorMessages);
-
-                        var exception = string.Concat(e.Message, "Errors: ", fullError);
-
-                        throw new DbEntityValidationException(exception, e.EntityValidationErrors);
-                    }
+                    saveToDb(db);
                 }
             }
         }
@@ -190,8 +249,7 @@ namespace FirstREST.Saft
                         db.Product.Add(newProduct);
                     }
 
-                    try { db.SaveChanges(); }
-                    catch (Exception e) { }
+                    saveToDb(db);
                 }
             }
         }
@@ -218,11 +276,8 @@ namespace FirstREST.Saft
                     };
                     db.Product.Add(newProduct);
                 }
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception e) { }
+
+                saveToDb(db);
 
             }
         }
@@ -233,6 +288,35 @@ namespace FirstREST.Saft
 
         #region DocCompra
 
+        public static void ParseSalesInvoice(XmlDocument doc, DatabaseEntities db)
+        {
+            XmlNodeList salesList = doc.GetElementsByTagName("SalesInvoice");
+
+            foreach (XmlNode xml in salesList)
+            {
+                if (xml.HasChildNodes)
+                {
+
+                    string id = xml.ChildNodes[0].InnerText;
+                    Models.Customer client = db.Customer.Find(id);
+
+                    if (client != null)
+                    {
+                        System.Diagnostics.Debug.WriteLine("vou dar update");
+                        //TO DO: update
+                        //client = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.SalesInvoice");
+
+                    }
+                    else
+                    {
+                        Models.Customer newClient = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.SalesInvoice");
+                        db.Customer.Add(newClient);
+                    }
+
+                    saveToDb(db);
+                }
+            }
+        }
 
         #endregion DocCompra
 
@@ -264,22 +348,7 @@ namespace FirstREST.Saft
                         db.SalesInvoices.Add(newInvoice);
                     }
 
-                    try
-                    {
-                        db.SaveChanges();
-                    }
-                    catch (DbEntityValidationException e)
-                    {
-                        var errorMessages = e.EntityValidationErrors
-                        .SelectMany(x => x.ValidationErrors)
-                        .Select(x => x.ErrorMessage);
-
-                        var fullError = string.Join("; ", errorMessages);
-
-                        var exception = string.Concat(e.Message, "Errors: ", fullError);
-
-                        throw new DbEntityValidationException(exception, e.EntityValidationErrors);
-                    }
+                    saveToDb(db);
                 }
             }
         }

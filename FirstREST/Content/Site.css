@@ -22,7 +22,7 @@
     background-color: #2e353d;
     position: fixed;
     height: 100%;
-    width: 25%;
+    width: 16.6666667%;
 }
 
 .nav-side-menu .brand {
@@ -217,10 +217,6 @@
     background: #edecec
 }
 
-#body div{
-    padding: 1rem;
-}
-
 .white-background{
     background-color: #FFFFFF;
 }
@@ -238,8 +234,11 @@
 /*       Product Details Card    */
 /*-------------------------------*/
 
-.card {
-    background: #edecec;
+/*-------------------------------*/
+/*      Home                     */
+/*-------------------------------*/
+
+.card { 
     padding: 5px 5px 5px 8px;
     margin: 10px 0;
 }
@@ -259,4 +258,12 @@
 .card-link{
     text-align: center;
 
+}
+
+.no-padding{
+    padding: 0px;
+}
+
+.no-margin{
+    margin: 0px;
 }
