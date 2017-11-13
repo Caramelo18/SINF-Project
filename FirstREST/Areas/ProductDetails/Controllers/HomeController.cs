@@ -39,15 +39,21 @@ namespace FirstREST.Areas.ProductDetails.Controllers
 
         public ActionResult GetProduct(string id)
         {
+            if (id == null)
+            {
+                return View("~/Views/Shared/Error.cshtml");
+            }
+
             // The last element of the breadcrumbs list is the current page
             ViewBag.breadcrumbs = new List<string> { "Home", "Inventory", id};
 
-            System.Diagnostics.Debug.WriteLine("oi, sou um id: " + id);
             var artigo = from m in db.Product
-                         where m.ProductCode == "A0001"
+                         where m.ProductCode == id
                          select m;
 
             ViewBag.artigo = artigo.ToList();
+
+            //Lib_Primavera.PriIntegration.Encomendas_Produto_List(id, null);
 
             return View();
         }
