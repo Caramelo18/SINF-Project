@@ -243,9 +243,26 @@
     margin: 10px 0;
 }
 
+a, a:hover{
+    text-decoration: none;
+}
+
+.card-title{
+    color: #4caf50;
+}
+
+.product-group.card-subtitle.mb-2{
+    color: #1779ba;
+}
+
 .card-title, .availability{
     text-align: center;
 }
+
+.card-link{
+    color: #2196f3;
+}
+
 
 .available{
     color: green;

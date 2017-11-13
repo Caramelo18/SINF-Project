@@ -11,8 +11,8 @@
             <div class="col-lg-4 col-md-6">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title">@artigo.ProductCode</h4>
-                        <h6 class="card-subtitle mb-2 text-muted">@artigo.ProductGroup</h6>
+                        <a href="@Url.Action("GetProduct", "Home", new {id = artigo.ProductCode })"><h4 class="card-title">@artigo.ProductCode</h4></a>
+                        <h6 class="product-group card-subtitle mb-2">@artigo.ProductGroup</h6>
                         <p class="card-text">@artigo.ProductDescription</p>
                         <div class="availability">
                             @if (@artigo.ProductStock == 0)
@@ -24,8 +24,7 @@
                                 <h5 class="available">Available</h5>
                             }
                         </div>
-
-                        <a href="#" class="card-link">See Orders</a><br/>
+                        <a href="#" class="card-link see-orders">See Orders</a><br/>
                         <a href="#" class="card-link">See warehouse distribution</a>
 
                     </div>
