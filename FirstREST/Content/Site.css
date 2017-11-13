@@ -321,14 +321,14 @@ a, a:hover{
     background: #9f9191;
 }
 
-table {
+#table-get-product table {
     width: 100%;
     border-spacing: 0;
 }
 
-thead, tbody, tr, th, td { display: block; }
+#table-get-product thead, #table-get-product tbody, #table-get-product tr, #table-get-product th, #table-get-product td { display: block; }
 
-thead tr {
+#table-get-product thead tr {
     
     width: 97%;
     
@@ -337,20 +337,20 @@ thead tr {
     width:         calc(100% - 16px);
 }
 
-tr:after {
+#table-get-product tr:after {
     content: ' ';
     display: block;
     visibility: hidden;
     clear: both;
 }
 
-tbody {
+#table-get-product tbody {
     height: 27rem;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-tbody td, thead th {
+#table-get-product tbody td, #table-get-product thead th {
     width: 33%;
     float: left;
 }
