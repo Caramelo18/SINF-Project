@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="card product-details-card">
                     <div class="card-block">
@@ -57,8 +57,8 @@
                 </div>
             </div>
             <div class="row">
-               <button type="button" class="product-details-btn">See Orders</button>
-               <button type="button" class="product-details-btn">See Warehouse Distribution</button>
+                <button type="button" class="product-details-btn">See Orders</button>
+                <button type="button" class="product-details-btn">See Warehouse Distribution</button>
             </div>
 
         </div>
@@ -100,66 +100,28 @@
                 <div class="table card product-details-card">
                     <div class="card-block">
                         <table style="width:100%;table-layout:fixed;text-align:center;">
-                            <tr style="border-bottom: 1px solid #e6e6e6;">
-                                <th style="text-align:center;">ClientCode</th>
-                                <th style="text-align:center;">Quantity</th>
-                                <th style="text-align:center;">Date</th>
-                            </tr>
-                            <tr>
-                                <td style="padding-right:0px;">article1</td>
-                                <td style="padding-right:0px;">30 000</td>
-                                <td style="padding-right:0px;">location1</td>
-                            </tr>
-                            <tr>
-                                <td style="padding-right:0px;">article2</td>
-                                <td style="padding-right:0px;">1 500</td>
-                                <td style="padding-right:0px;">location2</td>
-                            </tr>
-                            <tr>
-                                <td style="padding-right:0px;">article3</td>
-                                <td style="padding-right:0px;">3 219</td>
-                                <td style="padding-right:0px;">location3</td>
-                            </tr>
-                            <tr>
-                                <td style="padding-right:0px;">article4</td>
-                                <td style="padding-right:0px;">15 231</td>
-                                <td style="padding-right:0px;">location4</td>
-                            </tr>
-                            <tr>
-                                <td style="padding-right:0px;">article5</td>
-                                <td style="padding-right:0px;">34 567</td>
-                                <td style="padding-right:0px;">location5</td>
-                            </tr>
-                            <tr>
-                                <td style="padding-right:0px;">article6</td>
-                                <td style="padding-right:0px;">234 658</td>
-                                <td style="padding-right:0px;">location6</td>
-                            </tr>
-                            <tr>
-                                <td style="padding-right:0px;">article7</td>
-                                <td style="padding-right:0px;">34 567</td>
-                                <td style="padding-right:0px;">location5</td>
-                            </tr>
-                            <tr>
-                                <td style="padding-right:0px;">article8</td>
-                                <td style="padding-right:0px;">234 658</td>
-                                <td style="padding-right:0px;">location6</td>
-                            </tr>
-                            <tr>
-                                <td style="padding-right:0px;">article8</td>
-                                <td style="padding-right:0px;">234 658</td>
-                                <td style="padding-right:0px;">location6</td>
-                            </tr>
-                            <tr>
-                                <td style="padding-right:0px;">article8</td>
-                                <td style="padding-right:0px;">234 658</td>
-                                <td style="padding-right:0px;">location6</td>
-                            </tr>
+                            <thead>
+                                <tr style="border-bottom: 1px solid #e6e6e6;">
+                                    <th style="text-align:center;">ClientCode</th>
+                                    <th style="text-align:center;">Quantity</th>
+                                    <th style="text-align:center;">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.encomendas)
+                                {
+
+                                    <tr>
+                                        <td style="padding-right:0px;">@item.Entidade</td>
+                                        <td style="padding-right:0px;">@item.TotalMerc</td>
+                                        <td style="padding-right:0px;">@item.Data</td>
+                                    </tr>
+                                }
+                            </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
