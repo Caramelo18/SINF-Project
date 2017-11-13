@@ -16,6 +16,7 @@ namespace FirstREST.Saft
     {
         static Stack<Tuple<string, string>> keys = new Stack<Tuple<string, string>>();
         static DatabaseEntities db = new DatabaseEntities();
+        static int billingId = 1;
 
         public static object GetInstance(string strFullyQualifiedName)
         {
@@ -65,6 +66,13 @@ namespace FirstREST.Saft
                             try
                             {
                                 db.SaveChanges();
+                                if (node.Name == "BillingAddress")
+                                {
+                                    PropertyInfo billId = subClass.GetType().GetProperty("ID");
+                                    var value = billId.GetValue(subClass);
+                                    PropertyInfo customerBillId = classModel.GetType().GetProperty("BillingAddressID");
+                                    customerBillId.SetValue(classModel, value);
+                                }
                             }
                             catch (DbEntityValidationException e)
                             { }
