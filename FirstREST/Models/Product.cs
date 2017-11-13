@@ -16,7 +16,7 @@ namespace FirstREST.Models
     {
         public Product()
         {
-            this.SaleInvoiceLine = new HashSet<SaleInvoiceLine>();
+            this.Line = new HashSet<Line>();
         }
     
         public string ProductType { get; set; }
@@ -26,6 +26,6 @@ namespace FirstREST.Models
         public string ProductNumberCode { get; set; }
         public int ProductStock { get; set; }
     
-        public virtual ICollection<SaleInvoiceLine> SaleInvoiceLine { get; set; }
+        public virtual ICollection<Line> Line { get; set; }
     }
 }

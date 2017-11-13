@@ -231,6 +231,51 @@ namespace FirstREST.Saft
 
         #region DocsVenda
 
+        public static void ParseSalesInvoices(XmlDocument doc, DatabaseEntities db)
+        {
+            XmlNodeList salesInvoicesList = doc.GetElementsByTagName("Invoice");
+
+            foreach (XmlNode xml in salesInvoicesList)
+            {
+                if (xml.HasChildNodes)
+                {
+
+                    string invoiceNo = xml.ChildNodes[0].InnerText;
+                    Models.Invoice client = db.Invoice.Find(invoiceNo);
+
+                    if (client != null)
+                    {
+                        System.Diagnostics.Debug.WriteLine("vou dar update");
+                        //TO DO: update
+                        //client = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Customer");
+
+                    }
+                    else
+                    {
+                        Models.Invoice newInvoice = (Models.Invoice)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Invoice");
+                        db.Invoice.Add(newInvoice);
+                    }
+
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (DbEntityValidationException e)
+                    {
+                        var errorMessages = e.EntityValidationErrors
+                        .SelectMany(x => x.ValidationErrors)
+                        .Select(x => x.ErrorMessage);
+
+                        var fullError = string.Join("; ", errorMessages);
+
+                        var exception = string.Concat(e.Message, "Errors: ", fullError);
+
+                        throw new DbEntityValidationException(exception, e.EntityValidationErrors);
+                    }
+                }
+            }
+        }
+
         #endregion DocsVenda
 
         #region Fornecedor

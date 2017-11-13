@@ -315,9 +315,6 @@
     <Compile Include="Lib_Primavera\Model\LinhaDocVenda.cs" />
     <Compile Include="Lib_Primavera\Model\RespostaErro.cs" />
     <Compile Include="Lib_Primavera\PriEngine.cs" />
-    <Compile Include="Models\AllSalesInvoicesInfo.cs">
-      <DependentUpon>Database.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\BillingAddress.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -342,16 +339,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DocumentTotals.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Invoice.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Line.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SaleInvoice.cs">
+    <Compile Include="Models\SalesInvoices.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SaleInvoiceLine.cs">
+    <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SaleInvoiceTotal.cs">
+    <Compile Include="Models\Tax.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -363,9 +369,9 @@
     <Compile Include="Saft\SaftIntegration.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Db.mdf" />
-    <Content Include="App_Data\Db_log.ldf">
-      <DependentUpon>Db.mdf</DependentUpon>
+    <Content Include="App_Data\db.mdf" />
+    <Content Include="App_Data\db_log.ldf">
+      <DependentUpon>db.mdf</DependentUpon>
     </Content>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap\css\bootstrap-grid.css" />

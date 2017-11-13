@@ -5,19 +5,22 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a0ab177b5d664fa2bd8810207d8f84ef" Name="Diagram1">
-        <EntityTypeShape EntityType="DbModel.AllSalesInvoicesInfo" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.BillingAddress" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.Company" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.Customer" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.Product" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.SaleInvoice" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.SaleInvoiceLine" Width="1.5" PointX="7.5" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.SaleInvoiceTotal" Width="1.5" PointX="7.5" PointY="6.625" IsExpanded="true" />
-        <AssociationConnector Association="DbModel.FK_Customer_BillingAddress" ManuallyRouted="false" />
-        <AssociationConnector Association="DbModel.FK_SaleInvoice_Customer" ManuallyRouted="false" />
-        <AssociationConnector Association="DbModel.FK_SaleInvoiceLine_Product" ManuallyRouted="false" />
-        <AssociationConnector Association="DbModel.FK_SaleInvoiceLine_SaleInvoice" ManuallyRouted="false" />
-        <AssociationConnector Association="DbModel.FK_SaleInvoiceTotal_SaleInvoice" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DbModel.BillingAddress" Width="1.5" PointX="0.75" PointY="4.875" />
+        <EntityTypeShape EntityType="DbModel.Company" Width="1.5" PointX="0.75" PointY="9.375" />
+        <EntityTypeShape EntityType="DbModel.Customer" Width="1.5" PointX="3" PointY="4.125" />
+        <EntityTypeShape EntityType="DbModel.DocumentTotals" Width="1.5" PointX="7.5" PointY="9.375" />
+        <EntityTypeShape EntityType="DbModel.Invoice" Width="1.5" PointX="5.25" PointY="4.125" />
+        <EntityTypeShape EntityType="DbModel.Line" Width="1.5" PointX="7.5" PointY="4.125" />
+        <EntityTypeShape EntityType="DbModel.Product" Width="1.5" PointX="5.25" PointY="0.75" />
+        <EntityTypeShape EntityType="DbModel.SalesInvoices" Width="1.5" PointX="2.75" PointY="9.375" />
+        <EntityTypeShape EntityType="DbModel.sysdiagrams" Width="1.5" PointX="4.75" PointY="9.375" />
+        <EntityTypeShape EntityType="DbModel.Tax" Width="1.5" PointX="9.75" PointY="4.625" />
+        <AssociationConnector Association="DbModel.FK_Customer_BillingAddress" />
+        <AssociationConnector Association="DbModel.FK_Invoice_Customer" />
+        <AssociationConnector Association="DbModel.FK_DocumentTotals_Invoice" />
+        <AssociationConnector Association="DbModel.FK_Line_Invoice" />
+        <AssociationConnector Association="DbModel.FK_Line_Product" />
+        <AssociationConnector Association="DbModel.FK_Tax_Line" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

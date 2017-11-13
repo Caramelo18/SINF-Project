@@ -16,7 +16,7 @@ namespace FirstREST.Models
     {
         public Customer()
         {
-            this.SaleInvoice = new HashSet<SaleInvoice>();
+            this.Invoice = new HashSet<Invoice>();
         }
     
         public string CustomerID { get; set; }
@@ -33,6 +33,6 @@ namespace FirstREST.Models
         public string Website { get; set; }
     
         public virtual BillingAddress BillingAddress { get; set; }
-        public virtual ICollection<SaleInvoice> SaleInvoice { get; set; }
+        public virtual ICollection<Invoice> Invoice { get; set; }
     }
 }
