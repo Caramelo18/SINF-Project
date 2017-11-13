@@ -363,6 +363,10 @@
     <Compile Include="Saft\SaftIntegration.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Database2.mdf" />
+    <Content Include="App_Data\Database2_log.ldf">
+      <DependentUpon>Database2.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\Db.mdf" />
     <Content Include="App_Data\Db_log.ldf">
       <DependentUpon>Db.mdf</DependentUpon>
