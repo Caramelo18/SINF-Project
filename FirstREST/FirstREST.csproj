@@ -354,9 +354,6 @@
     <Compile Include="Models\SalesInvoices.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>Database.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Tax.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>

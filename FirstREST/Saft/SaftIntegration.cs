@@ -13,6 +13,8 @@ namespace FirstREST.Saft
     public class SaftIntegration
     {
 
+        DatabaseEntities db = new DatabaseEntities();
+
         public static object GetInstance(string strFullyQualifiedName)
         {
             Type type = Type.GetType(strFullyQualifiedName);
@@ -44,7 +46,13 @@ namespace FirstREST.Saft
                         string newClassName = "FirstREST.Models." + node.Name;
                         PropertyInfo subClassProperty = classModel.GetType().GetProperty(node.Name);
                         object subClass = ParseRecursive(node.ChildNodes, newClassName);
-                        subClassProperty.SetValue(classModel, subClass);
+
+                        bool belongsToClass = subClassProperty != null;
+
+                        if (belongsToClass && !subClassProperty.GetGetMethod().IsVirtual)
+                        {
+                            subClassProperty.SetValue(classModel, subClass);
+                        }
                     }
                     else
                     {
@@ -233,7 +241,7 @@ namespace FirstREST.Saft
 
         public static void ParseSalesInvoices(XmlDocument doc, DatabaseEntities db)
         {
-            XmlNodeList salesInvoicesList = doc.GetElementsByTagName("Invoice");
+            XmlNodeList salesInvoicesList = doc.GetElementsByTagName("SalesInvoices");
 
             foreach (XmlNode xml in salesInvoicesList)
             {
@@ -252,8 +260,8 @@ namespace FirstREST.Saft
                     }
                     else
                     {
-                        Models.Invoice newInvoice = (Models.Invoice)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Invoice");
-                        db.Invoice.Add(newInvoice);
+                        Models.SalesInvoices newInvoice = (Models.SalesInvoices)ParseRecursive(xml.ChildNodes, "FirstREST.Models.SalesInvoices");
+                        db.SalesInvoices.Add(newInvoice);
                     }
 
                     try

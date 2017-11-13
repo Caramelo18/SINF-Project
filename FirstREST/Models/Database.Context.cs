@@ -33,7 +33,6 @@ namespace FirstREST.Models
         public virtual DbSet<Line> Line { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<SalesInvoices> SalesInvoices { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Tax> Tax { get; set; }
     }
 }
