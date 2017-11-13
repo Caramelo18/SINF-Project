@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
@@ -14,8 +14,7 @@ namespace FirstREST.Saft
 {
     public class SaftIntegration
     {
-        static Stack<Tuple<string, string>> keys = new Stack<Tuple<string,string>>();
-
+        static Stack<Tuple<string, string>> keys = new Stack<Tuple<string, string>>();
         static DatabaseEntities db = new DatabaseEntities();
 
         public static object GetInstance(string strFullyQualifiedName)
@@ -38,9 +37,6 @@ namespace FirstREST.Saft
         public static object ParseRecursive(XmlNodeList list, string className)
         {
             object classModel = GetInstance(className);
-            db.Set(classModel.GetType()).Add(classModel);
-            saveToDb(db);
-
             if (classModel == null) return null;
             foreach (XmlNode node in list)
             {
@@ -54,44 +50,44 @@ namespace FirstREST.Saft
                         object subClass = ParseRecursive(node.ChildNodes, newClassName);
 
                         removeKey(node.Name);
-                        
                         bool belongsToClass = subClassProperty != null;
 
                         if (belongsToClass && !subClassProperty.GetGetMethod().IsVirtual)
                         {
-                            PropertyAttributes attr = subClassProperty.Attributes;
                             subClassProperty.SetValue(classModel, subClass);
-                            saveToDb(db);
-
                         }
                         else
                         {
-                            
-                            Type classType = GetInstance(newClassName).GetType();
                             //adicionar fk
-                            classModel = addForeignKey(subClass, node.Name);
-                            db.Entry(classModel).State = System.Data.Entity.EntityState.Modified;
-                            saveToDb(db);
-
-                            //ver ids das connected tables
+                            subClass = addForeignKey(subClass, node.Name);
+                            //db.Entry(subClass).State = System.Data.Entity.EntityState.Modified;
+                            db.Set(subClass.GetType()).Add(subClass);
+                            try
+                            {
+                                db.SaveChanges();
+                            }
+                            catch (DbEntityValidationException e)
+                            { }
                         }
                     }
                     else
                     {
-                        saveKey(className, node.Name, node.InnerText);
-
                         PropertyInfo propertyInfo = classModel.GetType().GetProperty(node.Name);
                         propertyInfo.SetValue(classModel, Convert.ChangeType(node.InnerText, propertyInfo.PropertyType), null);
-                        db.Entry(classModel).State = System.Data.Entity.EntityState.Modified;
-                        saveToDb(db);
+
+                        if (saveKey(className, node.Name, node.InnerText))
+                        {
+                            //db.Set(classModel.GetType()).Add(classModel);
+                        }
                     }
                 }
             }
+            
             return classModel;
         }
 
         # region shitty stuff cause c# is shitty
-        private static void saveKey(string className, string property, string value)
+        private static bool saveKey(string className, string property, string value)
         {
                
             if((className ==  "FirstREST.Models.Customer" && property == "CustomerId") ||
@@ -99,7 +95,9 @@ namespace FirstREST.Saft
                 (className == "FirstREST.Models.Line" && property == "LineNumber"))
             {
                 keys.Push(new Tuple<string, string>(property, value));
+                return true;
             }
+            return false;
         }
 
         private static void removeKey(string className)
@@ -182,8 +180,6 @@ namespace FirstREST.Saft
                     {
                         Models.Customer newClient = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Customer");
                         db.Customer.Add(newClient);
-                        saveToDb(db);
-                        int i = 0;
                     }
 
                     saveToDb(db);
@@ -244,7 +240,7 @@ namespace FirstREST.Saft
 
         #region Artigo
 
-        public static void ParseProducts(XmlDocument doc, DatabaseEntities db)
+        public static void ParseProducts(XmlDocument doc)
         {
             XmlNodeList productsList = doc.GetElementsByTagName("Product");
 
@@ -269,7 +265,12 @@ namespace FirstREST.Saft
                         db.Product.Add(newProduct);
                     }
 
-                    saveToDb(db);
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (DbEntityValidationException e)
+                    { }
                 }
             }
         }

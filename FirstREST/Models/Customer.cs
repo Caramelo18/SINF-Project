@@ -14,11 +14,6 @@ namespace FirstREST.Models
     
     public partial class Customer
     {
-        public Customer()
-        {
-            this.Invoice = new HashSet<Invoice>();
-        }
-    
         public string CustomerID { get; set; }
         public string AccountID { get; set; }
         public string CustomerTaxID { get; set; }
@@ -31,8 +26,5 @@ namespace FirstREST.Models
         public string CustomerEmail { get; set; }
         public string Fax { get; set; }
         public string Website { get; set; }
-    
-        public virtual BillingAddress BillingAddress { get; set; }
-        public virtual ICollection<Invoice> Invoice { get; set; }
     }
 }

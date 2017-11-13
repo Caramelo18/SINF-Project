@@ -14,18 +14,11 @@ namespace FirstREST.Models
     
     public partial class Product
     {
-        public Product()
-        {
-            this.Line = new HashSet<Line>();
-        }
-    
         public string ProductType { get; set; }
         public string ProductCode { get; set; }
         public string ProductGroup { get; set; }
         public string ProductDescription { get; set; }
         public string ProductNumberCode { get; set; }
         public int ProductStock { get; set; }
-    
-        public virtual ICollection<Line> Line { get; set; }
     }
 }

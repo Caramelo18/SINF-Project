@@ -4,22 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7c89789860a64a09824e32c2435485a8" Name="Diagram1">
-        <EntityTypeShape EntityType="DbModel.BillingAddress" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.Company" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.Customer" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.DocumentTotals" Width="1.5" PointX="7.5" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.Invoice" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.Line" Width="1.5" PointX="10.5" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.Product" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.SalesInvoices" Width="1.5" PointX="2.75" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DbModel.Tax" Width="1.5" PointX="12.75" PointY="3.625" IsExpanded="true" />
-        <AssociationConnector Association="DbModel.FK_Customer_BillingAddress" ManuallyRouted="false" />
-        <AssociationConnector Association="DbModel.FK_Invoice_Customer" ManuallyRouted="false" />
-        <AssociationConnector Association="DbModel.FK_DocumentTotals_Invoice" ManuallyRouted="false" />
-        <AssociationConnector Association="DbModel.FK_Line_Invoice" ManuallyRouted="false" />
-        <AssociationConnector Association="DbModel.FK_Line_Product" ManuallyRouted="false" />
-        <AssociationConnector Association="DbModel.FK_Tax_Line" ManuallyRouted="false" />
+      <Diagram DiagramId="e8422841e2d6410aa788071273acb3ec" Name="Diagram1">
+        <EntityTypeShape EntityType="abcModel.BillingAddress" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcModel.Company" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcModel.Customer" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcModel.DocumentTotals" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcModel.Invoice" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcModel.Line" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcModel.Product" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcModel.SalesInvoices" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="abcModel.Tax" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

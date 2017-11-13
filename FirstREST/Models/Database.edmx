@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="abcModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BillingAddress">
           <Key>
             <PropertyRef Name="ID" />
@@ -115,83 +115,7 @@
           <Property Name="TaxPercentage" Type="varchar" MaxLength="50" />
           <Property Name="SettlementAmount" Type="varchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK_Customer_BillingAddress">
-          <End Role="BillingAddress" Type="Self.BillingAddress" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BillingAddress">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Customer">
-              <PropertyRef Name="BillingAddressID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DocumentTotals_Invoice">
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
-          <End Role="DocumentTotals" Type="Self.DocumentTotals" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Invoice">
-              <PropertyRef Name="InvoiceNo" />
-            </Principal>
-            <Dependent Role="DocumentTotals">
-              <PropertyRef Name="InvoiceNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Invoice_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="Invoice">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Line_Invoice">
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
-          <End Role="Line" Type="Self.Line" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Invoice">
-              <PropertyRef Name="InvoiceNo" />
-            </Principal>
-            <Dependent Role="Line">
-              <PropertyRef Name="InvoiceNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Line_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="Line" Type="Self.Line" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="ProductCode" />
-            </Principal>
-            <Dependent Role="Line">
-              <PropertyRef Name="ProductCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tax_Line">
-          <End Role="Line" Type="Self.Line" Multiplicity="1" />
-          <End Role="Tax" Type="Self.Tax" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Line">
-              <PropertyRef Name="LineNumber" />
-              <PropertyRef Name="InvoiceNo" />
-            </Principal>
-            <Dependent Role="Tax">
-              <PropertyRef Name="LineNumber" />
-              <PropertyRef Name="InvoiceNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="DbModelStoreContainer">
+        <EntityContainer Name="abcModelStoreContainer">
           <EntitySet Name="BillingAddress" EntityType="Self.BillingAddress" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
@@ -201,36 +125,12 @@
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SalesInvoices" EntityType="Self.SalesInvoices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tax" EntityType="Self.Tax" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Customer_BillingAddress" Association="Self.FK_Customer_BillingAddress">
-            <End Role="BillingAddress" EntitySet="BillingAddress" />
-            <End Role="Customer" EntitySet="Customer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DocumentTotals_Invoice" Association="Self.FK_DocumentTotals_Invoice">
-            <End Role="Invoice" EntitySet="Invoice" />
-            <End Role="DocumentTotals" EntitySet="DocumentTotals" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Invoice_Customer" Association="Self.FK_Invoice_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="Invoice" EntitySet="Invoice" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Line_Invoice" Association="Self.FK_Line_Invoice">
-            <End Role="Invoice" EntitySet="Invoice" />
-            <End Role="Line" EntitySet="Line" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Line_Product" Association="Self.FK_Line_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="Line" EntitySet="Line" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tax_Line" Association="Self.FK_Tax_Line">
-            <End Role="Line" EntitySet="Line" />
-            <End Role="Tax" EntitySet="Tax" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="DbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="abcModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="BillingAddress">
           <Key>
             <PropertyRef Name="ID" />
@@ -240,7 +140,6 @@
           <Property Name="City" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="PostalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Country" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_Customer_BillingAddress" FromRole="BillingAddress" ToRole="Customer" />
         </EntityType>
         <EntityType Name="Company">
           <Key>
@@ -266,8 +165,6 @@
           <Property Name="CustomerEmail" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="BillingAddress" Relationship="Self.FK_Customer_BillingAddress" FromRole="Customer" ToRole="BillingAddress" />
-          <NavigationProperty Name="Invoice" Relationship="Self.FK_Invoice_Customer" FromRole="Customer" ToRole="Invoice" />
         </EntityType>
         <EntityType Name="DocumentTotals">
           <Key>
@@ -277,7 +174,6 @@
           <Property Name="TaxPayable" Type="Double" Nullable="false" />
           <Property Name="NetTotal" Type="Double" Nullable="false" />
           <Property Name="GrossTotal" Type="Double" Nullable="false" />
-          <NavigationProperty Name="Invoice" Relationship="Self.FK_DocumentTotals_Invoice" FromRole="DocumentTotals" ToRole="Invoice" />
         </EntityType>
         <EntityType Name="Invoice">
           <Key>
@@ -293,9 +189,6 @@
           <Property Name="SelfBillingIndicator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="SystemEntryDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CustomerID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_Invoice_Customer" FromRole="Invoice" ToRole="Customer" />
-          <NavigationProperty Name="DocumentTotals" Relationship="Self.FK_DocumentTotals_Invoice" FromRole="Invoice" ToRole="DocumentTotals" />
-          <NavigationProperty Name="Line" Relationship="Self.FK_Line_Invoice" FromRole="Invoice" ToRole="Line" />
         </EntityType>
         <EntityType Name="Line">
           <Key>
@@ -314,9 +207,6 @@
           <Property Name="CreditAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SettlementAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TaxExemptionReason" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Invoice" Relationship="Self.FK_Line_Invoice" FromRole="Line" ToRole="Invoice" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Line_Product" FromRole="Line" ToRole="Product" />
-          <NavigationProperty Name="Tax" Relationship="Self.FK_Tax_Line" FromRole="Line" ToRole="Tax" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -328,7 +218,6 @@
           <Property Name="ProductDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="ProductNumberCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ProductStock" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Line" Relationship="Self.FK_Line_Product" FromRole="Product" ToRole="Line" />
         </EntityType>
         <EntityType Name="SalesInvoices">
           <Key>
@@ -351,84 +240,7 @@
           <Property Name="TaxCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="TaxPercentage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SettlementAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Line" Relationship="Self.FK_Tax_Line" FromRole="Tax" ToRole="Line" />
         </EntityType>
-        <Association Name="FK_Customer_BillingAddress">
-          <End Role="BillingAddress" Type="Self.BillingAddress" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BillingAddress">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Customer">
-              <PropertyRef Name="BillingAddressID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Invoice_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="Invoice">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DocumentTotals_Invoice">
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
-          <End Role="DocumentTotals" Type="Self.DocumentTotals" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Invoice">
-              <PropertyRef Name="InvoiceNo" />
-            </Principal>
-            <Dependent Role="DocumentTotals">
-              <PropertyRef Name="InvoiceNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Line_Invoice">
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
-          <End Role="Line" Type="Self.Line" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Invoice">
-              <PropertyRef Name="InvoiceNo" />
-            </Principal>
-            <Dependent Role="Line">
-              <PropertyRef Name="InvoiceNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Line_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="Line" Type="Self.Line" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="ProductCode" />
-            </Principal>
-            <Dependent Role="Line">
-              <PropertyRef Name="ProductCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tax_Line">
-          <End Role="Line" Type="Self.Line" Multiplicity="1" />
-          <End Role="Tax" Type="Self.Tax" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Line">
-              <PropertyRef Name="LineNumber" />
-              <PropertyRef Name="InvoiceNo" />
-            </Principal>
-            <Dependent Role="Tax">
-              <PropertyRef Name="LineNumber" />
-              <PropertyRef Name="InvoiceNo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BillingAddress" EntityType="Self.BillingAddress" />
           <EntitySet Name="Company" EntityType="Self.Company" />
@@ -439,39 +251,15 @@
           <EntitySet Name="Product" EntityType="Self.Product" />
           <EntitySet Name="SalesInvoices" EntityType="Self.SalesInvoices" />
           <EntitySet Name="Tax" EntityType="Self.Tax" />
-          <AssociationSet Name="FK_Customer_BillingAddress" Association="Self.FK_Customer_BillingAddress">
-            <End Role="BillingAddress" EntitySet="BillingAddress" />
-            <End Role="Customer" EntitySet="Customer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Invoice_Customer" Association="Self.FK_Invoice_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="Invoice" EntitySet="Invoice" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DocumentTotals_Invoice" Association="Self.FK_DocumentTotals_Invoice">
-            <End Role="Invoice" EntitySet="Invoice" />
-            <End Role="DocumentTotals" EntitySet="DocumentTotals" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Line_Invoice" Association="Self.FK_Line_Invoice">
-            <End Role="Invoice" EntitySet="Invoice" />
-            <End Role="Line" EntitySet="Line" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Line_Product" Association="Self.FK_Line_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="Line" EntitySet="Line" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tax_Line" Association="Self.FK_Tax_Line">
-            <End Role="Line" EntitySet="Line" />
-            <End Role="Tax" EntitySet="Tax" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DbModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+        <EntityContainerMapping StorageEntityContainer="abcModelStoreContainer" CdmEntityContainer="DatabaseEntities">
           <EntitySetMapping Name="BillingAddress">
-            <EntityTypeMapping TypeName="DbModel.BillingAddress">
+            <EntityTypeMapping TypeName="abcModel.BillingAddress">
               <MappingFragment StoreEntitySet="BillingAddress">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="AddressDetail" ColumnName="AddressDetail" />
@@ -482,7 +270,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Company">
-            <EntityTypeMapping TypeName="DbModel.Company">
+            <EntityTypeMapping TypeName="abcModel.Company">
               <MappingFragment StoreEntitySet="Company">
                 <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
                 <ScalarProperty Name="TaxRegistrationNumber" ColumnName="TaxRegistrationNumber" />
@@ -491,7 +279,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Customer">
-            <EntityTypeMapping TypeName="DbModel.Customer">
+            <EntityTypeMapping TypeName="abcModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
@@ -509,7 +297,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DocumentTotals">
-            <EntityTypeMapping TypeName="DbModel.DocumentTotals">
+            <EntityTypeMapping TypeName="abcModel.DocumentTotals">
               <MappingFragment StoreEntitySet="DocumentTotals">
                 <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
                 <ScalarProperty Name="TaxPayable" ColumnName="TaxPayable" />
@@ -519,7 +307,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Invoice">
-            <EntityTypeMapping TypeName="DbModel.Invoice">
+            <EntityTypeMapping TypeName="abcModel.Invoice">
               <MappingFragment StoreEntitySet="Invoice">
                 <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
                 <ScalarProperty Name="InvoiceStatus" ColumnName="InvoiceStatus" />
@@ -535,7 +323,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Line">
-            <EntityTypeMapping TypeName="DbModel.Line">
+            <EntityTypeMapping TypeName="abcModel.Line">
               <MappingFragment StoreEntitySet="Line">
                 <ScalarProperty Name="LineNumber" ColumnName="LineNumber" />
                 <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
@@ -553,7 +341,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Product">
-            <EntityTypeMapping TypeName="DbModel.Product">
+            <EntityTypeMapping TypeName="abcModel.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="ProductType" ColumnName="ProductType" />
                 <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
@@ -565,7 +353,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SalesInvoices">
-            <EntityTypeMapping TypeName="DbModel.SalesInvoices">
+            <EntityTypeMapping TypeName="abcModel.SalesInvoices">
               <MappingFragment StoreEntitySet="SalesInvoices">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="NumberOfEntries" ColumnName="NumberOfEntries" />
@@ -575,7 +363,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tax">
-            <EntityTypeMapping TypeName="DbModel.Tax">
+            <EntityTypeMapping TypeName="abcModel.Tax">
               <MappingFragment StoreEntitySet="Tax">
                 <ScalarProperty Name="LineNumber" ColumnName="LineNumber" />
                 <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />

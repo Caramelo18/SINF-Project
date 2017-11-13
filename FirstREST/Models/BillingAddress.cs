@@ -14,17 +14,10 @@ namespace FirstREST.Models
     
     public partial class BillingAddress
     {
-        public BillingAddress()
-        {
-            this.Customer = new HashSet<Customer>();
-        }
-    
         public int ID { get; set; }
         public string AddressDetail { get; set; }
         public string City { get; set; }
         public string PostalCode { get; set; }
         public string Country { get; set; }
-    
-        public virtual ICollection<Customer> Customer { get; set; }
     }
 }
