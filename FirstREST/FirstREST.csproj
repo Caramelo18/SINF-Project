@@ -348,6 +348,9 @@
     <Compile Include="Models\Line.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OrderReferences.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>

@@ -65,7 +65,7 @@ namespace FirstREST.Saft
                             db.Set(subClass.GetType()).Add(subClass);
                             try
                             {
-                                db.SaveChanges();
+                                //db.SaveChanges();
                                 if (node.Name == "BillingAddress")
                                 {
                                     PropertyInfo billId = subClass.GetType().GetProperty("ID");
@@ -352,7 +352,7 @@ namespace FirstREST.Saft
 
         #region DocsVenda
 
-        public static void ParseSalesInvoices(XmlDocument doc, DatabaseEntities db)
+        public static void ParseSalesInvoices(XmlDocument doc)
         {
             XmlNodeList salesInvoicesList = doc.GetElementsByTagName("SalesInvoices");
 

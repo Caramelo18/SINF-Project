@@ -23,7 +23,7 @@ namespace FirstREST.Areas.SalesDetails.Controllers
             XmlDocument doc = new XmlDocument();
             doc.Load(Server.MapPath(@"~\Content\saft.xml"));
 
-            Saft.SaftIntegration.ParseSalesInvoices(doc, db);
+            Saft.SaftIntegration.ParseSalesInvoices(doc);
 
             return View();
         }

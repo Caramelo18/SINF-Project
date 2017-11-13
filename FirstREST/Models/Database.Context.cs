@@ -31,6 +31,7 @@ namespace FirstREST.Models
         public virtual DbSet<DocumentTotals> DocumentTotals { get; set; }
         public virtual DbSet<Invoice> Invoice { get; set; }
         public virtual DbSet<Line> Line { get; set; }
+        public virtual DbSet<OrderReferences> OrderReferences { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<SalesInvoices> SalesInvoices { get; set; }
         public virtual DbSet<Tax> Tax { get; set; }

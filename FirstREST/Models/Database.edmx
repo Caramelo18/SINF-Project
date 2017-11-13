@@ -82,6 +82,14 @@
           <Property Name="SettlementAmount" Type="varchar" MaxLength="50" />
           <Property Name="TaxExemptionReason" Type="varchar" MaxLength="200" />
         </EntityType>
+        <EntityType Name="OrderReferences">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OriginatingON" Type="varchar" MaxLength="50" />
+          <Property Name="OrderDate" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ProductCode" />
@@ -122,6 +130,7 @@
           <EntitySet Name="DocumentTotals" EntityType="Self.DocumentTotals" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Line" EntityType="Self.Line" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderReferences" EntityType="Self.OrderReferences" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SalesInvoices" EntityType="Self.SalesInvoices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tax" EntityType="Self.Tax" Schema="dbo" store:Type="Tables" />
@@ -208,6 +217,14 @@
           <Property Name="SettlementAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TaxExemptionReason" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="OrderReferences">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OriginatingON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OrderDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ProductCode" />
@@ -248,6 +265,7 @@
           <EntitySet Name="DocumentTotals" EntityType="Self.DocumentTotals" />
           <EntitySet Name="Invoice" EntityType="Self.Invoice" />
           <EntitySet Name="Line" EntityType="Self.Line" />
+          <EntitySet Name="OrderReferences" EntityType="Self.OrderReferences" />
           <EntitySet Name="Product" EntityType="Self.Product" />
           <EntitySet Name="SalesInvoices" EntityType="Self.SalesInvoices" />
           <EntitySet Name="Tax" EntityType="Self.Tax" />
@@ -337,6 +355,15 @@
                 <ScalarProperty Name="CreditAmount" ColumnName="CreditAmount" />
                 <ScalarProperty Name="SettlementAmount" ColumnName="SettlementAmount" />
                 <ScalarProperty Name="TaxExemptionReason" ColumnName="TaxExemptionReason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderReferences">
+            <EntityTypeMapping TypeName="abcModel.OrderReferences">
+              <MappingFragment StoreEntitySet="OrderReferences">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="OriginatingON" ColumnName="OriginatingON" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
