@@ -53,6 +53,10 @@ namespace FirstREST.Areas.ProductDetails.Controllers
 
             ViewBag.artigo = artigo.ToList();
 
+            var encomendas = Lib_Primavera.PriIntegration.Encomendas_Produto_List(id, null);
+            ViewBag.encomendas = encomendas;
+
+                 
             //Lib_Primavera.PriIntegration.Encomendas_Produto_List(id, null);
 
             return View();
