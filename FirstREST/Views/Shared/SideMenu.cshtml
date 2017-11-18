@@ -65,6 +65,17 @@
 
     function refreshDatabase() {
         
+        $.ajax({
+            type: "PUT",
+            url: "/api/state/update",
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            },
+            success: function () {
+                alert("Success!");
+            }
+        });
+
     }
 
 </script>

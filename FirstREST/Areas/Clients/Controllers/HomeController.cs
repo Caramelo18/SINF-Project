@@ -25,13 +25,6 @@ namespace FirstREST.Areas.Clients.Controllers
         {
             // The last element of the breadcrumbs list is the current page
             ViewBag.breadcrumbs = new List<string> { "Home", "Clientes" };
-
-
-            XmlDocument doc = new XmlDocument();
-            doc.Load(Server.MapPath(@"~\Content\saft.xml"));
-
-            Saft.SaftIntegration.ParseCustomers(doc, db);
-            Saft.SaftIntegration.addClientsFromPrimaveraToDb(db);
            
             var clients = (from c in db.Customer
                           join a in db.BillingAddress
