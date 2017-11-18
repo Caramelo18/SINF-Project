@@ -554,35 +554,30 @@ namespace FirstREST.Lib_Primavera
             return listdc;
         }
 
-        public static List<Model.DocCompra> Accounts_Payable_List()
+        public static List<Model.Pendente> Accounts_Payable_List()
         {
 
             StdBELista objListCab;
-            Model.DocCompra dv = new Model.DocCompra();
-            List<Model.DocCompra> listdv = new List<Model.DocCompra>();
-            Model.LinhaDocVenda lindv = new Model.LinhaDocVenda();
+            Model.Pendente dv = new Model.Pendente();
+            List<Model.Pendente> listdv = new List<Model.Pendente>();
             List<Model.LinhaDocVenda> listlindv = new
             List<Model.LinhaDocVenda>();
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                StdBELista valorQ = PriEngine.Engine.Consulta("SELECT SUM(ValorPendente) AS Total From Pendentes WHERE ValorPendente < 0");
-                objListCab = PriEngine.Engine.Consulta("SELECT NumDoc, Entidade, DataDoc, ValorPendente From Pendentes WHERE ValorPendente < 0 ORDER BY ValorPendente ASC ");
-
-                dv = new Model.DocCompra();
-                dv.Entidade = "Total";
-                dv.TotalMerc = - valorQ.Valor("Total");
-                listdv.Add(dv);
+                objListCab = PriEngine.Engine.Consulta("SELECT TipoEntidade, Entidade, DataDoc, DataVenc, ValorTotal, ValorPendente, ModoPag From Pendentes WHERE ValorPendente < 0");
 
                 while (!objListCab.NoFim())
                 {
-                    dv = new Model.DocCompra();
-                    dv.id = objListCab.Valor("NumDoc");
+                    dv = new Model.Pendente();
+                    dv.TipoEntidade = objListCab.Valor("TipoEntidade");
                     dv.Entidade = objListCab.Valor("Entidade");
-                    dv.Data = objListCab.Valor("DataDoc");
-                    dv.TotalMerc = - objListCab.Valor("ValorPendente");
+                    dv.DataDoc = objListCab.Valor("DataDoc");
+                    dv.DataVenc = objListCab.Valor("DataVenc");
+                    dv.ValorTotal = objListCab.Valor("ValorTotal");
+                    dv.ValorPendente = objListCab.Valor("ValorPendente");
+                    dv.ModoPag = objListCab.Valor("ModoPag");
 
-                    //dv.LinhasDoc = listlindv;
                     listdv.Add(dv);
                     objListCab.Seguinte();
                 }
@@ -1033,35 +1028,30 @@ namespace FirstREST.Lib_Primavera
         }
 
 
-        public static List<Model.DocVenda> Accounts_Receivable_List()
+        public static List<Model.Pendente> Accounts_Receivable_List()
         {
 
             StdBELista objListCab;
-            Model.DocVenda dv = new Model.DocVenda();
-            List<Model.DocVenda> listdv = new List<Model.DocVenda>();
-            Model.LinhaDocVenda lindv = new Model.LinhaDocVenda();
+            Model.Pendente dv = new Model.Pendente();
+            List<Model.Pendente> listdv = new List<Model.Pendente>();
             List<Model.LinhaDocVenda> listlindv = new
             List<Model.LinhaDocVenda>();
 
             if (PriEngine.InitializeCompany(FirstREST.Properties.Settings.Default.Company.Trim(), FirstREST.Properties.Settings.Default.User.Trim(), FirstREST.Properties.Settings.Default.Password.Trim()) == true)
             {
-                StdBELista valorQ = PriEngine.Engine.Consulta("SELECT SUM(ValorPendente) AS Total From Pendentes WHERE ValorPendente > 0");
-                objListCab = PriEngine.Engine.Consulta("SELECT NumDoc, Entidade, DataDoc, ValorPendente From Pendentes WHERE ValorPendente > 0 ORDER BY ValorPendente DESC ");
-
-                dv = new Model.DocVenda();
-                dv.Entidade = "Total";
-                dv.TotalMerc = valorQ.Valor("Total");
-                listdv.Add(dv);
-
+                objListCab = PriEngine.Engine.Consulta("SELECT TipoEntidade, Entidade, DataDoc, DataVenc, ValorTotal, ValorPendente, ModoPag From Pendentes WHERE ValorPendente > 0");
+                
                 while (!objListCab.NoFim())
                 {
-                    dv = new Model.DocVenda();
-                    dv.id = objListCab.Valor("NumDoc");
+                    dv = new Model.Pendente();
+                    dv.TipoEntidade = objListCab.Valor("TipoEntidade");
                     dv.Entidade = objListCab.Valor("Entidade");
-                    dv.Data = objListCab.Valor("DataDoc");
-                    dv.TotalMerc = objListCab.Valor("ValorPendente");               
-
-                    //dv.LinhasDoc = listlindv;
+                    dv.DataDoc = objListCab.Valor("DataDoc");
+                    dv.DataVenc = objListCab.Valor("DataVenc");
+                    dv.ValorTotal = objListCab.Valor("ValorTotal");
+                    dv.ValorPendente = objListCab.Valor("ValorPendente");
+                    dv.ModoPag = objListCab.Valor("ModoPag");
+                    
                     listdv.Add(dv);
                     objListCab.Seguinte();
                 }

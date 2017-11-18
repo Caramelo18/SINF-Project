@@ -48,13 +48,7 @@ namespace FirstREST.Controllers
 
             return Lib_Primavera.PriIntegration.Compras_Produto_List(product, period);
         }
-
-        [HttpGet]
-        public IEnumerable<Lib_Primavera.Model.DocCompra> AccountsPayable()
-        {
-            return Lib_Primavera.PriIntegration.Accounts_Payable_List();
-        }
-        
+              
 
 
         public HttpResponseMessage Post(Lib_Primavera.Model.DocCompra dc)

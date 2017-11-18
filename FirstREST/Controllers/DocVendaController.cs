@@ -61,12 +61,6 @@ namespace FirstREST.Controllers
             return Lib_Primavera.PriIntegration.Encomendas_Cliente_List(client);
         }
 
-        [HttpGet]
-        public IEnumerable<Lib_Primavera.Model.DocVenda> AccountsReceivable()
-        {
-            return Lib_Primavera.PriIntegration.Accounts_Receivable_List();
-        }
-
         public HttpResponseMessage Post(Lib_Primavera.Model.DocVenda dv)
         {
             Lib_Primavera.Model.RespostaErro erro = new Lib_Primavera.Model.RespostaErro();

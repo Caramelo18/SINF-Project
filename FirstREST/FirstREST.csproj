@@ -305,12 +305,14 @@
     <Compile Include="Controllers\DocVendaController.cs" />
     <Compile Include="Controllers\FornecedorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PendentesController.cs" />
     <Compile Include="Controllers\StateController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Lib_Primavera\Model\Fornecedor.cs" />
+    <Compile Include="Lib_Primavera\Model\Pendente.cs" />
     <Compile Include="Lib_Primavera\PriIntegration.cs" />
     <Compile Include="Lib_Primavera\Model\Artigo.cs" />
     <Compile Include="Lib_Primavera\Model\Cliente.cs" />
