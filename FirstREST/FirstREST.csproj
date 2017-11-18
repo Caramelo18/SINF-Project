@@ -265,6 +265,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\AccountsPayable\AccountsPayableAreaRegistration.cs" />
+    <Compile Include="Areas\AccountsPayable\Controllers\HomeController.cs" />
+    <Compile Include="Areas\AccountsReceivable\AccountsReceivableAreaRegistration.cs" />
+    <Compile Include="Areas\AccountsReceivable\Controllers\HomeController.cs" />
     <Compile Include="Areas\Clients\ClientsAreaRegistration.cs" />
     <Compile Include="Areas\Clients\Controllers\HomeController.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
@@ -505,6 +509,12 @@
       <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
     <Content Include="Areas\ProductDetails\Views\Home\GetProduct.cshtml" />
+    <Content Include="Areas\AccountsReceivable\Views\Web.config" />
+    <Content Include="Areas\AccountsReceivable\Views\Home\Index.cshtml" />
+    <Content Include="Areas\AccountsReceivable\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\AccountsPayable\Views\Web.config" />
+    <Content Include="Areas\AccountsPayable\Views\Home\Index.cshtml" />
+    <Content Include="Areas\AccountsPayable\Views\_ViewStart.cshtml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -561,6 +571,10 @@
     <Content Include="Views\Shared\MainMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\AccountsPayable\Models\" />
+    <Folder Include="Areas\AccountsPayable\Views\Shared\" />
+    <Folder Include="Areas\AccountsReceivable\Models\" />
+    <Folder Include="Areas\AccountsReceivable\Views\Shared\" />
     <Folder Include="Areas\Clients\Models\" />
     <Folder Include="Areas\Clients\Views\Shared\" />
     <Folder Include="Areas\ProductDetails\Models\" />

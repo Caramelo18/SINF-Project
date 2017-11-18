@@ -50,8 +50,8 @@
                 <a href="#"><i class="fa fa-line-chart fa-lg"></i> Financial Overview <span class="arrow"></span></a>
             </li>
             <ul class="sub-menu collapse" id="financial">
-                <li>Accounts Receivable</li>
-                <li>Accounts Payable</li>
+                <li>@Html.ActionLink("Accounts Receivable", "Index", "Home", new { area = "AccountsReceivable" }, null)</li>
+                <li>@Html.ActionLink("Accounts Payable", "Index", "Home", new { area = "AccountsPayable" }, null)</li>
             </ul>
         </ul>
     </div>
