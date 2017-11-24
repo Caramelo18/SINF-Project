@@ -229,45 +229,29 @@ namespace FirstREST.Saft
 
         #region DocCompra
 
-        public static void addDocCompraToDb(XmlDocument doc, DatabaseEntities db)
+        public static void addLinhaDocCompraToDb(XmlDocument doc, DatabaseEntities db, FirstREST.Lib_Primavera.Model.DocCompra item)
         {
-            List<Lib_Primavera.Model.DocCompra> docList = Lib_Primavera.PriIntegration.VGR_List();
-
-            //alterar daqui para baixo
-            foreach (var item in docList)
+            foreach (var linha in item.LinhasDoc)
             {
-                var docCompra = db.DocCompra.Find(item.id);
 
-                if (docCompra != null)
+                System.Diagnostics.Debug.WriteLine(linha.IdCabecDoc);
+
+                Models.LinhaDocCompra newLinha = new Models.LinhaDocCompra
                 {
-                    docCompra.Data = item.Data;
-                    docCompra.Entidade = item.Entidade;
-                    docCompra.NumDoc = item.NumDoc;
-                    docCompra.NumDocExterno = item.NumDocExterno;
-                    docCompra.Serie = item.Serie;
-                    docCompra.TotalMerc = item.TotalMerc;
-
-                }
-                else
-                {
-                    Models.DocCompra newDoc = new Models.DocCompra
-                    {
-                        Id = item.id,
-                        Data = item.Data,
-                        Entidade = item.Entidade,
-                        NumDoc = item.NumDoc,
-                        NumDocExterno = item.NumDocExterno,
-                        Serie = item.Serie,
-                        TotalMerc = item.TotalMerc
-                    };
-                    db.DocCompra.Add(newDoc);
-
-                }
-
-                //linhasDocCompra
-
-                //foreach (var linha in item.LinhasDoc) { }
-
+                    Armazem = linha.Armazem,
+                    CodArtigo = linha.CodArtigo,
+                    DescArtigo = linha.DescArtigo,
+                    Desconto = linha.Desconto,
+                    IdCabecDoc = linha.IdCabecDoc,
+                    Lote = linha.Lote,
+                    NumLinha = linha.NumLinha,
+                    PrecoUnitario = linha.PrecoUnitario,
+                    Quantidade = linha.Quantidade,
+                    TotalILiquido = linha.TotalILiquido,
+                    TotalLiquido = linha.TotalLiquido,
+                    Unidade = linha.Unidade
+                };
+                db.LinhaDocCompra.Add(newLinha);
 
                 try
                 {
@@ -286,6 +270,49 @@ namespace FirstREST.Saft
                     throw new DbEntityValidationException(exception, e.EntityValidationErrors);
                 }
 
+            }
+        }
+
+        public static void addDocCompraToDb(XmlDocument doc, DatabaseEntities db)
+        {
+            List<Lib_Primavera.Model.DocCompra> docList = Lib_Primavera.PriIntegration.VGR_List();
+
+            foreach (var item in docList)
+            {
+                var docCompra = db.DocCompra.Find(item.id);
+
+                if (docCompra == null)
+                {
+                    Models.DocCompra newDoc = new Models.DocCompra
+                    {
+                        Id = item.id,
+                        Data = item.Data,
+                        Entidade = item.Entidade,
+                        NumDoc = item.NumDoc,
+                        NumDocExterno = item.NumDocExterno,
+                        Serie = item.Serie,
+                        TotalMerc = item.TotalMerc
+                    };
+                    db.DocCompra.Add(newDoc);
+
+                    addLinhaDocCompraToDb(doc, db, item);
+                }
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException e)
+                {
+                    var errorMessages = e.EntityValidationErrors
+                        .SelectMany(x => x.ValidationErrors)
+                        .Select(x => x.ErrorMessage);
+
+                    var fullError = string.Join("; ", errorMessages);
+
+                    var exception = string.Concat(e.Message, "Errors: ", fullError);
+
+                    throw new DbEntityValidationException(exception, e.EntityValidationErrors);
+                }
             }
         }
 

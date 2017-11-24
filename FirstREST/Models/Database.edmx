@@ -63,13 +63,12 @@
         </EntityType>
         <EntityType Name="LinhaDocCompra">
           <Key>
-            <PropertyRef Name="IdCabecDoc" />
-            <PropertyRef Name="NumLinha" />
+            <PropertyRef Name="Id" />
           </Key>
           <Property Name="CodArtigo" Type="varchar" MaxLength="50" />
           <Property Name="DescArtigo" Type="varchar" MaxLength="50" />
           <Property Name="IdCabecDoc" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="NumLinha" Type="int" Nullable="false" />
+          <Property Name="NumLinha" Type="int" />
           <Property Name="Quantidade" Type="float" />
           <Property Name="Unidade" Type="varchar" MaxLength="50" />
           <Property Name="Desconto" Type="float" />
@@ -78,6 +77,7 @@
           <Property Name="TotalLiquido" Type="float" />
           <Property Name="Armazem" Type="varchar" MaxLength="50" />
           <Property Name="Lote" Type="varchar" MaxLength="50" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -340,13 +340,12 @@
         </EntityType>
         <EntityType Name="LinhaDocCompra">
           <Key>
-            <PropertyRef Name="IdCabecDoc" />
-            <PropertyRef Name="NumLinha" />
+            <PropertyRef Name="Id" />
           </Key>
           <Property Name="CodArtigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DescArtigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IdCabecDoc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="NumLinha" Type="Int32" Nullable="false" />
+          <Property Name="NumLinha" Type="Int32" />
           <Property Name="Quantidade" Type="Double" />
           <Property Name="Unidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Desconto" Type="Double" />
@@ -355,6 +354,7 @@
           <Property Name="TotalLiquido" Type="Double" />
           <Property Name="Armazem" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Lote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="DocCompra" Relationship="DbModel.FK_DocCompra_LinhaDocCompra" FromRole="LinhaDocCompra" ToRole="DocCompra" />
         </EntityType>
         <EntityType Name="Product">
@@ -557,6 +557,7 @@
           <EntitySetMapping Name="LinhaDocCompra">
             <EntityTypeMapping TypeName="DbModel.LinhaDocCompra">
               <MappingFragment StoreEntitySet="LinhaDocCompra">
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Lote" ColumnName="Lote" />
                 <ScalarProperty Name="Armazem" ColumnName="Armazem" />
                 <ScalarProperty Name="TotalLiquido" ColumnName="TotalLiquido" />
