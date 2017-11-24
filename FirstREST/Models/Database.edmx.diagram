@@ -7,14 +7,17 @@
       <Diagram DiagramId="a0ab177b5d664fa2bd8810207d8f84ef" Name="Diagram1">
         <EntityTypeShape EntityType="DbModel.AllSalesInvoicesInfo" Width="1.5" PointX="0.75" PointY="6.75" />
         <EntityTypeShape EntityType="DbModel.BillingAddress" Width="1.5" PointX="0.75" PointY="2.875" />
-        <EntityTypeShape EntityType="DbModel.Company" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DbModel.Company" Width="1.5" PointX="0.75" PointY="9.75" />
         <EntityTypeShape EntityType="DbModel.Customer" Width="1.5" PointX="3" PointY="2.125" />
+        <EntityTypeShape EntityType="DbModel.DocCompra" Width="1.5" PointX="9.75" PointY="1.5" />
+        <EntityTypeShape EntityType="DbModel.LinhaDocCompra" Width="1.5" PointX="12" PointY="1" />
         <EntityTypeShape EntityType="DbModel.Product" Width="1.5" PointX="5.25" PointY="7.75" />
         <EntityTypeShape EntityType="DbModel.SaleInvoice" Width="1.5" PointX="5.25" PointY="2.625" />
         <EntityTypeShape EntityType="DbModel.SaleInvoiceLine" Width="1.5" PointX="7.5" PointY="2.5" />
         <EntityTypeShape EntityType="DbModel.SaleInvoiceTotal" Width="1.5" PointX="7.5" PointY="6.625" />
         <AssociationConnector Association="DbModel.FK_Customer_BillingAddress" />
         <AssociationConnector Association="DbModel.FK_SaleInvoice_Customer" />
+        <AssociationConnector Association="DbModel.FK_DocCompra_LinhaDocCompra" />
         <AssociationConnector Association="DbModel.FK_SaleInvoiceLine_Product" />
         <AssociationConnector Association="DbModel.FK_SaleInvoiceLine_SaleInvoice" />
         <AssociationConnector Association="DbModel.FK_SaleInvoiceTotal_SaleInvoice" />

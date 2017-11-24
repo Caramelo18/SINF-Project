@@ -229,33 +229,63 @@ namespace FirstREST.Saft
 
         #region DocCompra
 
-        public static void ParseSalesInvoice(XmlDocument doc, DatabaseEntities db)
+        public static void addDocCompraToDb(XmlDocument doc, DatabaseEntities db)
         {
-            XmlNodeList salesList = doc.GetElementsByTagName("SalesInvoice");
+            List<Lib_Primavera.Model.DocCompra> docList = Lib_Primavera.PriIntegration.VGR_List();
 
-            foreach (XmlNode xml in salesList)
+            //alterar daqui para baixo
+            foreach (var item in docList)
             {
-                if (xml.HasChildNodes)
+                var docCompra = db.DocCompra.Find(item.id);
+
+                if (docCompra != null)
                 {
+                    docCompra.Data = item.Data;
+                    docCompra.Entidade = item.Entidade;
+                    docCompra.NumDoc = item.NumDoc;
+                    docCompra.NumDocExterno = item.NumDocExterno;
+                    docCompra.Serie = item.Serie;
+                    docCompra.TotalMerc = item.TotalMerc;
 
-                    string id = xml.ChildNodes[0].InnerText;
-                    Models.Customer client = db.Customer.Find(id);
-
-                    if (client != null)
-                    {
-                        System.Diagnostics.Debug.WriteLine("vou dar update");
-                        //TO DO: update
-                        //client = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.SalesInvoice");
-
-                    }
-                    else
-                    {
-                        Models.Customer newClient = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.SalesInvoice");
-                        db.Customer.Add(newClient);
-                    }
-
-                    saveToDb(db);
                 }
+                else
+                {
+                    Models.DocCompra newDoc = new Models.DocCompra
+                    {
+                        Id = item.id,
+                        Data = item.Data,
+                        Entidade = item.Entidade,
+                        NumDoc = item.NumDoc,
+                        NumDocExterno = item.NumDocExterno,
+                        Serie = item.Serie,
+                        TotalMerc = item.TotalMerc
+                    };
+                    db.DocCompra.Add(newDoc);
+
+                }
+
+                //linhasDocCompra
+
+                //foreach (var linha in item.LinhasDoc) { }
+
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException e)
+                {
+                    var errorMessages = e.EntityValidationErrors
+                        .SelectMany(x => x.ValidationErrors)
+                        .Select(x => x.ErrorMessage);
+
+                    var fullError = string.Join("; ", errorMessages);
+
+                    var exception = string.Concat(e.Message, "Errors: ", fullError);
+
+                    throw new DbEntityValidationException(exception, e.EntityValidationErrors);
+                }
+
             }
         }
 

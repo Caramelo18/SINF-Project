@@ -29,7 +29,10 @@ namespace FirstREST.Controllers
                 Saft.SaftIntegration.ParseProducts(doc, db);
                 Saft.SaftIntegration.addProductsFromPrimaveraToDb(db);
 
-                Saft.SaftIntegration.ParseSalesInvoice(doc, db);
+                //Saft.SaftIntegration.ParseSalesInvoice(doc, db);
+
+                Saft.SaftIntegration.addDocCompraToDb(doc, db);
+
             }
             catch (Exception ex)
             {

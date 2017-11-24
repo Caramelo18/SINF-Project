@@ -29,6 +29,8 @@ namespace FirstREST.Models
         public virtual DbSet<BillingAddress> BillingAddress { get; set; }
         public virtual DbSet<Company> Company { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
+        public virtual DbSet<DocCompra> DocCompra { get; set; }
+        public virtual DbSet<LinhaDocCompra> LinhaDocCompra { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<SaleInvoice> SaleInvoice { get; set; }
         public virtual DbSet<SaleInvoiceLine> SaleInvoiceLine { get; set; }

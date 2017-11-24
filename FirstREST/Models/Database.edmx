@@ -49,6 +49,36 @@
           <Property Name="Fax" Type="varchar" MaxLength="50" />
           <Property Name="Website" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="DocCompra">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NumDocExterno" Type="varchar" MaxLength="50" />
+          <Property Name="Entidade" Type="varchar" MaxLength="50" />
+          <Property Name="NumDoc" Type="int" />
+          <Property Name="Data" Type="datetime" />
+          <Property Name="TotalMerc" Type="float" />
+          <Property Name="Serie" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="LinhaDocCompra">
+          <Key>
+            <PropertyRef Name="IdCabecDoc" />
+            <PropertyRef Name="NumLinha" />
+          </Key>
+          <Property Name="CodArtigo" Type="varchar" MaxLength="50" />
+          <Property Name="DescArtigo" Type="varchar" MaxLength="50" />
+          <Property Name="IdCabecDoc" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NumLinha" Type="int" Nullable="false" />
+          <Property Name="Quantidade" Type="float" />
+          <Property Name="Unidade" Type="varchar" MaxLength="50" />
+          <Property Name="Desconto" Type="float" />
+          <Property Name="PrecoUnitario" Type="float" />
+          <Property Name="TotalILiquido" Type="float" />
+          <Property Name="TotalLiquido" Type="float" />
+          <Property Name="Armazem" Type="varchar" MaxLength="50" />
+          <Property Name="Lote" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ProductCode" />
@@ -108,6 +138,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DocCompra_LinhaDocCompra">
+          <End Role="DocCompra" Type="Self.DocCompra" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LinhaDocCompra" Type="Self.LinhaDocCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocCompra">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LinhaDocCompra">
+              <PropertyRef Name="IdCabecDoc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SaleInvoice_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -163,6 +207,8 @@
           <EntitySet Name="BillingAddress" EntityType="Self.BillingAddress" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocCompra" EntityType="Self.DocCompra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LinhaDocCompra" EntityType="Self.LinhaDocCompra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SaleInvoice" EntityType="Self.SaleInvoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SaleInvoiceLine" EntityType="Self.SaleInvoiceLine" Schema="dbo" store:Type="Tables" />
@@ -170,6 +216,10 @@
           <AssociationSet Name="FK_Customer_BillingAddress" Association="Self.FK_Customer_BillingAddress">
             <End Role="BillingAddress" EntitySet="BillingAddress" />
             <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocCompra_LinhaDocCompra" Association="Self.FK_DocCompra_LinhaDocCompra">
+            <End Role="DocCompra" EntitySet="DocCompra" />
+            <End Role="LinhaDocCompra" EntitySet="LinhaDocCompra" />
           </AssociationSet>
           <AssociationSet Name="FK_SaleInvoice_Customer" Association="Self.FK_SaleInvoice_Customer">
             <End Role="Customer" EntitySet="Customer" />
@@ -197,6 +247,8 @@
           <EntitySet Name="BillingAddress" EntityType="DbModel.BillingAddress" />
           <EntitySet Name="Company" EntityType="DbModel.Company" />
           <EntitySet Name="Customer" EntityType="DbModel.Customer" />
+          <EntitySet Name="DocCompra" EntityType="DbModel.DocCompra" />
+          <EntitySet Name="LinhaDocCompra" EntityType="DbModel.LinhaDocCompra" />
           <EntitySet Name="Product" EntityType="DbModel.Product" />
           <EntitySet Name="SaleInvoice" EntityType="DbModel.SaleInvoice" />
           <EntitySet Name="SaleInvoiceLine" EntityType="DbModel.SaleInvoiceLine" />
@@ -208,6 +260,10 @@
           <AssociationSet Name="FK_SaleInvoice_Customer" Association="DbModel.FK_SaleInvoice_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="SaleInvoice" EntitySet="SaleInvoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocCompra_LinhaDocCompra" Association="DbModel.FK_DocCompra_LinhaDocCompra">
+            <End Role="DocCompra" EntitySet="DocCompra" />
+            <End Role="LinhaDocCompra" EntitySet="LinhaDocCompra" />
           </AssociationSet>
           <AssociationSet Name="FK_SaleInvoiceLine_Product" Association="DbModel.FK_SaleInvoiceLine_Product">
             <End Role="Product" EntitySet="Product" />
@@ -268,6 +324,38 @@
           <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BillingAddress" Relationship="DbModel.FK_Customer_BillingAddress" FromRole="Customer" ToRole="BillingAddress" />
           <NavigationProperty Name="SaleInvoice" Relationship="DbModel.FK_SaleInvoice_Customer" FromRole="Customer" ToRole="SaleInvoice" />
+        </EntityType>
+        <EntityType Name="DocCompra">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NumDocExterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Entidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NumDoc" Type="Int32" />
+          <Property Name="Data" Type="DateTime" Precision="3" />
+          <Property Name="TotalMerc" Type="Double" />
+          <Property Name="Serie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LinhaDocCompra" Relationship="DbModel.FK_DocCompra_LinhaDocCompra" FromRole="DocCompra" ToRole="LinhaDocCompra" />
+        </EntityType>
+        <EntityType Name="LinhaDocCompra">
+          <Key>
+            <PropertyRef Name="IdCabecDoc" />
+            <PropertyRef Name="NumLinha" />
+          </Key>
+          <Property Name="CodArtigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DescArtigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdCabecDoc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NumLinha" Type="Int32" Nullable="false" />
+          <Property Name="Quantidade" Type="Double" />
+          <Property Name="Unidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Desconto" Type="Double" />
+          <Property Name="PrecoUnitario" Type="Double" />
+          <Property Name="TotalILiquido" Type="Double" />
+          <Property Name="TotalLiquido" Type="Double" />
+          <Property Name="Armazem" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DocCompra" Relationship="DbModel.FK_DocCompra_LinhaDocCompra" FromRole="LinhaDocCompra" ToRole="DocCompra" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -349,6 +437,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DocCompra_LinhaDocCompra">
+          <End Type="DbModel.DocCompra" Role="DocCompra" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DbModel.LinhaDocCompra" Role="LinhaDocCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocCompra">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LinhaDocCompra">
+              <PropertyRef Name="IdCabecDoc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SaleInvoiceLine_Product">
           <End Type="DbModel.Product" Role="Product" Multiplicity="1" />
           <End Type="DbModel.SaleInvoiceLine" Role="SaleInvoiceLine" Multiplicity="*" />
@@ -385,7 +487,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -436,6 +538,37 @@
                 <ScalarProperty Name="CustomerTaxID" ColumnName="CustomerTaxID" />
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocCompra">
+            <EntityTypeMapping TypeName="DbModel.DocCompra">
+              <MappingFragment StoreEntitySet="DocCompra">
+                <ScalarProperty Name="Serie" ColumnName="Serie" />
+                <ScalarProperty Name="TotalMerc" ColumnName="TotalMerc" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="NumDoc" ColumnName="NumDoc" />
+                <ScalarProperty Name="Entidade" ColumnName="Entidade" />
+                <ScalarProperty Name="NumDocExterno" ColumnName="NumDocExterno" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LinhaDocCompra">
+            <EntityTypeMapping TypeName="DbModel.LinhaDocCompra">
+              <MappingFragment StoreEntitySet="LinhaDocCompra">
+                <ScalarProperty Name="Lote" ColumnName="Lote" />
+                <ScalarProperty Name="Armazem" ColumnName="Armazem" />
+                <ScalarProperty Name="TotalLiquido" ColumnName="TotalLiquido" />
+                <ScalarProperty Name="TotalILiquido" ColumnName="TotalILiquido" />
+                <ScalarProperty Name="PrecoUnitario" ColumnName="PrecoUnitario" />
+                <ScalarProperty Name="Desconto" ColumnName="Desconto" />
+                <ScalarProperty Name="Unidade" ColumnName="Unidade" />
+                <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+                <ScalarProperty Name="NumLinha" ColumnName="NumLinha" />
+                <ScalarProperty Name="IdCabecDoc" ColumnName="IdCabecDoc" />
+                <ScalarProperty Name="DescArtigo" ColumnName="DescArtigo" />
+                <ScalarProperty Name="CodArtigo" ColumnName="CodArtigo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
