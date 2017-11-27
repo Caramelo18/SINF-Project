@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SINFProject</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
+<body>
+  <!-- source: https://bootsnipp.com/snippets/featured/responsive-navigation-menu -->
+  <div class="nav-side-menu">
+    <div class="brand">360º Dashboard</div>
+    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+
+    <div class="menu-list">
+
+      <ul id="menu-content" class="menu-content collapse out">
+        <!--li>
+          <a href="#">
+            <i class="fa fa-dashboard fa-lg"></i> Dashboard
+          </a>
+        </li-->
+
+        <li  data-toggle="collapse" data-target="#orders" class="collapsed active">
+          <a href="#"><i class="fa fa-sort fa-lg"></i>Orders<span class="arrow"></span></a>
+        </li>
+        <ul class="sub-menu collapse" id="orders">
+          <li class="active"><a href="#">Sales orders</a></li>
+          <li><a href="#">Purchase orders</a></li>
+        </ul>
+
+
+        <li data-toggle="collapse" data-target="#sales" class="collapsed">
+          <a href="#"><i class="fa fa-sign-out fa-lg"></i> Sales <span class="arrow"></span></a>
+        </li>
+        <ul class="sub-menu collapse" id="sales">
+          <li>Sales details</li>
+          <li>Sales by product</li>
+          <li>Sales by client</li>
+        </ul>
+
+
+        <li data-toggle="collapse" data-target="#clients" class="collapsed">
+          <a href="#"><i class="fa fa-users fa-lg"></i> Clients <span class="arrow"></span></a>
+        </li>
+        <ul class="sub-menu" id="clients">
+          <li><a routerLink="/clients"> Clients details</a></li>
+        </ul>
+
+        <li data-toggle="collapse" data-target="#suppliers" class="collapsed">
+          <a href="#"><i class="fa fa-truck fa-lg"></i> Suppliers <span class="arrow"></span></a>
+        </li>
+        <ul class="sub-menu " id="suppliers">
+          <li><a routerLink="/suppliers">Suppliers details</a></li>
+        </ul>
+
+        <li data-toggle="collapse" data-target="#inventory" class="collapsed">
+          <a href="#"><i class="fa fa-archive fa-lg"></i> Inventory <span class="arrow"></span></a>
+        </li>
+        <ul class="sub-menu " id="inventory">
+          <li><a routerLink="/inventory">Product details</a></li>
+        </ul>
+
+        <li data-toggle="collapse" data-target="#financial-overview" class="collapsed">
+          <a href="#"><i class="fa fa-car fa-lg"></i> Financial overview <span class="arrow"></span></a>
+        </li>
+        <ul class="sub-menu collapse" id="financial-overview">
+          <li>Accounts receivable</li>
+          <li>Accounts payable</li>
+        </ul>
+
+
+      </ul>
+    </div>
+  </div>
+  <div class="page-content">
+    <app-root>
+      <router-outlet></router-outlet>
+    </app-root>
+  </div>
+</body>
+</html>
