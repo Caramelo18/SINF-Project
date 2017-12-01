@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule }    from '@angular/http';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -31,6 +32,7 @@ import { OverviewService } from './services/overview.service';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     AppRoutingModule
   ],
   providers: [
