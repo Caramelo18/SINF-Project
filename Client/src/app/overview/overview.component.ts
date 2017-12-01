@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { OverviewService } from '../services/overview.service';
 
 @Component({
     selector: 'overview',
@@ -9,10 +10,16 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class OverviewComponent implements OnInit{
+    private data: string[];
 
     constructor(
+      private overviewService: OverviewService
     ) { }
 
     ngOnInit(): void {
+      this.overviewService.getOverview()
+                          .then(response => {
+                            this.data = response;
+                          });
     }
 }

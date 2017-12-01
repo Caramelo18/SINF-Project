@@ -14,6 +14,8 @@ import { OrdersComponent } from './orders/orders.component';
 import { SalesComponent } from './sales/sales.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
 
+import { OverviewService } from './services/overview.service';
+
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { SuppliersComponent } from './suppliers/suppliers.component';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    OverviewService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
