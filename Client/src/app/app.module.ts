@@ -17,6 +17,8 @@ import { SuppliersComponent } from './suppliers/suppliers.component';
 
 import { OverviewService } from './services/overview.service';
 import { ProductService } from './services/product.service';
+import { ClientService } from './services/client.service';
+
 
 
 
@@ -38,7 +40,8 @@ import { ProductService } from './services/product.service';
   ],
   providers: [
     OverviewService,
-    ProductService
+    ProductService,
+    ClientService
   ],
   bootstrap: [AppComponent]
 })

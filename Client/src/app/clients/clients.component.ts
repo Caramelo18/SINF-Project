@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { ClientService } from '../services/client.service';
+
 
 @Component({
     selector: 'clients',
@@ -9,15 +11,18 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class ClientsComponent implements OnInit{
+    private data: string[];
+    private image = '/assets/avatar.png';
 
     constructor(
+      private clientService: ClientService
     ) { }
 
     ngOnInit(): void {
-      console.log("HEYO");
+      this.clientService.getClients()
+                          .then(response => {
+                            this.data = response;
+                            console.log(response);
+                          });
     }
-}
-
-export class ClientImage {
-  image = '~/assets/avatar.png';
 }

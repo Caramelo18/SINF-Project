@@ -21,7 +21,6 @@ export class InventoryComponent implements OnInit{
       this.productService.getProducts()
                           .then(response => {
                             this.data = response;
-                            console.log(response);
                           });
     }
 }
