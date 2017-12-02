@@ -16,6 +16,7 @@ import { SalesComponent } from './sales/sales.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
 
 import { OverviewService } from './services/overview.service';
+import { ProductService } from './services/product.service';
 
 
 
@@ -36,7 +37,8 @@ import { OverviewService } from './services/overview.service';
     AppRoutingModule
   ],
   providers: [
-    OverviewService
+    OverviewService,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })

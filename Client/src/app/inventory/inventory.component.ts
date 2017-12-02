@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { ProductService } from '../services/product.service';
+
 
 @Component({
     selector: 'inventory',
@@ -9,11 +11,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class InventoryComponent implements OnInit{
+    private data: string[];
 
     constructor(
+      private productService: ProductService
     ) { }
 
     ngOnInit(): void {
-      console.log("HEYO");
+      this.productService.getProducts()
+                          .then(response => {
+                            this.data = response;
+                            console.log(response);
+                          });
     }
 }

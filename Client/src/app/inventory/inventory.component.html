@@ -1,1 +1,25 @@
-Inventory Component
+<div class="container-fluid">
+    <div class="row">
+        <div *ngFor="let product of data" class="col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-block">
+                    <a><h4 class="card-title">{{product.CodArtigo}}</h4></a>
+                    <h6 class="product-group card-subtitle mb-2">@artigo.ProductGroup</h6>
+                    <p class="card-text">{{product.DescArtigo}}</p>
+                    <div class="availability">
+
+                            <h5 *ngIf="product.STKAtual <= 0 " class="unavailable">Unavailable</h5>
+
+
+                            <h5 *ngIf="product.STKAtual > 0 " class="available">Available</h5>
+
+                    </div>
+                    <a href="#" class="card-link see-orders">See Orders</a>
+                    <br>
+                    <a href="#" class="card-link">See warehouse distribution</a>
+
+                  </div>
+              </div>
+        </div>
+    </div>
+</div>
