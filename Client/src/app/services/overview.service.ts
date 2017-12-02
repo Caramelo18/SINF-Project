@@ -7,14 +7,14 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class OverviewService {
 
-    private serverUrl = 'http://127.0.0.1:49822/api';
+    private serverUrl = 'http://localhost:49822/api';
     private headers = new Headers({'Content-Type': 'application/json'});
 
     constructor(private http: Http) { }
 
 
     getOverview(): Promise<string[]> {
-        const url = this.serverUrl + "/overview";
+        const url = this.serverUrl + "/Overview";
         return this.http.get(url)
                         .toPromise()
                         .then(response => response.json() as string[])

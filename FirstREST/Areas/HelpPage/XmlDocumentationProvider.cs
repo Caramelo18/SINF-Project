@@ -108,5 +108,15 @@ namespace FirstREST.Areas.HelpPage
 
             return type.FullName;
         }
+
+        public virtual string GetDocumentation(HttpControllerDescriptor controllerDescriptor)
+        {
+            return "";
+        }
+
+        public virtual string GetResponseDocumentation(HttpActionDescriptor actionDescriptor)
+        {
+            return "";
+        }
     }
 }
