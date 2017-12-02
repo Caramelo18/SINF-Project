@@ -17,3 +17,7 @@ export class ClientsComponent implements OnInit{
       console.log("HEYO");
     }
 }
+
+export class ClientImage {
+  image = '~/assets/avatar.png';
+}
