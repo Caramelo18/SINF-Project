@@ -106,7 +106,7 @@ namespace FirstREST.Integration
 
         #region DocCompra
 
-        public static void addLinhaDocCompraToDb(XmlDocument doc, DatabaseEntities db, FirstREST.Lib_Primavera.Model.DocCompra item)
+        public static void addLinhaDocCompraToDb(DatabaseEntities db, FirstREST.Lib_Primavera.Model.DocCompra item)
         {
             foreach (var linha in item.LinhasDoc)
             {
@@ -135,7 +135,7 @@ namespace FirstREST.Integration
             }
         }
 
-        public static void addDocCompraToDb(XmlDocument doc, DatabaseEntities db)
+        public static void addDocCompraToDb(DatabaseEntities db)
         {
             List<Lib_Primavera.Model.DocCompra> docList = Lib_Primavera.PriIntegration.VGR_List();
 
@@ -157,7 +157,7 @@ namespace FirstREST.Integration
                     };
                     db.DocCompra.Add(newDoc);
 
-                    addLinhaDocCompraToDb(doc, db, item);
+                    addLinhaDocCompraToDb(db, item);
                 }
                 saveToDb(db);
             }
@@ -172,6 +172,31 @@ namespace FirstREST.Integration
 
         #region Fornecedor
 
+        public static void addSupplierToDb(DatabaseEntities db)
+        {
+            System.Diagnostics.Debug.WriteLine("oi");
+            List<Lib_Primavera.Model.Fornecedor> supplierList = Lib_Primavera.PriIntegration.SupplierList();
+
+            foreach (var item in supplierList)
+            {
+                System.Diagnostics.Debug.WriteLine("test: " + item.CodFornecedor);
+                var supplier = db.Supplier.Find(item.CodFornecedor);
+
+                if (supplier == null)
+                {
+                    Models.Supplier newSupplier = new Models.Supplier
+                    {
+                        CodFornecedor = item.CodFornecedor,
+                        Contribuinte = item.Contribuinte,
+                        Nome = item.Nome,
+                        NomeFiscal = item.NomeFiscal,
+                        Telefone = item.Telefone
+                    };
+                    db.Supplier.Add(newSupplier);
+                }
+                saveToDb(db);
+            }
+        }
 
         #endregion
     }

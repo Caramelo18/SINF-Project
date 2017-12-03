@@ -30,7 +30,9 @@ namespace FirstREST.Controllers
                 Integration.DbIntegration.addProductsFromPrimaveraToDb(db);
 
                 //Saft.SaftIntegration.ParseSalesInvoice(doc, db);
-                Integration.DbIntegration.addDocCompraToDb(doc, db);
+                Integration.DbIntegration.addDocCompraToDb(db);
+
+                Integration.DbIntegration.addSupplierToDb(db);
 
             }
             catch (Exception ex)

@@ -126,6 +126,16 @@
           <Property Name="NetTotal" Type="float" Nullable="false" />
           <Property Name="GrossTotal" Type="float" Nullable="false" />
         </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="CodFornecedor" />
+          </Key>
+          <Property Name="CodFornecedor" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" />
+          <Property Name="NomeFiscal" Type="varchar" MaxLength="100" />
+          <Property Name="Telefone" Type="varchar" MaxLength="50" />
+          <Property Name="Contribuinte" Type="varchar" MaxLength="50" />
+        </EntityType>
         <Association Name="FK_Customer_BillingAddress">
           <End Role="BillingAddress" Type="Self.BillingAddress" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -215,6 +225,7 @@
           <EntitySet Name="SaleInvoice" EntityType="Self.SaleInvoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SaleInvoiceLine" EntityType="Self.SaleInvoiceLine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SaleInvoiceTotal" EntityType="Self.SaleInvoiceTotal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Customer_BillingAddress" Association="Self.FK_Customer_BillingAddress">
             <End Role="BillingAddress" EntitySet="BillingAddress" />
             <End Role="Customer" EntitySet="Customer" />
@@ -279,6 +290,7 @@
             <End Role="SaleInvoice" EntitySet="SaleInvoice" />
             <End Role="SaleInvoiceTotal" EntitySet="SaleInvoiceTotal" />
           </AssociationSet>
+          <EntitySet Name="Supplier" EntityType="DbModel.Supplier" />
         </EntityContainer>
         <EntityType Name="AllSalesInvoicesInfo">
           <Key>
@@ -324,9 +336,9 @@
           <Property Name="CustomerEmail" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NumberPurchases" Type="Int32" />
           <NavigationProperty Name="BillingAddress" Relationship="DbModel.FK_Customer_BillingAddress" FromRole="Customer" ToRole="BillingAddress" />
           <NavigationProperty Name="SaleInvoice" Relationship="DbModel.FK_SaleInvoice_Customer" FromRole="Customer" ToRole="SaleInvoice" />
-          <Property Name="NumberPurchases" Type="Int32" />
         </EntityType>
         <EntityType Name="DocCompra">
           <Key>
@@ -491,6 +503,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="CodFornecedor" />
+          </Key>
+          <Property Name="CodFornecedor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NomeFiscal" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Telefone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Contribuinte" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -624,6 +646,17 @@
                 <ScalarProperty Name="NetTotal" ColumnName="NetTotal" />
                 <ScalarProperty Name="TaxPayable" ColumnName="TaxPayable" />
                 <ScalarProperty Name="SaleInvoiceNo" ColumnName="SaleInvoiceNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplier">
+            <EntityTypeMapping TypeName="DbModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="Contribuinte" ColumnName="Contribuinte" />
+                <ScalarProperty Name="Telefone" ColumnName="Telefone" />
+                <ScalarProperty Name="NomeFiscal" ColumnName="NomeFiscal" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="CodFornecedor" ColumnName="CodFornecedor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -35,5 +35,6 @@ namespace FirstREST.Models
         public virtual DbSet<SaleInvoice> SaleInvoice { get; set; }
         public virtual DbSet<SaleInvoiceLine> SaleInvoiceLine { get; set; }
         public virtual DbSet<SaleInvoiceTotal> SaleInvoiceTotal { get; set; }
+        public virtual DbSet<Supplier> Supplier { get; set; }
     }
 }
