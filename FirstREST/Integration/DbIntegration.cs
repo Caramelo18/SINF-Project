@@ -47,8 +47,9 @@ namespace FirstREST.Integration
                     client.CustomerEmail = item.Email;
                     client.Currency = item.Moeda;
                     client.CustomerTaxID = item.NumContribuinte;
+                    client.NumberPurchases = item.NumCompras;
                 }
-                else
+                /*else
                 {
                     Models.Customer newClient = new Models.Customer
                     {
@@ -60,23 +61,8 @@ namespace FirstREST.Integration
                     };
                     db.Customer.Add(newClient);
 
-                }
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (DbEntityValidationException e)
-                {
-                    var errorMessages = e.EntityValidationErrors
-                        .SelectMany(x => x.ValidationErrors)
-                        .Select(x => x.ErrorMessage);
-
-                    var fullError = string.Join("; ", errorMessages);
-
-                    var exception = string.Concat(e.Message, "Errors: ", fullError);
-
-                    throw new DbEntityValidationException(exception, e.EntityValidationErrors);
-                }
+                }*/
+                saveToDb(db);
 
             }
         }
@@ -98,7 +84,7 @@ namespace FirstREST.Integration
                 {
                     product.ProductStock = Convert.ToInt32(item.STKAtual);
                     product.Armazem = item.Localizacao;
-                }
+                }/*
                 else
                 {
                     Models.Product newProduct = new Models.Product
@@ -109,7 +95,7 @@ namespace FirstREST.Integration
                         Armazem = item.Localizacao
                     };
                     db.Product.Add(newProduct);
-                }
+                }*/
                 saveToDb(db);
             }
         }
@@ -144,22 +130,7 @@ namespace FirstREST.Integration
                 };
                 db.LinhaDocCompra.Add(newLinha);
 
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (DbEntityValidationException e)
-                {
-                    var errorMessages = e.EntityValidationErrors
-                        .SelectMany(x => x.ValidationErrors)
-                        .Select(x => x.ErrorMessage);
-
-                    var fullError = string.Join("; ", errorMessages);
-
-                    var exception = string.Concat(e.Message, "Errors: ", fullError);
-
-                    throw new DbEntityValidationException(exception, e.EntityValidationErrors);
-                }
+                saveToDb(db);
 
             }
         }
@@ -188,22 +159,7 @@ namespace FirstREST.Integration
 
                     addLinhaDocCompraToDb(doc, db, item);
                 }
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (DbEntityValidationException e)
-                {
-                    var errorMessages = e.EntityValidationErrors
-                        .SelectMany(x => x.ValidationErrors)
-                        .Select(x => x.ErrorMessage);
-
-                    var fullError = string.Join("; ", errorMessages);
-
-                    var exception = string.Concat(e.Message, "Errors: ", fullError);
-
-                    throw new DbEntityValidationException(exception, e.EntityValidationErrors);
-                }
+                saveToDb(db);
             }
         }
 

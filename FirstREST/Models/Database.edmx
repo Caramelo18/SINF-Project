@@ -48,6 +48,7 @@
           <Property Name="CustomerEmail" Type="varchar" MaxLength="250" />
           <Property Name="Fax" Type="varchar" MaxLength="50" />
           <Property Name="Website" Type="varchar" MaxLength="50" />
+          <Property Name="NumberPurchases" Type="int" />
         </EntityType>
         <EntityType Name="DocCompra">
           <Key>
@@ -325,6 +326,7 @@
           <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BillingAddress" Relationship="DbModel.FK_Customer_BillingAddress" FromRole="Customer" ToRole="BillingAddress" />
           <NavigationProperty Name="SaleInvoice" Relationship="DbModel.FK_SaleInvoice_Customer" FromRole="Customer" ToRole="SaleInvoice" />
+          <Property Name="NumberPurchases" Type="Int32" />
         </EntityType>
         <EntityType Name="DocCompra">
           <Key>
@@ -528,6 +530,7 @@
           <EntitySetMapping Name="Customer">
             <EntityTypeMapping TypeName="DbModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="NumberPurchases" ColumnName="NumberPurchases" />
                 <ScalarProperty Name="Website" ColumnName="Website" />
                 <ScalarProperty Name="Fax" ColumnName="Fax" />
                 <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
@@ -639,7 +642,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

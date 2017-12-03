@@ -7,9 +7,9 @@
 
 	<div *ngFor="let client of data; let i=index" >
    		  <tr>
-            <td>{{client.CodCliente}}</td>
-            <td>{{client.NomeCliente}}</td>
-            <td>{{client.NumCompras}}</td>
+            <td>{{client.CustomerID}}</td>
+            <td>{{client.CustomerName}}</td>
+            <td>{{client.NumberPurchases}}</td>
         </tr>
 
         <tr style="border-bottom:1px solid #e6e6e6;">
@@ -18,12 +18,12 @@
             	<div id="i" class="collapse">
                 	<div class="row">
                     	<div class="col-5">
-                        	<p>Código: {{client.CodCliente}}</p>
-                        	<p>Nome: {{client.NomeCliente}}</p>
-                        	<p>E-mail: {{client.Email}}</p>
-                        	<p>Morada: {{client.Morada}}</p>
-                        	<p>Número de Contribuinte: {{client.NumContribuinte}}</p>
-                        	<h6>Total de Vendas: {{client.NumCompras}}</h6>
+                        	<p>Código: {{client.CustomerID}}</p>
+                        	<p>Nome: {{client.CustomerName}}</p>
+                        	<p>E-mail: {{client.CustomerEmail}}</p>
+                        	<p>Morada: {{client.BillingAddress.AddressDetail}}</p>
+                        	<p>Número de Contribuinte: {{client.CustomerTaxID}}</p>
+                        	<h6>Total de Vendas: {{client.NumberPurchases}}</h6>
                     	</div>
 
                     	<div class="col-5">
