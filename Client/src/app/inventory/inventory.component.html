@@ -3,12 +3,12 @@
         <div *ngFor="let product of data" class="col-lg-4 col-md-6">
             <div class="card">
                 <div class="card-block">
-                    <a><h4 class="card-title">{{product.CodArtigo}}</h4></a>
-                    <h6 class="product-group card-subtitle mb-2">@artigo.ProductGroup</h6>
-                    <p class="card-text">{{product.DescArtigo}}</p>
+                    <a><h4 class="card-title">{{product.ProductCode}}</h4></a>
+                    <h6 class="product-group card-subtitle mb-2">{{product.ProductGroup}}</h6>
+                    <p class="card-text">{{product.ProductDescription}}</p>
                     <div class="availability">
-                        <h5 *ngIf="product.STKAtual <= 0 " class="unavailable">Unavailable</h5>
-                        <h5 *ngIf="product.STKAtual > 0 " class="available">Available</h5>
+                        <h5 *ngIf="product.ProductStock <= 0 " class="unavailable">Unavailable</h5>
+                        <h5 *ngIf="product.ProductStock > 0 " class="available">Available</h5>
                     </div>
                     <a href="#" class="card-link see-orders">See Orders</a>
                     <br>

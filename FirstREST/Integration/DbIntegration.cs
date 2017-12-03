@@ -97,6 +97,7 @@ namespace FirstREST.Integration
                 if (product != null)
                 {
                     product.ProductStock = Convert.ToInt32(item.STKAtual);
+                    product.Armazem = item.Localizacao;
                 }
                 else
                 {
@@ -104,16 +105,12 @@ namespace FirstREST.Integration
                     {
                         ProductCode = item.CodArtigo,
                         ProductDescription = item.DescArtigo,
-                        ProductStock = Convert.ToInt32(item.STKAtual)
+                        ProductStock = Convert.ToInt32(item.STKAtual),
+                        Armazem = item.Localizacao
                     };
                     db.Product.Add(newProduct);
                 }
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception e) { }
-
+                saveToDb(db);
             }
         }
 

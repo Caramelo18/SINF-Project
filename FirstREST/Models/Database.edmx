@@ -89,6 +89,7 @@
           <Property Name="ProductDescription" Type="varchar" MaxLength="200" />
           <Property Name="ProductNumberCode" Type="varchar" MaxLength="50" />
           <Property Name="ProductStock" Type="int" Nullable="false" />
+          <Property Name="Armazem" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="SaleInvoice">
           <Key>
@@ -367,6 +368,7 @@
           <Property Name="ProductDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="ProductNumberCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ProductStock" Type="Int32" Nullable="false" />
+          <Property Name="Armazem" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SaleInvoiceLine" Relationship="DbModel.FK_SaleInvoiceLine_Product" FromRole="Product" ToRole="SaleInvoiceLine" />
         </EntityType>
         <EntityType Name="SaleInvoice">
@@ -576,6 +578,7 @@
           <EntitySetMapping Name="Product">
             <EntityTypeMapping TypeName="DbModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Armazem" ColumnName="Armazem" />
                 <ScalarProperty Name="ProductStock" ColumnName="ProductStock" />
                 <ScalarProperty Name="ProductNumberCode" ColumnName="ProductNumberCode" />
                 <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />

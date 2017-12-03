@@ -25,6 +25,7 @@ namespace FirstREST.Models
         public string ProductDescription { get; set; }
         public string ProductNumberCode { get; set; }
         public int ProductStock { get; set; }
+        public string Armazem { get; set; }
     
         public virtual ICollection<SaleInvoiceLine> SaleInvoiceLine { get; set; }
     }
