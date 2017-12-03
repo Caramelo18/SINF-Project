@@ -23,15 +23,14 @@ namespace FirstREST.Controllers
                 XmlDocument doc = new XmlDocument();
                 doc.Load(System.Web.Hosting.HostingEnvironment.MapPath(@"~\Content\saft.xml"));
 
-                Saft.SaftIntegration.ParseCustomers(doc, db);
-                Saft.SaftIntegration.addClientsFromPrimaveraToDb(db);
+                Integration.SaftIntegration.ParseCustomers(doc, db);
+                Integration.DbIntegration.addClientsFromPrimaveraToDb(db);
 
-                Saft.SaftIntegration.ParseProducts(doc, db);
-                Saft.SaftIntegration.addProductsFromPrimaveraToDb(db);
+                Integration.SaftIntegration.ParseProducts(doc, db);
+                Integration.DbIntegration.addProductsFromPrimaveraToDb(db);
 
                 //Saft.SaftIntegration.ParseSalesInvoice(doc, db);
-
-                Saft.SaftIntegration.addDocCompraToDb(doc, db);
+                Integration.DbIntegration.addDocCompraToDb(doc, db);
 
             }
             catch (Exception ex)
