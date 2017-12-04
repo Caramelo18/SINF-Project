@@ -7,6 +7,7 @@ import { FinancialComponent } from './financial/financial.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { OrdersComponent } from './orders/orders.component';
 import { SalesComponent } from './sales/sales.component';
+import { SaleComponent } from './sales/sale/sale.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
 
 
@@ -17,6 +18,7 @@ const appRoutes: Routes = [
   { path: 'inventory', component: InventoryComponent },
   { path: 'orders', component: OrdersComponent },
   { path: 'sales', component: SalesComponent },
+  { path: 'sale/:id', component: SaleComponent },
   { path: 'suppliers', component: SuppliersComponent }
 ];
 

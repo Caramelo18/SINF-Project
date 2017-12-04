@@ -13,12 +13,14 @@ import { FinancialComponent } from './financial/financial.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { OrdersComponent } from './orders/orders.component';
 import { SalesComponent } from './sales/sales.component';
+import { SaleComponent } from './sales/sale/sale.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
 
 import { OverviewService } from './services/overview.service';
 import { ProductService } from './services/product.service';
 import { ClientService } from './services/client.service';
-
+import { UpdateService } from './services/update.service';
+import { SalesService } from './services/sales.service';
 
 
 
@@ -31,6 +33,7 @@ import { ClientService } from './services/client.service';
     OrdersComponent,
     OverviewComponent,
     SalesComponent,
+    SaleComponent,
     SuppliersComponent
   ],
   imports: [
@@ -41,7 +44,9 @@ import { ClientService } from './services/client.service';
   providers: [
     OverviewService,
     ProductService,
-    ClientService
+    ClientService,
+    UpdateService,
+    SalesService
   ],
   bootstrap: [AppComponent]
 })
