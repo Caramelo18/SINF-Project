@@ -33,6 +33,7 @@ namespace FirstREST.Controllers
                 Integration.DbIntegration.addDocCompraToDb(db);
 
                 Integration.DbIntegration.addSupplierToDb(db);
+                //Integration.DbIntegration.addAccountsReceivableToDb(db);
 
             }
             catch (Exception ex)

@@ -5,6 +5,22 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccountsReceivable">
+          <Key>
+            <PropertyRef Name="Entidade" />
+            <PropertyRef Name="DataDoc" />
+            <PropertyRef Name="DataVenc" />
+            <PropertyRef Name="ValorTotal" />
+            <PropertyRef Name="ValorPendente" />
+          </Key>
+          <Property Name="Entidade" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DataDoc" Type="datetime" Nullable="false" />
+          <Property Name="DataVenc" Type="datetime" Nullable="false" />
+          <Property Name="ValorTotal" Type="float" Nullable="false" />
+          <Property Name="ValorPendente" Type="float" Nullable="false" />
+          <Property Name="ModoPag" Type="varchar" MaxLength="50" />
+          <Property Name="TipoEntidade" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="AllSalesInvoicesInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -136,6 +152,20 @@
           <Property Name="Telefone" Type="varchar" MaxLength="50" />
           <Property Name="Contribuinte" Type="varchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_AccountsReceivable_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AccountsReceivable" Type="Self.AccountsReceivable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="AccountsReceivable">
+              <PropertyRef Name="Entidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Customer_BillingAddress">
           <End Role="BillingAddress" Type="Self.BillingAddress" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -215,6 +245,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DbModelStoreContainer">
+          <EntitySet Name="AccountsReceivable" EntityType="Self.AccountsReceivable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AllSalesInvoicesInfo" EntityType="Self.AllSalesInvoicesInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BillingAddress" EntityType="Self.BillingAddress" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
@@ -226,6 +257,10 @@
           <EntitySet Name="SaleInvoiceLine" EntityType="Self.SaleInvoiceLine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SaleInvoiceTotal" EntityType="Self.SaleInvoiceTotal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AccountsReceivable_Customer" Association="Self.FK_AccountsReceivable_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="AccountsReceivable" EntitySet="AccountsReceivable" />
+          </AssociationSet>
           <AssociationSet Name="FK_Customer_BillingAddress" Association="Self.FK_Customer_BillingAddress">
             <End Role="BillingAddress" EntitySet="BillingAddress" />
             <End Role="Customer" EntitySet="Customer" />
@@ -256,6 +291,7 @@
     <edmx:ConceptualModels>
       <Schema Namespace="DbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccountsReceivable" EntityType="DbModel.AccountsReceivable" />
           <EntitySet Name="AllSalesInvoicesInfo" EntityType="DbModel.AllSalesInvoicesInfo" />
           <EntitySet Name="BillingAddress" EntityType="DbModel.BillingAddress" />
           <EntitySet Name="Company" EntityType="DbModel.Company" />
@@ -266,6 +302,11 @@
           <EntitySet Name="SaleInvoice" EntityType="DbModel.SaleInvoice" />
           <EntitySet Name="SaleInvoiceLine" EntityType="DbModel.SaleInvoiceLine" />
           <EntitySet Name="SaleInvoiceTotal" EntityType="DbModel.SaleInvoiceTotal" />
+          <EntitySet Name="Supplier" EntityType="DbModel.Supplier" />
+          <AssociationSet Name="FK_AccountsReceivable_Customer" Association="DbModel.FK_AccountsReceivable_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="AccountsReceivable" EntitySet="AccountsReceivable" />
+          </AssociationSet>
           <AssociationSet Name="FK_Customer_BillingAddress" Association="DbModel.FK_Customer_BillingAddress">
             <End Role="BillingAddress" EntitySet="BillingAddress" />
             <End Role="Customer" EntitySet="Customer" />
@@ -290,8 +331,24 @@
             <End Role="SaleInvoice" EntitySet="SaleInvoice" />
             <End Role="SaleInvoiceTotal" EntitySet="SaleInvoiceTotal" />
           </AssociationSet>
-          <EntitySet Name="Supplier" EntityType="DbModel.Supplier" />
         </EntityContainer>
+        <EntityType Name="AccountsReceivable">
+          <Key>
+            <PropertyRef Name="Entidade" />
+            <PropertyRef Name="DataDoc" />
+            <PropertyRef Name="DataVenc" />
+            <PropertyRef Name="ValorTotal" />
+            <PropertyRef Name="ValorPendente" />
+          </Key>
+          <Property Name="Entidade" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DataDoc" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DataVenc" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ValorTotal" Type="Double" Nullable="false" />
+          <Property Name="ValorPendente" Type="Double" Nullable="false" />
+          <Property Name="ModoPag" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TipoEntidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customer" Relationship="DbModel.FK_AccountsReceivable_Customer" FromRole="AccountsReceivable" ToRole="Customer" />
+        </EntityType>
         <EntityType Name="AllSalesInvoicesInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -337,6 +394,7 @@
           <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="NumberPurchases" Type="Int32" />
+          <NavigationProperty Name="AccountsReceivable" Relationship="DbModel.FK_AccountsReceivable_Customer" FromRole="Customer" ToRole="AccountsReceivable" />
           <NavigationProperty Name="BillingAddress" Relationship="DbModel.FK_Customer_BillingAddress" FromRole="Customer" ToRole="BillingAddress" />
           <NavigationProperty Name="SaleInvoice" Relationship="DbModel.FK_SaleInvoice_Customer" FromRole="Customer" ToRole="SaleInvoice" />
         </EntityType>
@@ -425,6 +483,30 @@
           <Property Name="GrossTotal" Type="Double" Nullable="false" />
           <NavigationProperty Name="SaleInvoice" Relationship="DbModel.FK_SaleInvoiceTotal_SaleInvoice" FromRole="SaleInvoiceTotal" ToRole="SaleInvoice" />
         </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="CodFornecedor" />
+          </Key>
+          <Property Name="CodFornecedor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NomeFiscal" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Telefone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Contribuinte" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_AccountsReceivable_Customer">
+          <End Type="DbModel.Customer" Role="Customer" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DbModel.AccountsReceivable" Role="AccountsReceivable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="AccountsReceivable">
+              <PropertyRef Name="Entidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Customer_BillingAddress">
           <End Type="DbModel.BillingAddress" Role="BillingAddress" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -503,22 +585,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Supplier">
-          <Key>
-            <PropertyRef Name="CodFornecedor" />
-          </Key>
-          <Property Name="CodFornecedor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="NomeFiscal" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Telefone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Contribuinte" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DbModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+          <EntitySetMapping Name="AccountsReceivable">
+            <EntityTypeMapping TypeName="DbModel.AccountsReceivable">
+              <MappingFragment StoreEntitySet="AccountsReceivable">
+                <ScalarProperty Name="TipoEntidade" ColumnName="TipoEntidade" />
+                <ScalarProperty Name="ModoPag" ColumnName="ModoPag" />
+                <ScalarProperty Name="ValorPendente" ColumnName="ValorPendente" />
+                <ScalarProperty Name="ValorTotal" ColumnName="ValorTotal" />
+                <ScalarProperty Name="DataVenc" ColumnName="DataVenc" />
+                <ScalarProperty Name="DataDoc" ColumnName="DataDoc" />
+                <ScalarProperty Name="Entidade" ColumnName="Entidade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="AllSalesInvoicesInfo">
             <EntityTypeMapping TypeName="DbModel.AllSalesInvoicesInfo">
               <MappingFragment StoreEntitySet="AllSalesInvoicesInfo">

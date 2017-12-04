@@ -174,12 +174,10 @@ namespace FirstREST.Integration
 
         public static void addSupplierToDb(DatabaseEntities db)
         {
-            System.Diagnostics.Debug.WriteLine("oi");
             List<Lib_Primavera.Model.Fornecedor> supplierList = Lib_Primavera.PriIntegration.SupplierList();
 
             foreach (var item in supplierList)
             {
-                System.Diagnostics.Debug.WriteLine("test: " + item.CodFornecedor);
                 var supplier = db.Supplier.Find(item.CodFornecedor);
 
                 if (supplier == null)
@@ -195,6 +193,50 @@ namespace FirstREST.Integration
                     db.Supplier.Add(newSupplier);
                 }
                 saveToDb(db);
+            }
+        }
+
+        #endregion
+
+        #region AccountsReceivable
+
+        public static void addAccountsReceivableToDb(DatabaseEntities db)
+        {
+            List<Lib_Primavera.Model.Pendente> accountsList = Lib_Primavera.PriIntegration.Accounts_Receivable_List();
+
+            foreach (var item in accountsList)
+            {
+
+                var account = db.AccountsReceivable.Find(item.Entidade, item.DataDoc, item.DataVenc, item.ValorTotal, item.ValorPendente);
+
+                System.Diagnostics.Debug.WriteLine("account: " + account);
+                
+                if (account == null)
+                {
+                    System.Diagnostics.Debug.WriteLine("VOU CRIAR");
+                    System.Diagnostics.Debug.WriteLine(item.DataDoc + " - " + item.DataVenc);
+                    System.Diagnostics.Debug.WriteLine(item.Entidade + " - " + item.TipoEntidade);
+                    System.Diagnostics.Debug.WriteLine(item.ValorPendente + " - " + item.ValorTotal + " - " + item.ModoPag);
+                    Models.AccountsReceivable newAccount = new Models.AccountsReceivable
+                    {
+                        TipoEntidade = item.TipoEntidade,
+                        Entidade = item.Entidade,
+                        DataDoc = item.DataDoc,
+                        DataVenc = item.DataVenc,
+                        ValorTotal = item.ValorTotal,
+                        ValorPendente = item.ValorPendente,
+                        ModoPag = item.ModoPag
+                    };
+                    db.AccountsReceivable.Add(newAccount);
+                    saveToDb(db);
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine(" JA EXISTE");
+                    System.Diagnostics.Debug.WriteLine(item.DataDoc + " - " + item.DataVenc);
+                    System.Diagnostics.Debug.WriteLine(item.Entidade + " - " + item.TipoEntidade);
+                    System.Diagnostics.Debug.WriteLine(item.ValorPendente + " - " + item.ValorTotal + " - " + item.ModoPag);
+                }
             }
         }
 

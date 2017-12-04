@@ -320,6 +320,9 @@
     <Compile Include="Lib_Primavera\Model\LinhaDocVenda.cs" />
     <Compile Include="Lib_Primavera\Model\RespostaErro.cs" />
     <Compile Include="Lib_Primavera\PriEngine.cs" />
+    <Compile Include="Models\AccountsReceivable.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AllSalesInvoicesInfo.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
