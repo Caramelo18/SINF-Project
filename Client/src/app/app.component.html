@@ -42,8 +42,8 @@
         <a href="#"><i class="fa fa-bar-chart fa-lg"></i>Orders<span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="orders">
-        <li class="active"><a href="#">Sales orders</a></li>
-        <li><a href="#">Purchase orders</a></li>
+        <li><a routerLink="/orders">Sales orders</a></li>
+        <li><a routerLink="/orders">Purchase orders</a></li>  <!--TODO apontar para paginas diferentes-->
       </ul>
 
 
@@ -51,9 +51,9 @@
         <a routerLink="/sales"><i class="fa fa-eur fa-lg"></i> Sales <span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="sales">
-        <li>Sales details</li>
-        <li>Sales by product</li>
-        <li>Sales by client</li>
+        <li><a routerLink="/sales">Sales details</a></li>
+        <li><a routerLink="/sales">Sales by product</a></li>
+        <li><a routerLink="/sales">Sales by client</a></li>  <!--TODO apontar para paginas diferentes-->
       </ul>
 
 
@@ -82,8 +82,8 @@
         <a href="#"><i class="fa fa-line-chart fa-lg"></i> Financial overview <span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="financial-overview">
-        <li>Accounts receivable</li>
-        <li>Accounts payable</li>
+        <li><a routerLink="/financial">Accounts receivable</a></li>
+        <li><a routerLink="/financial">Accounts payable</a></li>  <!--TODO apontar para paginas diferentes-->
       </ul>
       <button (click)="update()" id="refresh" type="button" class="btn">Refresh</button>
     </ul>
