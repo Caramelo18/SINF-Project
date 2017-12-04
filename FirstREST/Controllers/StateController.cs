@@ -34,6 +34,8 @@ namespace FirstREST.Controllers
 
                 Integration.DbIntegration.addSupplierToDb(db);
                 Integration.DbIntegration.addAccountsReceivableToDb(db);
+                Integration.DbIntegration.addAccountsPayableToDb(db);
+
                 System.Diagnostics.Debug.WriteLine("acabei");
 
             }

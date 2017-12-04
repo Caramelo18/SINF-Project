@@ -5,10 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a0ab177b5d664fa2bd8810207d8f84ef" Name="Diagram1">
-        <EntityTypeShape EntityType="DbModel.AccountReceivable" Width="1.5" PointX="0.75" PointY="6.75" />
-        <EntityTypeShape EntityType="DbModel.AllSalesInvoicesInfo" Width="1.5" PointX="9.75" PointY="5.75" />
+        <EntityTypeShape EntityType="DbModel.AccountPayable" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="DbModel.AccountReceivable" Width="1.5" PointX="9.75" PointY="5.75" />
+        <EntityTypeShape EntityType="DbModel.AllSalesInvoicesInfo" Width="1.5" PointX="7.75" PointY="9.75" />
         <EntityTypeShape EntityType="DbModel.BillingAddress" Width="1.5" PointX="0.75" PointY="2.875" />
-        <EntityTypeShape EntityType="DbModel.Company" Width="1.5" PointX="7.75" PointY="9.75" />
+        <EntityTypeShape EntityType="DbModel.Company" Width="1.5" PointX="9.75" PointY="9.75" />
         <EntityTypeShape EntityType="DbModel.Customer" Width="1.5" PointX="3" PointY="2" />
         <EntityTypeShape EntityType="DbModel.DocCompra" Width="1.5" PointX="9.75" PointY="1.625" />
         <EntityTypeShape EntityType="DbModel.LinhaDocCompra" Width="1.5" PointX="12" PointY="1" />
@@ -16,8 +17,9 @@
         <EntityTypeShape EntityType="DbModel.SaleInvoice" Width="1.5" PointX="5.25" PointY="2.625" />
         <EntityTypeShape EntityType="DbModel.SaleInvoiceLine" Width="1.5" PointX="7.5" PointY="2.5" />
         <EntityTypeShape EntityType="DbModel.SaleInvoiceTotal" Width="1.5" PointX="7.5" PointY="6.625" />
-        <EntityTypeShape EntityType="DbModel.Supplier" Width="1.5" PointX="9.75" PointY="8.75" />
-        <EntityTypeShape EntityType="DbModel.Teste" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="DbModel.Supplier" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="DbModel.Table" Width="1.5" PointX="2.75" PointY="11.75" />
+        <EntityTypeShape EntityType="DbModel.Teste" Width="1.5" PointX="4.75" PointY="11.75" />
         <AssociationConnector Association="DbModel.FK_Customer_BillingAddress" />
         <AssociationConnector Association="DbModel.FK_SaleInvoice_Customer" />
         <AssociationConnector Association="DbModel.FK_DocCompra_LinhaDocCompra" />

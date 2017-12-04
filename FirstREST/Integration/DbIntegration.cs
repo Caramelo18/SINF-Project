@@ -227,6 +227,33 @@ namespace FirstREST.Integration
             }
         }
 
+        public static void addAccountsPayableToDb(DatabaseEntities db)
+        {
+            List<Lib_Primavera.Model.Pendente> accountsList = Lib_Primavera.PriIntegration.Accounts_Payable_List();
+
+            foreach (var item in accountsList)
+            {
+
+                var account = db.AccountPayable.Find(item.Entidade, item.DataDoc, item.DataVenc, item.ValorTotal, item.ValorPendente);
+
+                if (account == null)
+                {
+                    Models.AccountPayable newAccount = new Models.AccountPayable
+                    {
+                        TipoEntidade = item.TipoEntidade,
+                        Entidade = item.Entidade,
+                        DataDoc = item.DataDoc,
+                        DataVenc = item.DataVenc,
+                        ValorTotal = item.ValorTotal,
+                        ValorPendente = item.ValorPendente,
+                        ModoPag = item.ModoPag
+                    };
+                    db.AccountPayable.Add(newAccount);
+                    saveToDb(db);
+                }
+            }
+        }
+
         #endregion
     }
 }

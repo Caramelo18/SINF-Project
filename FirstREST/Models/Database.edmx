@@ -5,6 +5,22 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccountPayable">
+          <Key>
+            <PropertyRef Name="Entidade" />
+            <PropertyRef Name="DataDoc" />
+            <PropertyRef Name="DataVenc" />
+            <PropertyRef Name="ValorTotal" />
+            <PropertyRef Name="ValorPendente" />
+          </Key>
+          <Property Name="Entidade" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DataDoc" Type="datetime" Nullable="false" />
+          <Property Name="DataVenc" Type="datetime" Nullable="false" />
+          <Property Name="ValorTotal" Type="float" Nullable="false" />
+          <Property Name="ValorPendente" Type="float" Nullable="false" />
+          <Property Name="ModoPag" Type="varchar" MaxLength="50" />
+          <Property Name="TipoEntidade" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="AccountReceivable">
           <Key>
             <PropertyRef Name="Entidade" />
@@ -152,6 +168,12 @@
           <Property Name="Telefone" Type="varchar" MaxLength="50" />
           <Property Name="Contribuinte" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Teste">
           <Key>
             <PropertyRef Name="Entidade" />
@@ -247,6 +269,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DbModelStoreContainer">
+          <EntitySet Name="AccountPayable" EntityType="Self.AccountPayable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AccountReceivable" EntityType="Self.AccountReceivable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AllSalesInvoicesInfo" EntityType="Self.AllSalesInvoicesInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BillingAddress" EntityType="Self.BillingAddress" Schema="dbo" store:Type="Tables" />
@@ -259,6 +282,7 @@
           <EntitySet Name="SaleInvoiceLine" EntityType="Self.SaleInvoiceLine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SaleInvoiceTotal" EntityType="Self.SaleInvoiceTotal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table" EntityType="Self.Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teste" EntityType="Self.Teste" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Customer_BillingAddress" Association="Self.FK_Customer_BillingAddress">
             <End Role="BillingAddress" EntitySet="BillingAddress" />
@@ -290,6 +314,7 @@
     <edmx:ConceptualModels>
       <Schema Namespace="DbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccountPayable" EntityType="DbModel.AccountPayable" />
           <EntitySet Name="AccountReceivable" EntityType="DbModel.AccountReceivable" />
           <EntitySet Name="AllSalesInvoicesInfo" EntityType="DbModel.AllSalesInvoicesInfo" />
           <EntitySet Name="BillingAddress" EntityType="DbModel.BillingAddress" />
@@ -302,6 +327,7 @@
           <EntitySet Name="SaleInvoiceLine" EntityType="DbModel.SaleInvoiceLine" />
           <EntitySet Name="SaleInvoiceTotal" EntityType="DbModel.SaleInvoiceTotal" />
           <EntitySet Name="Supplier" EntityType="DbModel.Supplier" />
+          <EntitySet Name="Table" EntityType="DbModel.Table" />
           <EntitySet Name="Teste" EntityType="DbModel.Teste" />
           <AssociationSet Name="FK_Customer_BillingAddress" Association="DbModel.FK_Customer_BillingAddress">
             <End Role="BillingAddress" EntitySet="BillingAddress" />
@@ -328,6 +354,22 @@
             <End Role="SaleInvoiceTotal" EntitySet="SaleInvoiceTotal" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="AccountPayable">
+          <Key>
+            <PropertyRef Name="Entidade" />
+            <PropertyRef Name="DataDoc" />
+            <PropertyRef Name="DataVenc" />
+            <PropertyRef Name="ValorTotal" />
+            <PropertyRef Name="ValorPendente" />
+          </Key>
+          <Property Name="Entidade" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DataDoc" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DataVenc" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ValorTotal" Type="Double" Nullable="false" />
+          <Property Name="ValorPendente" Type="Double" Nullable="false" />
+          <Property Name="ModoPag" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TipoEntidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="AccountReceivable">
           <Key>
             <PropertyRef Name="Entidade" />
@@ -487,6 +529,12 @@
           <Property Name="Telefone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Contribuinte" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="Teste">
           <Key>
             <PropertyRef Name="Entidade" />
@@ -587,6 +635,19 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DbModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+          <EntitySetMapping Name="AccountPayable">
+            <EntityTypeMapping TypeName="DbModel.AccountPayable">
+              <MappingFragment StoreEntitySet="AccountPayable">
+                <ScalarProperty Name="TipoEntidade" ColumnName="TipoEntidade" />
+                <ScalarProperty Name="ModoPag" ColumnName="ModoPag" />
+                <ScalarProperty Name="ValorPendente" ColumnName="ValorPendente" />
+                <ScalarProperty Name="ValorTotal" ColumnName="ValorTotal" />
+                <ScalarProperty Name="DataVenc" ColumnName="DataVenc" />
+                <ScalarProperty Name="DataDoc" ColumnName="DataDoc" />
+                <ScalarProperty Name="Entidade" ColumnName="Entidade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="AccountReceivable">
             <EntityTypeMapping TypeName="DbModel.AccountReceivable">
               <MappingFragment StoreEntitySet="AccountReceivable">
@@ -738,6 +799,13 @@
                 <ScalarProperty Name="NomeFiscal" ColumnName="NomeFiscal" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="CodFornecedor" ColumnName="CodFornecedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table">
+            <EntityTypeMapping TypeName="DbModel.Table">
+              <MappingFragment StoreEntitySet="Table">
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

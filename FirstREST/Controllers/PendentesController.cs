@@ -13,22 +13,20 @@ namespace FirstREST.Controllers
         DatabaseEntities db = new DatabaseEntities();
 
         [HttpGet]
-        public IEnumerable<Lib_Primavera.Model.Pendente> AccountsReceivable()
+        public List<Models.AccountReceivable> AccountsReceivable()
         {
-            return Lib_Primavera.PriIntegration.Accounts_Receivable_List();
-        }
-        /*public List<Models.AccountsReceivable> AccountsReceivable()
-        {
-            var accounts = (from p in db.AccountsReceivable
+            var accounts = (from p in db.AccountReceivable
                             select p).ToList();
             return accounts;
 
-        }*/
+        }
 
         [HttpGet]
-        public IEnumerable<Lib_Primavera.Model.Pendente> AccountsPayable()
+        public List<Models.AccountPayable> AccountsPayable()
         {
-            return Lib_Primavera.PriIntegration.Accounts_Payable_List();
+            var accounts = (from p in db.AccountPayable
+                            select p).ToList();
+            return accounts;
         }
     }
 }
