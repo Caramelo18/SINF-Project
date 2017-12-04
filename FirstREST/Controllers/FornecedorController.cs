@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FirstREST.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,22 +10,27 @@ namespace FirstREST.Controllers
 {
     public class FornecedorController : ApiController
     {
-        public IEnumerable<Lib_Primavera.Model.Fornecedor> Get()
+        DatabaseEntities db = new DatabaseEntities();
+
+        public List<Models.Supplier> Get()
         {
-            return Lib_Primavera.PriIntegration.SupplierList();
+            var suppliers = db.Supplier.SqlQuery("SELECT * FROM Supplier").ToList();
+            return suppliers;
         }
 
-        public Lib_Primavera.Model.Fornecedor Get(string id)
+        public Models.Supplier Get(string id)
         {
-            Lib_Primavera.Model.Fornecedor fornecedor = Lib_Primavera.PriIntegration.GetSupplier(id);
-
-            if(fornecedor == null)
+            try
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
+                Models.Supplier supplier = (from p in db.Supplier
+                                          where p.CodFornecedor == id
+                                          select p).AsQueryable().First();
+                return supplier;
             }
-            else
+            catch (Exception e)
             {
-                return fornecedor;
+                System.Diagnostics.Debug.WriteLine(e);
+                return null;
             }
         }
     }

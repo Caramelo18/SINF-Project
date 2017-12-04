@@ -28,8 +28,6 @@
     </div>
 </nav>
 
-
-
 <!--The content below is only a placeholder and can be replaced.-->
 
   <!-- source: https://bootsnipp.com/snippets/featured/responsive-navigation-menu -->
@@ -87,15 +85,10 @@
         <li><a routerLink="/financial">Accounts receivable</a></li>
         <li><a routerLink="/financial">Accounts payable</a></li>  <!--TODO apontar para paginas diferentes-->
       </ul>
-
-
+      <button (click)="update()" id="refresh" type="button" class="btn">Refresh</button>
     </ul>
   </div>
 </div>
 <div class="page-content">
     <router-outlet></router-outlet>
 </div>
-
-
-
-

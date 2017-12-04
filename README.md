@@ -42,6 +42,8 @@ To update models when db has changed:
 3. Browse to Client and run "npm install".
 4. Run the client: "npm start"
 
+**Note**: if you run into `EPERM errors` when executing `npm install`, install NPM 5.3 with `npm install npm@5.3 -g`.
+
 ## Authors
 
 * **Catarina Correia**
