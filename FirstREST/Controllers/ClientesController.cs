@@ -1,38 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using FirstREST.Lib_Primavera.Model;
+using FirstREST.Models;
 
 namespace FirstREST.Controllers
 {
     public class ClientesController : ApiController
     {
+        DatabaseEntities db = new DatabaseEntities();
+
         //
         // GET: /Clientes/
-
-        public IEnumerable<Lib_Primavera.Model.Cliente> Get()
+        
+        public List<Models.Customer> Get()
         {
-                return Lib_Primavera.PriIntegration.ListaClientes();
+            var clients = db.Customer.SqlQuery("SELECT * FROM Customer").ToList();
+            //var clients = db.Customer.Select(u => u.Fax).ToList();
+
+            return clients;
         }
 
-
         // GET api/cliente/5    
-        public Cliente Get(string id)
+        public Models.Customer Get(string id)
         {
-            Lib_Primavera.Model.Cliente cliente = Lib_Primavera.PriIntegration.GetCliente(id);
-            if (cliente == null)
+            try
             {
-                throw new HttpResponseException(
-                        Request.CreateResponse(HttpStatusCode.NotFound));
-
+                Models.Customer client = (from p in db.Customer
+                                          where p.CustomerID == id
+                                          select p).AsQueryable().First();
+                return client;
             }
-            else
+            catch (Exception e)
             {
-                return cliente;
+                System.Diagnostics.Debug.WriteLine(e);
+                return null;
             }
         }
 
