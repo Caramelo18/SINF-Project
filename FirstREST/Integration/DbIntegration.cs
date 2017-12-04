@@ -207,17 +207,11 @@ namespace FirstREST.Integration
             foreach (var item in accountsList)
             {
 
-                var account = db.AccountsReceivable.Find(item.Entidade, item.DataDoc, item.DataVenc, item.ValorTotal, item.ValorPendente);
-
-                System.Diagnostics.Debug.WriteLine("account: " + account);
+                var account = db.AccountReceivable.Find(item.Entidade, item.DataDoc, item.DataVenc, item.ValorTotal, item.ValorPendente);
                 
                 if (account == null)
                 {
-                    System.Diagnostics.Debug.WriteLine("VOU CRIAR");
-                    System.Diagnostics.Debug.WriteLine(item.DataDoc + " - " + item.DataVenc);
-                    System.Diagnostics.Debug.WriteLine(item.Entidade + " - " + item.TipoEntidade);
-                    System.Diagnostics.Debug.WriteLine(item.ValorPendente + " - " + item.ValorTotal + " - " + item.ModoPag);
-                    Models.AccountsReceivable newAccount = new Models.AccountsReceivable
+                    Models.AccountReceivable newAccount = new Models.AccountReceivable
                     {
                         TipoEntidade = item.TipoEntidade,
                         Entidade = item.Entidade,
@@ -227,15 +221,8 @@ namespace FirstREST.Integration
                         ValorPendente = item.ValorPendente,
                         ModoPag = item.ModoPag
                     };
-                    db.AccountsReceivable.Add(newAccount);
+                    db.AccountReceivable.Add(newAccount);
                     saveToDb(db);
-                }
-                else
-                {
-                    System.Diagnostics.Debug.WriteLine(" JA EXISTE");
-                    System.Diagnostics.Debug.WriteLine(item.DataDoc + " - " + item.DataVenc);
-                    System.Diagnostics.Debug.WriteLine(item.Entidade + " - " + item.TipoEntidade);
-                    System.Diagnostics.Debug.WriteLine(item.ValorPendente + " - " + item.ValorTotal + " - " + item.ModoPag);
                 }
             }
         }

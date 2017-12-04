@@ -25,7 +25,7 @@ namespace FirstREST.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<AccountsReceivable> AccountsReceivable { get; set; }
+        public virtual DbSet<AccountReceivable> AccountReceivable { get; set; }
         public virtual DbSet<AllSalesInvoicesInfo> AllSalesInvoicesInfo { get; set; }
         public virtual DbSet<BillingAddress> BillingAddress { get; set; }
         public virtual DbSet<Company> Company { get; set; }
@@ -37,5 +37,6 @@ namespace FirstREST.Models
         public virtual DbSet<SaleInvoiceLine> SaleInvoiceLine { get; set; }
         public virtual DbSet<SaleInvoiceTotal> SaleInvoiceTotal { get; set; }
         public virtual DbSet<Supplier> Supplier { get; set; }
+        public virtual DbSet<Teste> Teste { get; set; }
     }
 }
