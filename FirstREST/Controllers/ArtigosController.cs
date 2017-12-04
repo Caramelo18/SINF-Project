@@ -7,36 +7,40 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using FirstREST.Lib_Primavera.Model;
+using FirstREST.Models;
 
 
 namespace FirstREST.Controllers
 {
     public class ArtigosController : ApiController
     {
+        DatabaseEntities db = new DatabaseEntities();
+
         //
         // GET: /Artigos/
 
-        public IEnumerable<Lib_Primavera.Model.Artigo> Get()
-        {
-            return Lib_Primavera.PriIntegration.ListaArtigos();
+        public IQueryable<Models.Product> Get(){
+            var products = (from p in db.Product
+                           select p);
+            return products;
         }
-
 
         // GET api/artigo/5    
-        public Artigo Get(string id)
+        public Models.Product Get(string id)
         {
-            Lib_Primavera.Model.Artigo artigo = Lib_Primavera.PriIntegration.GetArtigo(id);
-            if (artigo == null)
+            try
             {
-                throw new HttpResponseException(
-                  Request.CreateResponse(HttpStatusCode.NotFound));
+                Models.Product product = (from p in db.Product
+                                          where p.ProductCode == id
+                                          select p).AsQueryable().First();
+                return product;
             }
-            else
+            catch (Exception e)
             {
-                return artigo;
+                System.Diagnostics.Debug.WriteLine(e);
+                return null;
             }
         }
-
     }
 }
 

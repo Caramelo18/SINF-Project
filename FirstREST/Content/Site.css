@@ -225,7 +225,29 @@
 /*-------------------------------*/
 /*       Clients page content    */
 /*-------------------------------*/
+#info {
+    width:30px;
+    height:20px;
+    background-color:white;
+    opacity: 0.5;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 0px;
+    text-align: center;
+    border-width: 0px;
+    color: gray;
+    margin-bottom: 10px;
+}
 
+#info:hover{
+    font-weight: bold;
+    color: black;
+}
+
+div.col-5{
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
 
 
   
@@ -319,4 +341,38 @@ a, a:hover{
 .product-details-btn:hover{
     color: white;
     background: #9f9191;
+}
+
+#table-get-product table {
+    width: 100%;
+    border-spacing: 0;
+}
+
+#table-get-product thead, #table-get-product tbody, #table-get-product tr, #table-get-product th, #table-get-product td { display: block; }
+
+#table-get-product thead tr {
+    
+    width: 97%;
+    
+    width: -webkit-calc(100% - 16px);
+    width:    -moz-calc(100% - 16px);
+    width:         calc(100% - 16px);
+}
+
+#table-get-product tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+#table-get-product tbody {
+    height: 27rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#table-get-product tbody td, #table-get-product thead th {
+    width: 33%;
+    float: left;
 }

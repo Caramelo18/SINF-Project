@@ -1,0 +1,94 @@
+<!--up BAR-->
+
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+
+    <div class="col-sm-6 offset-sm-1">
+        <form class="search-form" action="#">
+            <input id="search-bar" type="text" placeholder="&#xF002;" style="font-family:Arial, FontAwesome" />
+        </form>
+    </div>
+
+    <div class="col-sm-2 offset-sm-3">
+        <div class="login">
+            <a href="#" data-toggle="modal" data-target="#login-modal">Login</a>
+        </div>
+        <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="loginmodal-container">
+                    <h1>Login to Your Account</h1><br>
+                    <form action="#">
+                        <input type="text" name="user" class="form-control login-field" placeholder="Username">
+                        <input type="password" name="pass" class="form-control login-field" placeholder="Password">
+                        <button type="submit" name="login" class="form-control login-field loginmodal-submit btn">Login</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!--The content below is only a placeholder and can be replaced.-->
+
+  <!-- source: https://bootsnipp.com/snippets/featured/responsive-navigation-menu -->
+<div class="nav-side-menu">
+  <div class="brand"><a href="/">360º Dashboard</a></div>
+  <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+
+  <div class="menu-list">
+
+    <ul id="menu-content" class="menu-content collapse out">
+      <li  data-toggle="collapse" data-target="#orders" class="collapsed active">
+        <a href="#"><i class="fa fa-bar-chart fa-lg"></i>Orders<span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="orders">
+        <li class="active"><a href="#">Sales orders</a></li>
+        <li><a href="#">Purchase orders</a></li>
+      </ul>
+
+
+      <li data-toggle="collapse" data-target="#sales" class="collapsed">
+        <a routerLink="/sales"><i class="fa fa-eur fa-lg"></i> Sales <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="sales">
+        <li>Sales details</li>
+        <li>Sales by product</li>
+        <li>Sales by client</li>
+      </ul>
+
+
+      <li data-toggle="collapse" data-target="#clients" class="collapsed">
+        <a><i class="fa fa-user fa-lg"></i> Clients <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu" id="clients">
+        <li><a routerLink="/clients"> Clients details</a></li>
+      </ul>
+
+      <li data-toggle="collapse" data-target="#suppliers" class="collapsed">
+        <a href="#"><i class="fa fa-truck fa-lg"></i> Suppliers <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu " id="suppliers">
+        <li><a routerLink="/suppliers">Suppliers details</a></li>
+      </ul>
+
+      <li data-toggle="collapse" data-target="#inventory" class="collapsed">
+        <a href="#"><i class="fa fa-shopping-cart fa-lg"></i> Inventory <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu " id="inventory">
+        <li><a routerLink="/inventory">Product details</a></li>
+      </ul>
+
+      <li data-toggle="collapse" data-target="#financial-overview" class="collapsed">
+        <a href="#"><i class="fa fa-line-chart fa-lg"></i> Financial overview <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="financial-overview">
+        <li>Accounts receivable</li>
+        <li>Accounts payable</li>
+      </ul>
+      <button (click)="update()" id="refresh" type="button" class="btn">Refresh</button>
+    </ul>
+  </div>
+</div>
+<div class="page-content">
+    <router-outlet></router-outlet>
+</div>

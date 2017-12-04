@@ -18,14 +18,6 @@ namespace FirstREST.Areas.SalesClient.Controllers
         public ActionResult Index()
         {
 
-            DatabaseEntities db = new DatabaseEntities();
-            
-            XmlDocument doc = new XmlDocument();
-            doc.Load(Server.MapPath(@"~\Content\saft.xml"));
-
-            // Gets the sales Invoice from the saf-t file
-            Saft.SaftIntegration.ParseSalesInvoice(doc, db);
-
             // The last element of the breadcrumbs list is the current page
             ViewBag.breadcrumbs = new List<string> { "Home", "Vendas ao Cliente" };
 

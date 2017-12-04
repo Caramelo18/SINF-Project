@@ -29,8 +29,8 @@ namespace FirstREST.Controllers
                 articles.Add(articlesTemp.ElementAt(i));
             }
 
-            ViewBag.accountsPayable = (int) accountsPayable.ElementAt(0).TotalMerc;
-            ViewBag.accountsReceivable = (int) accountsReceivable.ElementAt(0).TotalMerc;
+            //ViewBag.accountsPayable = (int) accountsPayable.ElementAt(0).TotalMerc;
+            //ViewBag.accountsReceivable = (int) accountsReceivable.ElementAt(0).TotalMerc;
             ViewBag.numPurchases = Lib_Primavera.PriIntegration.NumCompras();
             ViewBag.numSales = Lib_Primavera.PriIntegration.NumVendas();
             ViewBag.totalSales = (int) Lib_Primavera.PriIntegration.TotalVendas();

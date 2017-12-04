@@ -35,6 +35,15 @@ To update models when db has changed:
 1. Go to Models > Database.edmx (double click)
 2. Right click class to update > "Update Model from Database..."
 
+## Angular Client
+
+1. Install nodejs and npm (can be downloaded on their website).
+2. Install angular by running this command: "npm install -g @angular/cli"
+3. Browse to Client and run "npm install".
+4. Run the client: "npm start"
+
+**Note**: if you run into `EPERM errors` when executing `npm install`, install NPM 5.3 with `npm install npm@5.3 -g`.
+
 ## Authors
 
 * **Catarina Correia**

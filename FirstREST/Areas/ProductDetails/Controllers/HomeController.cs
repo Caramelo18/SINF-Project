@@ -21,14 +21,6 @@ namespace FirstREST.Areas.ProductDetails.Controllers
             // The last element of the breadcrumbs list is the current page
             ViewBag.breadcrumbs = new List<string> { "Home", "Inventory" };
 
-            //TODO: change this to only be called once
-
-            XmlDocument doc = new XmlDocument();
-            doc.Load(Server.MapPath(@"~\Content\saft.xml"));
-
-            Saft.SaftIntegration.ParseProducts(doc);
-            //Saft.SaftIntegration.addProductsFromPrimaveraToDb(db);
-
             var artigos = from m in db.Product
                           select m;
 
@@ -52,6 +44,10 @@ namespace FirstREST.Areas.ProductDetails.Controllers
                          select m;
 
             ViewBag.artigo = artigo.ToList();
+
+            var encomendas = Lib_Primavera.PriIntegration.Encomendas_Produto_List(id, null);
+            ViewBag.encomendas = encomendas;
+
 
             //Lib_Primavera.PriIntegration.Encomendas_Produto_List(id, null);
 
