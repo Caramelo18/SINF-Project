@@ -79,3 +79,11 @@
 .nav-side-menu a:selection{
     color: #cc5200;
 }
+
+#refresh{
+    background: #cc5200;
+    margin-top: 50px;
+    margin-left: 120px;
+    color: #e1ffff;
+    font-size: 20px;
+}
