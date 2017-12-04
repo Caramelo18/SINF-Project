@@ -1,0 +1,81 @@
+/*-------------------------------*/
+/*           Menu Bar            */
+/*-------------------------------*/
+
+
+.navbar.navbar-toggleable-md.navbar-light.bg-faded{
+    background-color: #2e353d;
+    margin: 0;
+    height: 60px;
+}
+
+#search-bar{
+    margin-left: 60%;
+    width: 70%;
+    border-radius: 30px;
+    box-shadow: none;
+    text-shadow: none;
+    padding-left: 10px;
+}
+
+.login{
+    text-align: center;
+}
+.login a{
+    text-decoration: none;
+    color: #e1ffff;
+    font-size: 20px;
+}
+.login a:hover{
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
+
+
+.loginmodal-container{
+    background: white;
+    margin-top: 25%;
+    padding: 20px;
+    border-radius: 10px;
+    display: block;
+}
+
+.loginmodal-container h1{
+   text-align: center;
+}
+
+.login-field{
+    margin:20px 0;
+    padding: 10px 0 10px 10px;
+}
+
+.loginmodal-submit{
+    background: #cc5200;
+    color: white;
+}
+
+/*-------------------------------*/
+/*           Side Bar            */
+/*-------------------------------*/
+
+.brand{
+    height: 60px;
+    padding-top: 5px;
+}
+
+.brand a{
+    height: 60px;
+    font-weight: 20px;
+    font-size: 30px;
+    font-family: sans-serif;
+    color: #cc5200;
+}
+
+.nav-side-menu a:active{
+    color: #cc5200;
+}
+
+.nav-side-menu a:selection{
+    color: #cc5200;
+}
