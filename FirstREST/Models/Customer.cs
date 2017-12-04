@@ -16,6 +16,7 @@ namespace FirstREST.Models
     {
         public Customer()
         {
+            this.AccountsReceivable = new HashSet<AccountsReceivable>();
             this.SaleInvoice = new HashSet<SaleInvoice>();
         }
     
@@ -31,7 +32,9 @@ namespace FirstREST.Models
         public string CustomerEmail { get; set; }
         public string Fax { get; set; }
         public string Website { get; set; }
+        public Nullable<int> NumberPurchases { get; set; }
     
+        public virtual ICollection<AccountsReceivable> AccountsReceivable { get; set; }
         public virtual BillingAddress BillingAddress { get; set; }
         public virtual ICollection<SaleInvoice> SaleInvoice { get; set; }
     }

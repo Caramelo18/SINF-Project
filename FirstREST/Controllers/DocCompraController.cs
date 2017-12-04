@@ -6,36 +6,64 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using FirstREST.Lib_Primavera.Model;
+using FirstREST.Models;
 
 namespace FirstREST.Controllers
 {
     public class DocCompraController : ApiController
     {
+        DatabaseEntities db = new DatabaseEntities();
 
-        public IEnumerable<Lib_Primavera.Model.DocCompra> Get()
+        public List<Models.DocCompra> Get()
         {
             var allUrlKeyValues = ControllerContext.Request.GetQueryNameValuePairs();
-            string period = allUrlKeyValues.LastOrDefault(x => x.Key == "period").Value;
-            if (period == null)
-                return Lib_Primavera.PriIntegration.VGR_List();
-            else
-                return Lib_Primavera.PriIntegration.VGR_List(period);
-        }
+            string from = allUrlKeyValues.LastOrDefault(x => x.Key == "from").Value;
+            string to = allUrlKeyValues.LastOrDefault(x => x.Key == "to").Value;
 
-        
-        // GET api/DocCompra/id   
-        public Lib_Primavera.Model.DocCompra Get(string id)
-        {
-            Lib_Primavera.Model.DocCompra doccompra = Lib_Primavera.PriIntegration.DocCompra(id);
-            if (doccompra == null)
+            DateTime fromDate = Convert.ToDateTime(from);
+            DateTime toDate = Convert.ToDateTime(to);
+
+            var docs = new List<Models.DocCompra>();
+
+            if (from != null && to != null){
+                docs = (from p in db.DocCompra
+                            where p.Data >= fromDate && p.Data <= toDate
+                            select p).ToList();
+            }
+            else if (from != null)
             {
-                throw new HttpResponseException(
-                        Request.CreateResponse(HttpStatusCode.NotFound));
-
+                docs = (from p in db.DocCompra
+                            where p.Data >= fromDate
+                            select p).ToList();
+            }
+            else if (to != null)
+            {
+                docs = (from p in db.DocCompra
+                            where p.Data <= toDate
+                            select p).ToList();
             }
             else
             {
-                return doccompra;
+                docs = (from p in db.DocCompra
+                            select p).ToList();
+            }
+            return docs;
+        }
+        
+        // GET api/DocCompra/id   
+        public Models.DocCompra Get(string id)
+        {
+            try
+            {
+                Models.DocCompra doc = (from p in db.DocCompra
+                                          where p.Id == id
+                                          select p).AsQueryable().First();
+                return doc;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return null;
             }
         }
 
@@ -48,8 +76,6 @@ namespace FirstREST.Controllers
 
             return Lib_Primavera.PriIntegration.Compras_Produto_List(product, period);
         }
-              
-
 
         public HttpResponseMessage Post(Lib_Primavera.Model.DocCompra dc)
         {

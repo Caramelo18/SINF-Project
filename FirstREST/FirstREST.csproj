@@ -308,6 +308,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Integration\DbIntegration.cs" />
     <Compile Include="Lib_Primavera\Model\Fornecedor.cs" />
     <Compile Include="Lib_Primavera\Model\Pendente.cs" />
     <Compile Include="Lib_Primavera\PriIntegration.cs" />
@@ -319,6 +320,9 @@
     <Compile Include="Lib_Primavera\Model\LinhaDocVenda.cs" />
     <Compile Include="Lib_Primavera\Model\RespostaErro.cs" />
     <Compile Include="Lib_Primavera\PriEngine.cs" />
+    <Compile Include="Models\AccountsReceivable.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AllSalesInvoicesInfo.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -364,13 +368,16 @@
     <Compile Include="Models\SaleInvoiceTotal.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Supplier.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Saft\SaftIntegration.cs" />
+    <Compile Include="Integration\SaftIntegration.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Database2.mdf" />
