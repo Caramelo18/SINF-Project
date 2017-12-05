@@ -1,0 +1,48 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-4 col-md-12">
+            <div class="card">
+                <div class="card-block">
+                    <h4 class="card-title">{{product?.ProductCode}}</h4>
+                    <h5 class="product-group card-subtitle mb-2">Group: {{product?.ProductGroup}}</h5>
+                    <h5 class="product-group card-subtitle mb-2">Type: {{product?.ProductType}}</h5>
+                    <h5 class="product-group card-subtitle mb-2">Description: {{product?.ProductDescription}}</h5>
+                    <h5 class="product-group card-subtitle mb-2">Stock: {{product?.ProductStock}}</h5>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-block">
+                    <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options"
+                        chart-dataset-override="datasetOverride" chart-click="onClick">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-12">
+            <div class="card">
+                <div class="card-block">
+                    <canvas id="pie" class="chart chart-pie" chart-data="data" chart-labels="labels" chart-options="options">
+                    </canvas>
+                </div>
+            </div>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th sortable-column="id">Client Code</th>
+                            <th sortable-column="firstname">Quantity</th>
+                            <th sortable-column="lastname">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>SOFRIO</td>
+                            <td>10</td>
+                            <td>10-10-2015</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
