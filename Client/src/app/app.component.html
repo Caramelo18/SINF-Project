@@ -42,8 +42,8 @@
         <a href="#"><i class="fa fa-bar-chart fa-lg"></i>Orders<span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="orders">
-        <li><a routerLink="/orders">Sales orders</a></li>
-        <li><a routerLink="/orders">Purchase orders</a></li>  <!--TODO apontar para paginas diferentes-->
+        <li><a routerLink="/sales">Sales orders</a></li>
+        <li><a routerLink="/purchases">Purchase orders</a></li>  <!--TODO apontar para paginas diferentes-->
       </ul>
 
 
@@ -51,9 +51,8 @@
         <a routerLink="/sales"><i class="fa fa-eur fa-lg"></i> Sales <span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="sales">
-        <li><a routerLink="/sales">Sales details</a></li>
-        <li><a routerLink="/sales">Sales by product</a></li>
-        <li><a routerLink="/sales">Sales by client</a></li>  <!--TODO apontar para paginas diferentes-->
+        <li><a routerLink="/sales/product">Sales by product</a></li>
+        <li><a routerLink="/sales/client">Sales by client</a></li>  <!--TODO apontar para paginas diferentes-->
       </ul>
 
 
@@ -61,14 +60,15 @@
         <a><i class="fa fa-user fa-lg"></i> Clients <span class="arrow"></span></a>
       </li>
       <ul class="sub-menu" id="clients">
-        <li><a routerLink="/clients"> Clients details</a></li>
+        <li><a routerLink="/clients"> Clients List</a></li>
+        <li><a routerLink="/clients"> Clients Details</a></li>
       </ul>
 
       <li data-toggle="collapse" data-target="#suppliers" class="collapsed">
         <a href="#"><i class="fa fa-truck fa-lg"></i> Suppliers <span class="arrow"></span></a>
       </li>
       <ul class="sub-menu " id="suppliers">
-        <li><a routerLink="/suppliers">Suppliers details</a></li>
+        <li><a routerLink="/suppliers">Suppliers List</a></li>
       </ul>
 
       <li data-toggle="collapse" data-target="#inventory" class="collapsed">

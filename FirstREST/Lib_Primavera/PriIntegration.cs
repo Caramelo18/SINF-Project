@@ -884,7 +884,7 @@ namespace FirstREST.Lib_Primavera
                 objListCab = PriEngine.Engine.Consulta(st);
                 dv = new Model.DocVenda();
                 dv.id = objListCab.Valor("id");
-                dv.Entidade = numdoc;// objListCab.Valor("Entidade");
+                dv.Entidade = objListCab.Valor("Entidade");
                 dv.NumDoc = objListCab.Valor("NumDoc");
                 dv.Data = objListCab.Valor("Data");
                 dv.TotalMerc = objListCab.Valor("TotalMerc");

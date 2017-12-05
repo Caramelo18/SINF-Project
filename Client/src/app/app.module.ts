@@ -14,14 +14,19 @@ import { InventoryComponent } from './inventory/inventory.component';
 import { OrdersComponent } from './orders/orders.component';
 import { SalesComponent } from './sales/sales.component';
 import { SaleComponent } from './sales/sale/sale.component';
+import { PurchasesComponent } from './purchases/purchases.component';
+import { PurchaseComponent } from './purchases/purchase/purchase.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
 import { ProductComponent } from './inventory/product/product.component';
+import { SupplierComponent } from './suppliers/supplier/supplier.component';
 
 import { OverviewService } from './services/overview.service';
 import { ProductService } from './services/product.service';
 import { ClientService } from './services/client.service';
 import { UpdateService } from './services/update.service';
 import { SalesService } from './services/sales.service';
+import { PurchasesService } from './services/purchases.service';
+import { SuppliersService } from './services/suppliers.service';
 
 
 
@@ -36,7 +41,10 @@ import { SalesService } from './services/sales.service';
     ProductComponent,
     SalesComponent,
     SaleComponent,
+    PurchasesComponent,
+    PurchaseComponent,
     SuppliersComponent,
+    SupplierComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +56,9 @@ import { SalesService } from './services/sales.service';
     ProductService,
     ClientService,
     UpdateService,
-    SalesService
+    SalesService,
+    PurchasesService,
+    SuppliersService
   ],
   bootstrap: [AppComponent]
 })

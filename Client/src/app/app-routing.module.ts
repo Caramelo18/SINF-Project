@@ -8,8 +8,11 @@ import { InventoryComponent } from './inventory/inventory.component';
 import { OrdersComponent } from './orders/orders.component';
 import { SalesComponent } from './sales/sales.component';
 import { SaleComponent } from './sales/sale/sale.component';
+import { PurchasesComponent } from './purchases/purchases.component';
+import { PurchaseComponent } from './purchases/purchase/purchase.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
 import { ProductComponent } from './inventory/product/product.component';
+import { SupplierComponent } from './suppliers/supplier/supplier.component';
 
 
 const appRoutes: Routes = [
@@ -20,8 +23,11 @@ const appRoutes: Routes = [
   { path: 'orders', component: OrdersComponent },
   { path: 'sales', component: SalesComponent },
   { path: 'sale/:id', component: SaleComponent },
+  { path: 'product/:id', component: ProductComponent},
+  { path: 'purchases', component: PurchasesComponent },
+  { path: 'purchase/:id', component: PurchaseComponent },
   { path: 'suppliers', component: SuppliersComponent },
-  { path: 'product/:id', component: ProductComponent}
+  { path: 'supplier/:id', component: SupplierComponent }
 ];
 
 @NgModule({

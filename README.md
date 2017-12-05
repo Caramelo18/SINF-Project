@@ -32,8 +32,15 @@ To add db to models:
 
 To update models when db has changed:
 
-1. Go to Models > Database.edmx (double click)
-2. Right click class to update > "Update Model from Database..."
+1. Go to Server Explorer > DatabaseEntities (right click > New Query)
+2. Copy script.sql from db folder and paste it. Execute (Ctrl + Shift + E)
+3. Go to Models > Database.edmx (double click)
+4. Right click class to update > "Update Model from Database..."
+**OR** 
+
+5. If errors when running, delete all tables (Ctrl + A, Del)
+6. Right click class to update > "Update Model from Database..."
+7. In Add tab, check Tables and then click on Finish button
 
 ## Angular Client
 

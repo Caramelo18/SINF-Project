@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { SalesComponent } from '../sales.component';
-
 import { SalesService } from '../../services/sales.service';
 
 @Component({
@@ -21,7 +19,7 @@ export class SaleComponent implements OnInit {
 
     ngOnInit(): void {
       let params: any = this.activatedRoute.snapshot.params
-      
+
       this.salesService.getSale(params.id)
                           .then(response => {
                             console.log(response);
