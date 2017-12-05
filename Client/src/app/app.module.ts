@@ -15,6 +15,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { SalesComponent } from './sales/sales.component';
 import { SaleComponent } from './sales/sale/sale.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
+import { ProductComponent } from './inventory/product/product.component';
 
 import { OverviewService } from './services/overview.service';
 import { ProductService } from './services/product.service';
@@ -32,9 +33,10 @@ import { SalesService } from './services/sales.service';
     InventoryComponent,
     OrdersComponent,
     OverviewComponent,
+    ProductComponent,
     SalesComponent,
     SaleComponent,
-    SuppliersComponent
+    SuppliersComponent,
   ],
   imports: [
     BrowserModule,
