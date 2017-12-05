@@ -1,1 +1,3 @@
-Suppliers Component
+<ul>
+  <li *ngFor="let supplier of data"> <a routerLink="/supplier/{{supplier.CodFornecedor}}">{{supplier.CodFornecedor}} </a> - {{supplier.Nome}}</li>
+</ul>

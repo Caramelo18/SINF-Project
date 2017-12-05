@@ -1,3 +1,3 @@
 <div *ngFor="let order of data">
-  <a> {{order.NumDoc}} - {{order.Data}} - {{order.Entidade}} -  {{order.TotalMerc}} </a>
+   <a routerLink="/sale/{{order.NumDoc}}">{{order.NumDoc}} </a> - {{order.Data}} - {{order.Entidade}} -  {{order.TotalMerc}} 
 </div>

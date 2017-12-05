@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+
+import { SuppliersService } from '../services/suppliers.service';
 
 
 @Component({
@@ -9,11 +12,17 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class SuppliersComponent implements OnInit{
+    private data: string[];
 
     constructor(
+      private suppliersService: SuppliersService
     ) { }
 
     ngOnInit(): void {
-      console.log("HEYO");
+      this.suppliersService.getSuppliers()
+                           .then(response => {
+                              this.data = response;
+                              console.log(response);
+                            });
     }
 }
