@@ -94,6 +94,30 @@
           <Property Name="TotalMerc" Type="float" />
           <Property Name="Serie" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="DocumentTotals">
+          <Key>
+            <PropertyRef Name="InvoiceNo" />
+          </Key>
+          <Property Name="InvoiceNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TaxPayable" Type="float" Nullable="false" />
+          <Property Name="NetTotal" Type="float" Nullable="false" />
+          <Property Name="GrossTotal" Type="float" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="InvoiceNo" />
+          </Key>
+          <Property Name="InvoiceNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="InvoiceStatus" Type="varchar" MaxLength="10" />
+          <Property Name="Hash" Type="varchar" MaxLength="200" />
+          <Property Name="HashControl" Type="varchar" MaxLength="20" />
+          <Property Name="Period" Type="varchar" MaxLength="10" />
+          <Property Name="InvoiceDate" Type="varchar" MaxLength="50" />
+          <Property Name="InvoiceType" Type="varchar" MaxLength="10" />
+          <Property Name="SelfBillingIndicator" Type="varchar" MaxLength="10" />
+          <Property Name="SystemEntryDate" Type="varchar" MaxLength="50" />
+          <Property Name="CustomerID" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="LinhaDocCompra">
           <Key>
             <PropertyRef Name="Id" />
@@ -158,6 +182,15 @@
           <Property Name="NetTotal" Type="float" Nullable="false" />
           <Property Name="GrossTotal" Type="float" Nullable="false" />
         </EntityType>
+        <EntityType Name="SalesInvoices">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="NumberOfEntries" Type="int" Nullable="false" />
+          <Property Name="TotalDebit" Type="float" Nullable="false" />
+          <Property Name="TotalCredit" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="Supplier">
           <Key>
             <PropertyRef Name="CodFornecedor" />
@@ -168,27 +201,18 @@
           <Property Name="Telefone" Type="varchar" MaxLength="50" />
           <Property Name="Contribuinte" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Table">
+        <EntityType Name="Tax">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="LineNumber" />
+            <PropertyRef Name="InvoiceNo" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Teste">
-          <Key>
-            <PropertyRef Name="Entidade" />
-            <PropertyRef Name="DataDoc" />
-            <PropertyRef Name="DataVenc" />
-            <PropertyRef Name="ValorTotal" />
-            <PropertyRef Name="ValorPendente" />
-          </Key>
-          <Property Name="Entidade" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="DataDoc" Type="datetime" Nullable="false" />
-          <Property Name="DataVenc" Type="datetime" Nullable="false" />
-          <Property Name="ValorTotal" Type="float" Nullable="false" />
-          <Property Name="ValorPendente" Type="float" Nullable="false" />
-          <Property Name="ModoPag" Type="varchar" MaxLength="50" />
-          <Property Name="TipoEntidade" Type="varchar" MaxLength="50" />
+          <Property Name="LineNumber" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="InvoiceNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TaxType" Type="varchar" MaxLength="10" />
+          <Property Name="TaxCountryRegion" Type="varchar" MaxLength="50" />
+          <Property Name="TaxCode" Type="varchar" MaxLength="10" />
+          <Property Name="TaxPercentage" Type="varchar" MaxLength="50" />
+          <Property Name="SettlementAmount" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_Customer_BillingAddress">
           <End Role="BillingAddress" Type="Self.BillingAddress" Multiplicity="0..1">
@@ -276,14 +300,16 @@
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DocCompra" EntityType="Self.DocCompra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocumentTotals" EntityType="Self.DocumentTotals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LinhaDocCompra" EntityType="Self.LinhaDocCompra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SaleInvoice" EntityType="Self.SaleInvoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SaleInvoiceLine" EntityType="Self.SaleInvoiceLine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SaleInvoiceTotal" EntityType="Self.SaleInvoiceTotal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalesInvoices" EntityType="Self.SalesInvoices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Table" EntityType="Self.Table" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Teste" EntityType="Self.Teste" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tax" EntityType="Self.Tax" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Customer_BillingAddress" Association="Self.FK_Customer_BillingAddress">
             <End Role="BillingAddress" EntitySet="BillingAddress" />
             <End Role="Customer" EntitySet="Customer" />
@@ -321,14 +347,16 @@
           <EntitySet Name="Company" EntityType="DbModel.Company" />
           <EntitySet Name="Customer" EntityType="DbModel.Customer" />
           <EntitySet Name="DocCompra" EntityType="DbModel.DocCompra" />
+          <EntitySet Name="DocumentTotals" EntityType="DbModel.DocumentTotals" />
+          <EntitySet Name="Invoice" EntityType="DbModel.Invoice" />
           <EntitySet Name="LinhaDocCompra" EntityType="DbModel.LinhaDocCompra" />
           <EntitySet Name="Product" EntityType="DbModel.Product" />
           <EntitySet Name="SaleInvoice" EntityType="DbModel.SaleInvoice" />
           <EntitySet Name="SaleInvoiceLine" EntityType="DbModel.SaleInvoiceLine" />
           <EntitySet Name="SaleInvoiceTotal" EntityType="DbModel.SaleInvoiceTotal" />
+          <EntitySet Name="SalesInvoices" EntityType="DbModel.SalesInvoices" />
           <EntitySet Name="Supplier" EntityType="DbModel.Supplier" />
-          <EntitySet Name="Table" EntityType="DbModel.Table" />
-          <EntitySet Name="Teste" EntityType="DbModel.Teste" />
+          <EntitySet Name="Tax" EntityType="DbModel.Tax" />
           <AssociationSet Name="FK_Customer_BillingAddress" Association="DbModel.FK_Customer_BillingAddress">
             <End Role="BillingAddress" EntitySet="BillingAddress" />
             <End Role="Customer" EntitySet="Customer" />
@@ -447,6 +475,30 @@
           <Property Name="Serie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="LinhaDocCompra" Relationship="DbModel.FK_DocCompra_LinhaDocCompra" FromRole="DocCompra" ToRole="LinhaDocCompra" />
         </EntityType>
+        <EntityType Name="DocumentTotals">
+          <Key>
+            <PropertyRef Name="InvoiceNo" />
+          </Key>
+          <Property Name="InvoiceNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TaxPayable" Type="Double" Nullable="false" />
+          <Property Name="NetTotal" Type="Double" Nullable="false" />
+          <Property Name="GrossTotal" Type="Double" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="InvoiceNo" />
+          </Key>
+          <Property Name="InvoiceNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InvoiceStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Hash" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="HashControl" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Period" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="InvoiceDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InvoiceType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SelfBillingIndicator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SystemEntryDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="LinhaDocCompra">
           <Key>
             <PropertyRef Name="Id" />
@@ -519,6 +571,15 @@
           <Property Name="GrossTotal" Type="Double" Nullable="false" />
           <NavigationProperty Name="SaleInvoice" Relationship="DbModel.FK_SaleInvoiceTotal_SaleInvoice" FromRole="SaleInvoiceTotal" ToRole="SaleInvoice" />
         </EntityType>
+        <EntityType Name="SalesInvoices">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfEntries" Type="Int32" Nullable="false" />
+          <Property Name="TotalDebit" Type="Double" Nullable="false" />
+          <Property Name="TotalCredit" Type="Double" Nullable="false" />
+        </EntityType>
         <EntityType Name="Supplier">
           <Key>
             <PropertyRef Name="CodFornecedor" />
@@ -529,27 +590,18 @@
           <Property Name="Telefone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Contribuinte" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="Table">
+        <EntityType Name="Tax">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="LineNumber" />
+            <PropertyRef Name="InvoiceNo" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Teste">
-          <Key>
-            <PropertyRef Name="Entidade" />
-            <PropertyRef Name="DataDoc" />
-            <PropertyRef Name="DataVenc" />
-            <PropertyRef Name="ValorTotal" />
-            <PropertyRef Name="ValorPendente" />
-          </Key>
-          <Property Name="Entidade" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DataDoc" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DataVenc" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ValorTotal" Type="Double" Nullable="false" />
-          <Property Name="ValorPendente" Type="Double" Nullable="false" />
-          <Property Name="ModoPag" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TipoEntidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LineNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InvoiceNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TaxType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TaxCountryRegion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TaxCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TaxPercentage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SettlementAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Customer_BillingAddress">
           <End Type="DbModel.BillingAddress" Role="BillingAddress" Multiplicity="0..1">
@@ -723,6 +775,32 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DocumentTotals">
+            <EntityTypeMapping TypeName="DbModel.DocumentTotals">
+              <MappingFragment StoreEntitySet="DocumentTotals">
+                <ScalarProperty Name="GrossTotal" ColumnName="GrossTotal" />
+                <ScalarProperty Name="NetTotal" ColumnName="NetTotal" />
+                <ScalarProperty Name="TaxPayable" ColumnName="TaxPayable" />
+                <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Invoice">
+            <EntityTypeMapping TypeName="DbModel.Invoice">
+              <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="SystemEntryDate" ColumnName="SystemEntryDate" />
+                <ScalarProperty Name="SelfBillingIndicator" ColumnName="SelfBillingIndicator" />
+                <ScalarProperty Name="InvoiceType" ColumnName="InvoiceType" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="Period" ColumnName="Period" />
+                <ScalarProperty Name="HashControl" ColumnName="HashControl" />
+                <ScalarProperty Name="Hash" ColumnName="Hash" />
+                <ScalarProperty Name="InvoiceStatus" ColumnName="InvoiceStatus" />
+                <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="LinhaDocCompra">
             <EntityTypeMapping TypeName="DbModel.LinhaDocCompra">
               <MappingFragment StoreEntitySet="LinhaDocCompra">
@@ -791,6 +869,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SalesInvoices">
+            <EntityTypeMapping TypeName="DbModel.SalesInvoices">
+              <MappingFragment StoreEntitySet="SalesInvoices">
+                <ScalarProperty Name="TotalCredit" ColumnName="TotalCredit" />
+                <ScalarProperty Name="TotalDebit" ColumnName="TotalDebit" />
+                <ScalarProperty Name="NumberOfEntries" ColumnName="NumberOfEntries" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Supplier">
             <EntityTypeMapping TypeName="DbModel.Supplier">
               <MappingFragment StoreEntitySet="Supplier">
@@ -802,23 +890,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Table">
-            <EntityTypeMapping TypeName="DbModel.Table">
-              <MappingFragment StoreEntitySet="Table">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Teste">
-            <EntityTypeMapping TypeName="DbModel.Teste">
-              <MappingFragment StoreEntitySet="Teste">
-                <ScalarProperty Name="TipoEntidade" ColumnName="TipoEntidade" />
-                <ScalarProperty Name="ModoPag" ColumnName="ModoPag" />
-                <ScalarProperty Name="ValorPendente" ColumnName="ValorPendente" />
-                <ScalarProperty Name="ValorTotal" ColumnName="ValorTotal" />
-                <ScalarProperty Name="DataVenc" ColumnName="DataVenc" />
-                <ScalarProperty Name="DataDoc" ColumnName="DataDoc" />
-                <ScalarProperty Name="Entidade" ColumnName="Entidade" />
+          <EntitySetMapping Name="Tax">
+            <EntityTypeMapping TypeName="DbModel.Tax">
+              <MappingFragment StoreEntitySet="Tax">
+                <ScalarProperty Name="SettlementAmount" ColumnName="SettlementAmount" />
+                <ScalarProperty Name="TaxPercentage" ColumnName="TaxPercentage" />
+                <ScalarProperty Name="TaxCode" ColumnName="TaxCode" />
+                <ScalarProperty Name="TaxCountryRegion" ColumnName="TaxCountryRegion" />
+                <ScalarProperty Name="TaxType" ColumnName="TaxType" />
+                <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+                <ScalarProperty Name="LineNumber" ColumnName="LineNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
