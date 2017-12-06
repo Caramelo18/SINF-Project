@@ -29,11 +29,14 @@ namespace FirstREST.Controllers
                 Integration.SaftIntegration.ParseProducts(doc, db);
                 Integration.DbIntegration.addProductsFromPrimaveraToDb(db);
 
-                //Saft.SaftIntegration.ParseSalesInvoice(doc, db);
+                //Integration.SaftIntegration.ParseSalesInvoice(doc, db);
                 Integration.DbIntegration.addDocCompraToDb(db);
 
                 Integration.DbIntegration.addSupplierToDb(db);
-                //Integration.DbIntegration.addAccountsReceivableToDb(db);
+                Integration.DbIntegration.addAccountsReceivableToDb(db);
+                Integration.DbIntegration.addAccountsPayableToDb(db);
+
+                System.Diagnostics.Debug.WriteLine("acabei");
 
             }
             catch (Exception ex)

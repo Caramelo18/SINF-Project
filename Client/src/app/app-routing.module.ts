@@ -11,6 +11,7 @@ import { SaleComponent } from './sales/sale/sale.component';
 import { PurchasesComponent } from './purchases/purchases.component';
 import { PurchaseComponent } from './purchases/purchase/purchase.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
+import { ProductComponent } from './inventory/product/product.component';
 import { SupplierComponent } from './suppliers/supplier/supplier.component';
 
 
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
   { path: 'orders', component: OrdersComponent },
   { path: 'sales', component: SalesComponent },
   { path: 'sale/:id', component: SaleComponent },
+  { path: 'product/:id', component: ProductComponent},
   { path: 'purchases', component: PurchasesComponent },
   { path: 'purchase/:id', component: PurchaseComponent },
   { path: 'suppliers', component: SuppliersComponent },

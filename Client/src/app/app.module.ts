@@ -17,6 +17,7 @@ import { SaleComponent } from './sales/sale/sale.component';
 import { PurchasesComponent } from './purchases/purchases.component';
 import { PurchaseComponent } from './purchases/purchase/purchase.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
+import { ProductComponent } from './inventory/product/product.component';
 import { SupplierComponent } from './suppliers/supplier/supplier.component';
 
 import { OverviewService } from './services/overview.service';
@@ -37,6 +38,7 @@ import { SuppliersService } from './services/suppliers.service';
     InventoryComponent,
     OrdersComponent,
     OverviewComponent,
+    ProductComponent,
     SalesComponent,
     SaleComponent,
     PurchasesComponent,
