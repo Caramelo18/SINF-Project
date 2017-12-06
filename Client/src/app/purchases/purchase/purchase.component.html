@@ -2,12 +2,12 @@
     <div class="row">
         <div class="col-lg-4 col-md-12">
             <div class="card">
-                <div class="card-block">
-                    <h5 class="product-group card-subtitle mb-2">Supplier: {{data?.Entidade}}</h5>
-                    <h5 class="product-group card-subtitle mb-2">Date: {{data?.Data}}</h5>
-                    <h5 class="product-group card-subtitle mb-2">Doc Id: {{data?.Id}}</h5>
-                    <h5 class="product-group card-subtitle mb-2">No. Doc: {{data?.NumDoc}}</h5>
-                    <h5 class="product-group card-subtitle mb-2">Total Merc: {{data?.TotalMerc}}</h5>
+                <div class="card-block" style="margin-top: 15px;">
+                    <h5 class="product-group card-subtitle mb-2">Supplier: <span class="info-supplier">{{data?.Entidade}}</span></h5>
+                    <h5 class="product-group card-subtitle mb-2">Date: <span class="info-supplier">{{data?.Data}}</span></h5>
+                    <h5 class="product-group card-subtitle mb-2">Doc Id: <span class="info-supplier">{{data?.Id}}</span></h5>
+                    <h5 class="product-group card-subtitle mb-2">No. Doc: <span class="info-supplier">{{data?.NumDoc}}</span></h5>
+                    <h5 class="product-group card-subtitle mb-2">Total Merc: <span class="info-supplier">{{data?.TotalMerc}}</span></h5>
                 </div>
             </div>
             <div class="card">
@@ -37,7 +37,7 @@
                                 <th style="text-align:center;">Total Price</th>
                                 <th style="text-align:center;">Location</th>     
                             </tr>
-                            <tr *ngFor="let line of data.LinhaDocCompra">
+                            <tr *ngFor="let line of data?.LinhaDocCompra">
                                 <td *ngIf="line.CodArtigo != ''" style="padding-right:0px;">{{line?.CodArtigo}}</td>
                                 <td *ngIf="line.CodArtigo != ''" style="padding-right:0px;">{{line?.Quantidade}}</td>
                                 <td *ngIf="line.CodArtigo != ''" style="padding-right:0px;">{{line?.PrecoUnitario}}</td>
