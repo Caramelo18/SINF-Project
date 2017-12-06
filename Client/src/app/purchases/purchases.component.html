@@ -1,3 +1,22 @@
-<div *ngFor="let order of data">
-   <a routerLink="/purchase/{{order.NumDoc}}">{{order.NumDoc}} </a> - {{order.Data}} - {{order.Entidade}} -  {{order.TotalMerc}} 
-</div>
+<div class="row" style="margin-top: 40px;">
+    <div class="col-sm-12 col-lg-6">
+        <div class="card white">
+            <div class="card-block">
+                <table style="width:100%;table-layout:fixed;text-align:center;">
+                    <tr style="border-bottom: 1px solid #e6e6e6;">
+                        <th style="text-align:center;">Supplier Code</th>
+                        <th style="text-align:center;">No. Document</th>
+                        <th style="text-align:center;">Quantity</th>
+                        <th style="text-align:center;">Data</th>
+                    </tr>
+                    <tr *ngFor="let order of data; let i=index">
+
+                        <td style="padding-right:0px;"><a routerLink="/supplier/{{order.Entidade}}">{{order.Entidade}}</a></td>
+                        <td style="padding-right:0px;"><a routerLink="/purchase/{{order.Id}}">{{order.NumDoc}}</a></td>
+                        <td style="padding-right:0px;">{{order.TotalMerc}}</td>
+                        <td style="padding-right:0px;">{{order.Data}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>

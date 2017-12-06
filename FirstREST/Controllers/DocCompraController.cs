@@ -10,6 +10,11 @@ using FirstREST.Models;
 
 namespace FirstREST.Controllers
 {
+    public class DocCompraGeral
+    {
+        public Models.DocCompra doc { get; set; }
+        public int totalQuantity { get; set; }
+    }
     public class DocCompraController : ApiController
     {
         DatabaseEntities db = new DatabaseEntities();
@@ -24,6 +29,7 @@ namespace FirstREST.Controllers
             DateTime toDate = Convert.ToDateTime(to);
 
             var docs = new List<Models.DocCompra>();
+            int total = 0;
 
             if (from != null && to != null){
                 docs = (from p in db.DocCompra
@@ -45,8 +51,10 @@ namespace FirstREST.Controllers
             else
             {
                 docs = (from p in db.DocCompra
-                            select p).ToList();
+                        select p).ToList();
             }
+
+            docs = docs.OrderByDescending(x => x.Data).ToList();
             return docs;
         }
         
