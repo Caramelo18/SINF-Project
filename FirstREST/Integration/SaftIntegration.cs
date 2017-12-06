@@ -5,12 +5,17 @@ using System.Reflection;
 using System.Xml;
 using System.Web.Mvc;
 using FirstREST.Models;
+using System.Collections.Generic;
 using System.Data.Entity.Validation;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 
 namespace FirstREST.Integration
 {
     public class SaftIntegration
     {
+        static Stack<Tuple<string, string>> keys = new Stack<Tuple<string, string>>();
+        static int billingId = 1;
 
         public static object GetInstance(string strFullyQualifiedName)
         {
@@ -29,7 +34,7 @@ namespace FirstREST.Integration
             return null;
         }
 
-        public static object ParseRecursive(XmlNodeList list, string className)
+        public static object ParseRecursive(XmlNodeList list, string className, DatabaseEntities db)
         {
             object classModel = GetInstance(className);
             if (classModel == null) return null;
@@ -42,18 +47,95 @@ namespace FirstREST.Integration
                     {
                         string newClassName = "FirstREST.Models." + node.Name;
                         PropertyInfo subClassProperty = classModel.GetType().GetProperty(node.Name);
-                        object subClass = ParseRecursive(node.ChildNodes, newClassName);
-                        subClassProperty.SetValue(classModel, subClass);
+                        object subClass = ParseRecursive(node.ChildNodes, newClassName, db);
+
+                        removeKey(node.Name);
+                        bool belongsToClass = subClassProperty != null;
+
+                        if (belongsToClass && !subClassProperty.GetGetMethod().IsVirtual)
+                        {
+                            subClassProperty.SetValue(classModel, subClass);
+                        }
+                        else
+                        {
+                            //adicionar fk
+                            subClass = addForeignKey(subClass, node.Name);
+                            //db.Entry(subClass).State = System.Data.Entity.EntityState.Modified;
+                            db.Set(subClass.GetType()).Add(subClass);
+                            try
+                            {
+                                //db.SaveChanges();
+                                if (node.Name == "BillingAddress")
+                                {
+                                    PropertyInfo billId = subClass.GetType().GetProperty("ID");
+                                    var value = billId.GetValue(subClass);
+                                    PropertyInfo customerBillId = classModel.GetType().GetProperty("BillingAddressID");
+                                    customerBillId.SetValue(classModel, value);
+                                }
+                            }
+                            catch (DbEntityValidationException e)
+                            { }
+                        }
                     }
                     else
                     {
                         PropertyInfo propertyInfo = classModel.GetType().GetProperty(node.Name);
                         propertyInfo.SetValue(classModel, Convert.ChangeType(node.InnerText, propertyInfo.PropertyType), null);
+                        saveKey(className, node.Name, node.InnerText);
                     }
                 }
             }
+
             return classModel;
         }
+
+        # region shitty stuff cause c# is shitty
+        private static bool saveKey(string className, string property, string value)
+        {
+
+            if ((className == "FirstREST.Models.Customer" && property == "CustomerId") ||
+                (className == "FirstREST.Models.Invoice" && property == "InvoiceNo") ||
+                (className == "FirstREST.Models.Line" && property == "LineNumber"))
+            {
+                keys.Push(new Tuple<string, string>(property, value));
+                return true;
+            }
+            return false;
+        }
+
+        private static void removeKey(string className)
+        {
+            if (className == "Customer" || className == "Invoice" || className == "Line")
+            {
+                keys.Pop();
+            }
+        }
+
+        private static object addForeignKey(object parsedClass, string className)
+        {
+            PropertyInfo classProperty;
+            switch (className)
+            {
+                case "DocumentTotals":
+                case "Line":
+                    classProperty = parsedClass.GetType().GetProperty(keys.Peek().Item1);
+                    classProperty.SetValue(parsedClass, keys.Peek().Item2);
+
+                    break;
+                case "Tax":
+                    Tuple<string, string> temp = keys.Peek();
+                    keys.Pop();
+                    classProperty = parsedClass.GetType().GetProperty(keys.Peek().Item1);
+                    classProperty.SetValue(parsedClass, keys.Peek().Item2);
+                    keys.Push(temp);
+                    classProperty = parsedClass.GetType().GetProperty(keys.Peek().Item1);
+                    classProperty.SetValue(parsedClass, keys.Peek().Item2);
+                    break;
+            }
+            return parsedClass;
+        }
+
+        # endregion end of shitty stuff
 
         private static void saveToDb(DatabaseEntities db)
         {
@@ -77,7 +159,6 @@ namespace FirstREST.Integration
 
         # region Cliente
 
-
         public static void ParseCustomers(XmlDocument doc, DatabaseEntities db)
         {
             XmlNodeList clientsList = doc.GetElementsByTagName("Customer");
@@ -99,7 +180,7 @@ namespace FirstREST.Integration
                     }
                     else
                     {
-                        Models.Customer newClient = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Customer");
+                        Models.Customer newClient = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Customer", db);
                         db.Customer.Add(newClient);
                     }
 
@@ -109,7 +190,6 @@ namespace FirstREST.Integration
         }
 
         #endregion Cliente;   // -----------------------------  END   CLIENTE    -----------------------
-
 
         #region Artigo
 
@@ -133,12 +213,17 @@ namespace FirstREST.Integration
                     }
                     else
                     {
-                        Models.Product newProduct = (Models.Product)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Product");
+                        Models.Product newProduct = (Models.Product)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Product", db);
 
                         db.Product.Add(newProduct);
                     }
 
-                    saveToDb(db);
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (DbEntityValidationException e)
+                    { }
                 }
             }
         }
@@ -149,26 +234,27 @@ namespace FirstREST.Integration
 
         public static void ParseSalesInvoices(XmlDocument doc, DatabaseEntities db)
         {
-            XmlNodeList invoicesList = doc.GetElementsByTagName("Invoice");
+            XmlNodeList salesInvoicesList = doc.GetElementsByTagName("SalesInvoices");
 
-            foreach (XmlNode xml in invoicesList)
+            foreach (XmlNode xml in salesInvoicesList)
             {
                 if (xml.HasChildNodes)
                 {
 
-                    var id = xml.ChildNodes[0].InnerText;
-                    Models.Invoice invoice= db.Invoice.Find(id);
+                    string invoiceNo = xml.ChildNodes[0].InnerText;
+                    Models.Invoice client = db.Invoice.Find(invoiceNo);
 
-                    if (invoice != null)
+                    if (client != null)
                     {
+                        System.Diagnostics.Debug.WriteLine("vou dar update");
                         //TO DO: update
-                        //product = (Models.Product)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Product");
+                        //client = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Customer");
+
                     }
                     else
                     {
-                        Models.Invoice newInvoice = (Models.Invoice)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Invoice");
-
-                        db.Invoice.Add(newInvoice);
+                        Models.SalesInvoices newInvoice = (Models.SalesInvoices)ParseRecursive(xml.ChildNodes, "FirstREST.Models.SalesInvoices", db);
+                        db.SalesInvoices.Add(newInvoice);
                     }
 
                     saveToDb(db);
@@ -176,12 +262,6 @@ namespace FirstREST.Integration
             }
         }
 
-
         #endregion DocsVenda
-
-        #region Fornecedor
-
-
-        #endregion
     }
 }
