@@ -1,38 +1,41 @@
-<table style="margin-left: 20%; width:60%">
-    <tr>
-        <th>Client Code</th>
-        <th>Name</th>
-        <th>Total Sales YTD(€)</th>
-    </tr>
-
-	<div *ngFor="let client of data; let i=index" >
-   		  <tr>
-            <td>{{client.CustomerID}}</td>
-            <td>{{client.CustomerName}}</td>
-            <td>{{client.NumberPurchases}}</td>
-        </tr>
-
-        <tr style="border-bottom:1px solid #e6e6e6;">
-        	<td id="clientInfo" colspan="3">
-            	<button id="info" type="button" class="btn" data-toggle="collapse" data-target="#i">+</button>
-            	<div id="i" class="collapse">
-                	<div class="row">
-                    	<div class="col-5">
-                        	<p>Código: {{client.CustomerID}}</p>
-                        	<p>Nome: {{client.CustomerName}}</p>
-                        	<p>E-mail: {{client.CustomerEmail}}</p>
-                        	<p>Morada: {{client.BillingAddress.AddressDetail}}</p>
-                        	<p>Número de Contribuinte: {{client.CustomerTaxID}}</p>
-                        	<h6>Total de Vendas: {{client.NumberPurchases}}</h6>
-                    	</div>
-
-                    	<div class="col-5">
-                        <img src="{{image}}">
-                    	</div>
-                	</div>
-            	</div>
-        	</td>
-    	</tr>
+<div class="row" style="margin-top: 40px;">
+	<div class="col-sm-12 col-lg-8 offset-lg-2">
+		<div class="card white">
+			<div class="card-block">
+				<table class="table table-hover" style="width:100%;table-layout:fixed;text-align:center;">
+					<thead>
+						<tr style="border-bottom: 1px solid #e6e6e6;">
+							<th style="text-align:center;">Client Code</th>
+							<th style="text-align:center;">Name</th>
+							<th style="text-align:center;">Total Sales YTD(€)</th>
+						</tr>
+					</thead>
+					<tbody *ngFor="let client of data; let i=index">
+						<tr data-toggle="collapse" [attr.data-target]="'#' + i" class="clickable">
+							<td>{{client.CustomerID}}</td>
+							<td>{{client.CustomerName}}</td>
+							<td>{{client.NumberPurchases}}</td>
+						</tr>
+						<tr class="collapse" [attr.id]="i">
+							<td colspan="3">
+								<div class="row" style="margin-top:10px;">
+									<div class="col-sm-6 offset-sm-1" style="text-align: left;">
+										<p>Código: {{client.CustomerID}}</p>
+										<p>Nome: {{client.CustomerName}}</p>
+										<p>E-mail: {{client.CustomerEmail}}</p>
+										<p>Morada: {{client.BillingAddress.AddressDetail}}</p>
+										<p>Número de Contribuinte: {{client.CustomerTaxID}}</p>
+										<h6>Total de Vendas: {{client.NumberPurchases}}</h6>
+									</div>
+									<div class="col-sm-5">
+										<img src="{{image}}">
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
-
-</table>
+</div>
