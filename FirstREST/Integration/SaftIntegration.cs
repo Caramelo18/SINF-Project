@@ -145,14 +145,37 @@ namespace FirstREST.Integration
 
         #endregion Artigo
 
-
-
-        #region DocCompra
-
-        #endregion DocCompra
-
-
         #region DocsVenda
+
+        public static void ParseSalesInvoices(XmlDocument doc, DatabaseEntities db)
+        {
+            XmlNodeList invoicesList = doc.GetElementsByTagName("Invoice");
+
+            foreach (XmlNode xml in invoicesList)
+            {
+                if (xml.HasChildNodes)
+                {
+
+                    var id = xml.ChildNodes[0].InnerText;
+                    Models.Invoice invoice= db.Invoice.Find(id);
+
+                    if (invoice != null)
+                    {
+                        //TO DO: update
+                        //product = (Models.Product)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Product");
+                    }
+                    else
+                    {
+                        Models.Invoice newInvoice = (Models.Invoice)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Invoice");
+
+                        db.Invoice.Add(newInvoice);
+                    }
+
+                    saveToDb(db);
+                }
+            }
+        }
+
 
         #endregion DocsVenda
 
