@@ -4,7 +4,7 @@
             <div class="col-sm-4">
                 <div class="card white">
                     <div class="card-block">
-                        <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data.TotalRevenue}}</h2>
+                        <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data?.TotalRevenue}}</h2>
                         <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Total Revenue</h6>
                     </div>
                 </div>
@@ -13,7 +13,7 @@
             <div class="col-sm-4">
                 <div class="card white-background">
                     <div class="card-block">
-                        <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data.TotalSales}} € </h2>
+                        <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data?.TotalSales}} € </h2>
                         <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Sales</h6>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
             <div class="col-sm-4">
                 <div class="card white-background">
                     <div class="card-block">
-                        <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data.accountsPayable}} €</h2>
+                        <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data?.accountsPayable}} €</h2>
                         <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Accounts Payable</h6>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
 
                 <div class="card white-background">
                     <div class="card-block">
-                        <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data.accountsReceivable}} €</h2>
+                        <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data?.accountsReceivable}} €</h2>
                         <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Accounts Receivable</h6>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
 
                 <div class="card white-background" style="margin-top:40px;">
                     <div class="card-block">
-                        <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data.numSales}}</h2>
+                        <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data?.numSales}}</h2>
                         <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Sales Orders</h6>
                     </div>
                 </div>
@@ -108,31 +108,10 @@
                                 <td style="padding-right:0px;">@article.Localizacao</td>
                             </tr>
                         }-->
-
-                        <tr>
-                            <td style="padding-right:0px;">article2</td>
-                            <td style="padding-right:0px;">1 500</td>
-                            <td style="padding-right:0px;">location2</td>
-                        <tr>
-                        <tr>
-                            <td style="padding-right:0px;">article3</td>
-                            <td style="padding-right:0px;">3 219</td>
-                            <td style="padding-right:0px;">location3</td>
-                        </tr>
-                        <tr>
-                            <td style="padding-right:0px;">article4</td>
-                            <td style="padding-right:0px;">15 231</td>
-                            <td style="padding-right:0px;">location4</td>
-                        </tr>
-                        <tr>
-                            <td style="padding-right:0px;">article5</td>
-                            <td style="padding-right:0px;">34 567</td>
-                            <td style="padding-right:0px;">location5</td>
-                        </tr>
-                        <tr>
-                            <td style="padding-right:0px;">article6</td>
-                            <td style="padding-right:0px;">234 658</td>
-                            <td style="padding-right:0px;">location6</td>
+                        <tr *ngFor="let product of data?.articles; let i=index">
+                            <td style="padding-right:0px;">{{product?.ProductCode}}</td>
+                            <td style="padding-right:0px;">{{product?.ProductStock}}</td>
+                            <td style="padding-right:0px;">{{product?.Armazem}}</td>
                         </tr>
                     </table>
                 </div>
@@ -142,7 +121,7 @@
         <div class="col-sm-4">
             <div class="card white-background">
                 <div class="card-block">
-                    <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data.numPurchases}}</h2>
+                    <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data?.numPurchases}}</h2>
                     <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Purchase Orders</h6>
                 </div>
             </div>

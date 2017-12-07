@@ -14,11 +14,6 @@ namespace FirstREST.Models
     
     public partial class Product
     {
-        public Product()
-        {
-            this.SaleInvoiceLine = new HashSet<SaleInvoiceLine>();
-        }
-    
         public string ProductType { get; set; }
         public string ProductCode { get; set; }
         public string ProductGroup { get; set; }
@@ -26,7 +21,5 @@ namespace FirstREST.Models
         public string ProductNumberCode { get; set; }
         public int ProductStock { get; set; }
         public string Armazem { get; set; }
-    
-        public virtual ICollection<SaleInvoiceLine> SaleInvoiceLine { get; set; }
     }
 }

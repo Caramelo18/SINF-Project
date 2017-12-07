@@ -12,7 +12,6 @@ export class OverviewService {
 
     constructor(private http: Http) { }
 
-
     getOverview(): Promise<string[]> {
         const url = this.serverUrl + "/Overview";
         return this.http.get(url)

@@ -27,16 +27,18 @@ namespace FirstREST.Models
     
         public virtual DbSet<AccountPayable> AccountPayable { get; set; }
         public virtual DbSet<AccountReceivable> AccountReceivable { get; set; }
-        public virtual DbSet<AllSalesInvoicesInfo> AllSalesInvoicesInfo { get; set; }
         public virtual DbSet<BillingAddress> BillingAddress { get; set; }
         public virtual DbSet<Company> Company { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<DocCompra> DocCompra { get; set; }
+        public virtual DbSet<DocumentTotals> DocumentTotals { get; set; }
+        public virtual DbSet<Invoice> Invoice { get; set; }
+        public virtual DbSet<Line> Line { get; set; }
         public virtual DbSet<LinhaDocCompra> LinhaDocCompra { get; set; }
+        public virtual DbSet<OrderReferences> OrderReferences { get; set; }
         public virtual DbSet<Product> Product { get; set; }
-        public virtual DbSet<SaleInvoice> SaleInvoice { get; set; }
-        public virtual DbSet<SaleInvoiceLine> SaleInvoiceLine { get; set; }
-        public virtual DbSet<SaleInvoiceTotal> SaleInvoiceTotal { get; set; }
+        public virtual DbSet<SalesInvoices> SalesInvoices { get; set; }
         public virtual DbSet<Supplier> Supplier { get; set; }
+        public virtual DbSet<Tax> Tax { get; set; }
     }
 }
