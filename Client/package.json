@@ -24,7 +24,9 @@
     "@angular/platform-server": "^4.4.6",
     "@angular/router": "^4.4.6",
     "angular-breadcrumbs": "^0.5.3",
+    "chart.js": "^2.7.1",
     "core-js": "^2.4.1",
+    "ng2-charts": "^1.6.0",
     "rxjs": "^5.4.2",
     "zone.js": "^0.8.14"
   },

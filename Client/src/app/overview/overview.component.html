@@ -34,34 +34,18 @@
             <div class="col-sm-4">
                 <div class="card white">
                     <div class="card-block">
-
-                        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                        <script type="text/javascript">
-                            google.charts.load('current', { 'packages': ['corechart'] });
-                            google.charts.setOnLoadCallback(drawChart);
-
-                            function drawChart() {
-
-                                var data = google.visualization.arrayToDataTable([
-                                  ['Task', 'Hours per Day'],
-                                  ['Tech', 11],
-                                  ['Arts', 2],
-                                  ['Health', 2],
-                                  ['Groceries', 2],
-                                  ['Office', 7]
-                                ]);
-
-                                var options = {
-                                    title: 'Sales by Articles',
-                                    pieHole: 0.4,
-                                };
-
-                                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-                                chart.draw(data, options);
-                            }
-                        </script>
-                        <div id="piechart" class="container-fluid" style="width:100%"></div>
+                        <div id="piechart" class="container-fluid" style="width:100%">
+                          <div style="display: block">
+                              <canvas baseChart
+                                      [datasets]="barChartData"
+                                      [labels]="barChartLabels"
+                                      [options]="barChartOptions"
+                                      [legend]="barChartLegend"
+                                      [chartType]="barChartType"
+                                      (chartHover)="chartHovered($event)"
+                                      (chartClick)="chartClicked($event)"></canvas>
+                          </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -69,31 +53,18 @@
             <div class="col-sm-4">
                 <div class="card white">
                     <div class="card-block">
-                        <script type="text/javascript">
-                            google.charts.load('current', { 'packages': ['corechart'] });
-                            google.charts.setOnLoadCallback(drawChart);
-
-                            function drawChart() {
-                                var data = google.visualization.arrayToDataTable([
-                                  ['Year', 'Sales', 'Expenses'],
-                                  ['2004', 1000, 400],
-                                  ['2005', 1170, 460],
-                                  ['2006', 660, 1120],
-                                  ['2007', 1030, 540]
-                                ]);
-
-                                var options = {
-                                    title: 'Company Performance',
-                                    curveType: 'function',
-                                    legend: { position: 'bottom' }
-                                };
-
-                                var chart2 = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-                                chart2.draw(data, options);
-                            }
-                        </script>
-                        <div id="curve_chart" class="container-fluid" style="width:100%"></div>
+                        <div id="curve_chart" class="container-fluid" style="width:100%">
+                          <div style="display: block">
+                              <canvas baseChart
+                                      [datasets]="barChartData"
+                                      [labels]="barChartLabels"
+                                      [options]="barChartOptions"
+                                      [legend]="barChartLegend"
+                                      [chartType]="barChartType"
+                                      (chartHover)="chartHovered($event)"
+                                      (chartClick)="chartClicked($event)"></canvas>
+                          </div>
+                        </div>
                     </div>
                 </div>
             </div>

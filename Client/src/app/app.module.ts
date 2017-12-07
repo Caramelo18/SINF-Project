@@ -5,6 +5,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module'
 
+import { ChartsModule } from 'ng2-charts';
+
 import { AppComponent } from './app.component';
 
 import { OverviewComponent } from './overview/overview.component';
@@ -49,7 +51,8 @@ import { SuppliersService } from './services/suppliers.service';
   imports: [
     BrowserModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ChartsModule
   ],
   providers: [
     OverviewService,
