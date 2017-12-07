@@ -42,6 +42,8 @@ To update models when db has changed:
 6. Right click class to update > "Update Model from Database..."
 7. In Add tab, check Tables and then click on Finish button
 
+**NOTE:** If, when building, there are some mistakes related to .cs files, go to Models > expand Database.edmx > right click .tt files and select "Run Custom Tool"
+
 ## Angular Client
 
 1. Install nodejs and npm (can be downloaded on their website).
