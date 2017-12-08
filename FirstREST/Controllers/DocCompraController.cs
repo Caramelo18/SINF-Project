@@ -29,7 +29,6 @@ namespace FirstREST.Controllers
             DateTime toDate = Convert.ToDateTime(to);
 
             var docs = new List<Models.DocCompra>();
-            int total = 0;
 
             if (from != null && to != null){
                 docs = (from p in db.DocCompra

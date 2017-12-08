@@ -60,33 +60,35 @@ namespace FirstREST.Controllers
         public Overview Get()
         {
             int numCompras = (from x in db.DocCompra
-                          select x).Count();
+                              select x).Count();
 
-            var artigos = new List<Models.Product>();
-            var articlesTemp = (from p in db.Product
-                                select p).ToList();
-
-            for (int i = 0; i < 5; i++)
-            {
-                artigos.Add(articlesTemp.ElementAt(i));
-            }
+            List<Models.Product> artigos = (from p in db.Product
+                                            select p).Take(5).ToList();
 
             double aPayable = Math.Round(db.AccountPayable.Sum(x => x.ValorPendente), 1);
 
             double aReceivable = Math.Round(db.AccountReceivable.Sum(x => x.ValorPendente), 1);
 
+            double totalSales = (from s in db.SalesInvoices
+                                 select s.TotalCredit).AsQueryable().First();
+
+            int numVendas = (from s in db.SalesInvoices
+                                 select s.TotalCredit).Count();
+
+
+
             Overview ov = new Overview
             {
                 TotalRevenue = 1,
-                TotalSales = 2,
+                TotalSales = totalSales,
                 accountsPayable = aPayable,
                 accountsReceivable = aReceivable,
-                numSales = 5,
+                numSales = numVendas,
                 numPurchases = numCompras,
                 articles = artigos
             };
             return ov;
         }
-        
+
     }
 }

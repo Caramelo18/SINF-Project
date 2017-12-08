@@ -6,15 +6,30 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using FirstREST.Lib_Primavera.Model;
+using FirstREST.Models;
 
 
 namespace FirstREST.Controllers
 {
+    public class DocVenda
+    {
+        public Models.Invoice invoice { get; set; }
+        public List<Models.Line> lines { get; set; }
+
+        public DocVenda(Models.Invoice invoice, List<Models.Line> lines)
+        {
+            this.invoice = invoice;
+            this.lines = lines;
+        }
+    }
+
     public class DocVendaController : ApiController
     {
+        DatabaseEntities db = new DatabaseEntities();
+
         //
         // GET: /Clientes/
-        public IEnumerable<Lib_Primavera.Model.DocVenda> Get()
+        /*public IEnumerable<Lib_Primavera.Model.DocVenda> Get()
         {
             var allUrlKeyValues = ControllerContext.Request.GetQueryNameValuePairs();
             string period = allUrlKeyValues.LastOrDefault(x => x.Key == "period").Value;
@@ -22,22 +37,77 @@ namespace FirstREST.Controllers
             return Lib_Primavera.PriIntegration.Encomendas_List();
               else
             return Lib_Primavera.PriIntegration.Encomendas_List(period);
-        }
+        }*/
 
-
-        // GET api/cliente/5    
-        public Lib_Primavera.Model.DocVenda Get(string id)
+        public List<DocVenda> Get()
         {
-            Lib_Primavera.Model.DocVenda docvenda = Lib_Primavera.PriIntegration.Encomenda_Get(id);
-            if (docvenda == null)
-            {
-                throw new HttpResponseException(
-                        Request.CreateResponse(HttpStatusCode.NotFound));
+            var allUrlKeyValues = ControllerContext.Request.GetQueryNameValuePairs();
+            string from = allUrlKeyValues.LastOrDefault(x => x.Key == "from").Value;
+            string to = allUrlKeyValues.LastOrDefault(x => x.Key == "to").Value;
 
+            DateTime fromDate = Convert.ToDateTime(from);
+            DateTime toDate = Convert.ToDateTime(to);
+
+            var docs = new List<DocVenda>();
+
+            /*if (from != null && to != null)
+            {
+                docs = (from p in db.DocCompra
+                        where p.Data >= fromDate && p.Data <= toDate
+                        select p).ToList();
+            }
+            else if (from != null)
+            {
+                docs = (from p in db.DocCompra
+                        where p.Data >= fromDate
+                        select p).ToList();
+            }
+            else if (to != null)
+            {
+                docs = (from p in db.DocCompra
+                        where p.Data <= toDate
+                        select p).ToList();
             }
             else
+            {}*/
+
+            List<Models.Invoice> invoices = (from i in db.Invoice select i).ToList();
+            foreach (Models.Invoice invoice in invoices)
             {
-                return docvenda;
+                List<Models.Line> lines = (from i in db.Invoice
+                                           join l in db.Line
+                                           on i.InvoiceNo equals l.InvoiceNo
+                                           where i.InvoiceNo == invoice.InvoiceNo
+                                           select l).ToList();
+                docs.Add(new DocVenda(invoice, lines));
+
+            }
+
+            //docs = docs.OrderByDescending(x => x.Data).ToList();
+            return docs;
+        }
+
+        [Route ("api/DocVenda/get?id={id*}")]
+        public DocVenda Get(string id)
+        {
+            try
+            {
+                Models.Invoice invoice = (from i in db.Invoice 
+                                          where i.InvoiceNo == id
+                                          select i).AsQueryable().First();
+
+                List<Models.Line> lines = (from i in db.Invoice
+                                           join l in db.Line
+                                           on i.InvoiceNo equals l.InvoiceNo
+                                           where i.InvoiceNo == invoice.InvoiceNo
+                                           select l).ToList();
+
+                return new DocVenda(invoice, lines);
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return null;
             }
         }
 
@@ -70,7 +140,7 @@ namespace FirstREST.Controllers
             {
                 var response = Request.CreateResponse(
                    HttpStatusCode.Created, dv.id);
-                string uri = Url.Link("DefaultApi", new {DocId = dv.id });
+                string uri = Url.Link("DefaultApi", new { DocId = dv.id });
                 response.Headers.Location = new Uri(uri);
                 return response;
             }

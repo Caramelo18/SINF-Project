@@ -89,7 +89,7 @@ namespace FirstREST.Integration
             return classModel;
         }
 
-        # region shitty stuff cause c# is shitty
+        # region utils
         private static bool saveKey(string className, string property, string value)
         {
 
