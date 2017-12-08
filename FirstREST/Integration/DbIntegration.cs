@@ -49,19 +49,6 @@ namespace FirstREST.Integration
                     client.CustomerTaxID = item.NumContribuinte;
                     client.NumberPurchases = item.NumCompras;
                 }
-                /*else
-                {
-                    Models.Customer newClient = new Models.Customer
-                    {
-                        CustomerID = item.CodCliente,
-                        CustomerName = item.NomeCliente,
-                        Currency = item.Moeda,
-                        CustomerEmail = item.Email,
-                        CustomerTaxID = item.NumContribuinte
-                    };
-                    db.Customer.Add(newClient);
-
-                }*/
                 saveToDb(db);
 
             }
@@ -110,8 +97,6 @@ namespace FirstREST.Integration
         {
             foreach (var linha in item.LinhasDoc)
             {
-
-                System.Diagnostics.Debug.WriteLine(linha.IdCabecDoc);
 
                 Models.LinhaDocCompra newLinha = new Models.LinhaDocCompra
                 {
@@ -167,6 +152,57 @@ namespace FirstREST.Integration
 
 
         #region DocsVenda
+
+        public static void addLinhaDocVendaToDb(DatabaseEntities db, FirstREST.Lib_Primavera.Model.DocVenda item)
+        {
+            foreach (var linha in item.LinhasDoc)
+            {
+
+                Models.LinhaDocVenda newLinha = new Models.LinhaDocVenda
+                {
+                    CodArtigo = linha.CodArtigo,
+                    DescArtigo = linha.DescArtigo,
+                    Desconto = linha.Desconto,
+                    IdCabecDoc = linha.IdCabecDoc,
+                    PrecoUnitario = linha.PrecoUnitario,
+                    Quantidade = linha.Quantidade,
+                    TotalILiquido = linha.TotalILiquido,
+                    TotalLiquido = linha.TotalLiquido,
+                    Unidade = linha.Unidade
+                };
+                db.LinhaDocVenda.Add(newLinha);
+
+                saveToDb(db);
+
+            }
+        }
+
+        public static void addDocVendaToDb(DatabaseEntities db)
+        {
+            List<Lib_Primavera.Model.DocVenda> docList = Lib_Primavera.PriIntegration.Encomendas_List();
+
+            foreach (var item in docList)
+            {
+                var docVenda = db.DocCompra.Find(item.id);
+
+                if (docVenda == null)
+                {
+                    Models.DocVenda newDoc = new Models.DocVenda
+                    {
+                        Id = item.id,
+                        Data = item.Data,
+                        Entidade = item.Entidade,
+                        NumDoc = item.NumDoc,
+                        Serie = item.Serie,
+                        TotalMerc = item.TotalMerc
+                    };
+                    db.DocVenda.Add(newDoc);
+
+                    addLinhaDocVendaToDb(db, item);
+                }
+                saveToDb(db);
+            }
+        }
 
         #endregion DocsVenda
 

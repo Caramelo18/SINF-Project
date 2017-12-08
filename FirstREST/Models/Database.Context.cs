@@ -32,9 +32,11 @@ namespace FirstREST.Models
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<DocCompra> DocCompra { get; set; }
         public virtual DbSet<DocumentTotals> DocumentTotals { get; set; }
+        public virtual DbSet<DocVenda> DocVenda { get; set; }
         public virtual DbSet<Invoice> Invoice { get; set; }
         public virtual DbSet<Line> Line { get; set; }
         public virtual DbSet<LinhaDocCompra> LinhaDocCompra { get; set; }
+        public virtual DbSet<LinhaDocVenda> LinhaDocVenda { get; set; }
         public virtual DbSet<OrderReferences> OrderReferences { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<SalesInvoices> SalesInvoices { get; set; }

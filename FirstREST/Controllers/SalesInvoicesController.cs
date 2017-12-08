@@ -25,7 +25,7 @@ namespace FirstREST.Controllers
         }
     }
 
-    public class DocVendaController : ApiController
+    public class SalesInvoicesController : ApiController
     {
         DatabaseEntities db = new DatabaseEntities();
 

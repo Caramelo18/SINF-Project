@@ -31,6 +31,7 @@ namespace FirstREST.Controllers
 
                 Integration.SaftIntegration.ParseSalesInvoices(doc, db);
                 Integration.DbIntegration.addDocCompraToDb(db);
+                Integration.DbIntegration.addDocVendaToDb(db);
 
                 Integration.DbIntegration.addSupplierToDb(db);
                 Integration.DbIntegration.addAccountsReceivableToDb(db);
