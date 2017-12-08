@@ -59,29 +59,42 @@ namespace FirstREST.Controllers
 
         public Overview Get()
         {
+            double totalRevenue = 0;
+            double totalSales = 0;
+            double aPayable = 0;
+            double aReceivable = 0;
+            List<Models.Product> artigos = new List<Models.Product>();
+
+            var aux = (from p in db.Product select p);
+
+            if (aux.Count() != 0)
+                artigos = aux.Take(5).ToList();
+
+            int auxInt = db.AccountPayable.Count();
+            if (auxInt != 0)
+                aPayable = Math.Round(db.AccountPayable.Sum(x => x.ValorPendente), 1);
+
+            auxInt = db.AccountReceivable.Count();
+            if (auxInt != 0)
+                aReceivable = Math.Round(db.AccountReceivable.Sum(x => x.ValorPendente), 1);
+
+            var auxSales = (from s in db.SalesInvoices
+                       select s.TotalCredit);
+            if (auxSales.Count() != 0)
+                totalSales = auxSales.AsQueryable().First();
+
+
             int numCompras = (from x in db.DocCompra
-                              select x).Count();
+                          select x).Count();
 
-            List<Models.Product> artigos = (from p in db.Product
-                                            select p).Take(5).ToList();
-
-            double aPayable = Math.Round(db.AccountPayable.Sum(x => x.ValorPendente), 1);
-
-            double aReceivable = Math.Round(db.AccountReceivable.Sum(x => x.ValorPendente), 1);
-
-            double totalSales = (from s in db.SalesInvoices
-                                 select s.TotalCredit).AsQueryable().First();
-
-            int numVendas = (from s in db.Invoice
+            int numVendas = (from s in db.DocVenda
                                  select s).Count();
-
-
-
+            
             Overview ov = new Overview
             {
-                TotalRevenue = 1,
+                TotalRevenue = totalRevenue,
                 TotalSales = totalSales,
-                accountsPayable = 0,
+                accountsPayable = aPayable,
                 accountsReceivable = aReceivable,
                 numSales = numVendas,
                 numPurchases = numCompras,
