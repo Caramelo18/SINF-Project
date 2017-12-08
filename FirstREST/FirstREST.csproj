@@ -389,9 +389,9 @@
     <Compile Include="Integration\SaftIntegration.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Db.mdf" />
-    <Content Include="App_Data\Db_log.ldf">
-      <DependentUpon>Db.mdf</DependentUpon>
+    <Content Include="App_Data\db.mdf" />
+    <Content Include="App_Data\db_log.ldf">
+      <DependentUpon>db.mdf</DependentUpon>
     </Content>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap\css\bootstrap-grid.css" />

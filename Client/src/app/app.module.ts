@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 
 import { OverviewComponent } from './overview/overview.component';
 import { ClientsComponent } from './clients/clients.component';
+import { ClientComponent } from './clients/client/client.component';
 import { FinancialComponent } from './financial/financial.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { OrdersComponent } from './orders/orders.component';
@@ -38,6 +39,7 @@ import { SuppliersService } from './services/suppliers.service';
   declarations: [
     AppComponent,
     ClientsComponent,
+    ClientComponent,
     FinancialComponent,
     InventoryComponent,
     OrdersComponent,

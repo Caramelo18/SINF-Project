@@ -13,7 +13,7 @@ namespace FirstREST.Controllers
     public class DocVendaController : ApiController
     {
         //
-        // GET: /Clientes/
+        // GET: /docvendas/
         public IEnumerable<Lib_Primavera.Model.DocVenda> Get()
         {
             var allUrlKeyValues = ControllerContext.Request.GetQueryNameValuePairs();
@@ -25,7 +25,7 @@ namespace FirstREST.Controllers
         }
 
 
-        // GET api/cliente/5    
+        // GET api/docvendas/5    
         public Lib_Primavera.Model.DocVenda Get(string id)
         {
             Lib_Primavera.Model.DocVenda docvenda = Lib_Primavera.PriIntegration.Encomenda_Get(id);
