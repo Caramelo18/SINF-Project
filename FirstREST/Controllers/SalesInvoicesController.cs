@@ -32,16 +32,8 @@ namespace FirstREST.Controllers
 
         public List<DocVenda> Get()
         {
-            var allUrlKeyValues = ControllerContext.Request.GetQueryNameValuePairs();
-            string from = allUrlKeyValues.LastOrDefault(x => x.Key == "from").Value;
-            string to = allUrlKeyValues.LastOrDefault(x => x.Key == "to").Value;
-
-            DateTime fromDate = Convert.ToDateTime(from);
-            DateTime toDate = Convert.ToDateTime(to);
 
             var docs = new List<DocVenda>();
-
-            //acrescentar time?
 
             List<Models.Invoice> invoices = (from i in db.Invoice select i).ToList();
             foreach (Models.Invoice invoice in invoices)

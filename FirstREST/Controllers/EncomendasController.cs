@@ -12,29 +12,58 @@ namespace FirstREST.Controllers
     {
         DatabaseEntities db = new DatabaseEntities();
 
-
-        public IEnumerable<Lib_Primavera.Model.DocVenda> Get()
+        public List<Models.DocVenda> Get()
         {
             var allUrlKeyValues = ControllerContext.Request.GetQueryNameValuePairs();
-            string period = allUrlKeyValues.LastOrDefault(x => x.Key == "period").Value;
-            if (period == null)
-                return Lib_Primavera.PriIntegration.Encomendas_List();
-            else
-                return Lib_Primavera.PriIntegration.Encomendas_List(period);
-        }
+            string from = allUrlKeyValues.LastOrDefault(x => x.Key == "from").Value;
+            string to = allUrlKeyValues.LastOrDefault(x => x.Key == "to").Value;
 
-        public Lib_Primavera.Model.DocVenda Get(string id)
-        {
-            Lib_Primavera.Model.DocVenda docvenda = Lib_Primavera.PriIntegration.Encomenda_Get(id);
-            if (docvenda == null)
+            DateTime fromDate = Convert.ToDateTime(from);
+            DateTime toDate = Convert.ToDateTime(to);
+
+            var docs = new List<Models.DocVenda>();
+
+            if (from != null && to != null)
             {
-                throw new HttpResponseException(
-                        Request.CreateResponse(HttpStatusCode.NotFound));
-
+                docs = (from p in db.DocVenda
+                        where p.Data >= fromDate && p.Data <= toDate
+                        select p).ToList();
+            }
+            else if (from != null)
+            {
+                docs = (from p in db.DocVenda
+                        where p.Data >= fromDate
+                        select p).ToList();
+            }
+            else if (to != null)
+            {
+                docs = (from p in db.DocVenda
+                        where p.Data <= toDate
+                        select p).ToList();
             }
             else
             {
-                return docvenda;
+                docs = (from p in db.DocVenda
+                        select p).ToList();
+            }
+
+            docs = docs.OrderByDescending(x => x.Data).ToList();
+            return docs;
+        }
+
+        public Models.DocVenda Get(string id)
+        {
+            try
+            {
+                Models.DocVenda doc = (from p in db.DocVenda
+                                        where p.Id == id
+                                        select p).AsQueryable().First();
+                return doc;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return null;
             }
         }
    
