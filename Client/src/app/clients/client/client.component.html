@@ -1,43 +1,35 @@
-<div class="container-fluid">
-	<div class="row" style="margin-top: 40px;">
-		<div class="col-sm-12 col-lg-8 offset-lg-2">
-			<div class="card white">
-				<div class="card-block">
-					<table class="table table-hover" style="width:100%;table-layout:fixed;text-align:center;">
-						<thead>
-							<tr style="border-bottom: 1px solid #e6e6e6;">
-								<th style="text-align:center;">Client Code</th>
-								<th style="text-align:center;">Name</th>
-								<th style="text-align:center;">Total Sales YTD(€)</th>
-							</tr>
-						</thead>
-						<tbody *ngFor="let client of data; let i=index">
-							<tr data-toggle="collapse" [attr.data-target]="'#' + i" class="clickable">
-								<td>{{client.CustomerID}}</td>
-								<td>{{client.CustomerName}}</td>
-								<td>{{client.NumberPurchases}}</td>
-							</tr>
-							<tr class="collapse" [attr.id]="i">
-								<td colspan="3">
-									<div class="row" style="margin-top:10px;">
-										<div class="col-sm-6 offset-sm-1" style="text-align: left;">
-											<p>Código: {{client.CustomerID}}</p>
-											<p>Nome: {{client.CustomerName}}</p>
-											<p>E-mail: {{client.CustomerEmail}}</p>
-											<p>Morada: {{client.BillingAddress.AddressDetail}}</p>
-											<p>Número de Contribuinte: {{client.CustomerTaxID}}</p>
-											<h6>Total de Vendas: {{client.NumberPurchases}}</h6>
-										</div>
-										<div class="col-sm-5">
-											<img src="{{image}}">
-										</div>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="container-fluid main">
+	<div class = "row">
+        <div class="col">
+            <h1>Client Information</h1>
+
+            <h3>Name</h3>
+            <p>{{ client?.CompanyName }}</p>
+
+            <h3>Email</h3>
+            <p>{{ client ? client.CustomerEmail : 'No email available.' }}</p>
+
+            <h3>Telephone</h3>
+            <p>{{ client ? client.Telephone : 'No telephone available.'  }}</p>
+
+            <h3>Website</h3>
+            <p>{{ client ? client.Website : 'No website available.' }}</p>
+        </div>
+
+        <div class="col-8">
+            <div class="row">
+                <div class="col">
+                    <h1>Sales</h1>
+                    <h3>Number of sales</h3>
+                    <p>{{ client ? client.NumberPurchases : 'No data available' }}</p>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h1>Sales</h1>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

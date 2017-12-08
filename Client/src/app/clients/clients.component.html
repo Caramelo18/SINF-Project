@@ -13,7 +13,7 @@
 						</thead>
 						<tbody *ngFor="let client of data; let i=index">
 							<tr data-toggle="collapse" [attr.data-target]="'#' + i" class="clickable">
-								<a routerLink="/client/{{client.CustomerID}}"><td>{{client.CustomerID}}</td></a>
+								<td>{{client.CustomerID}}</td>
 								<td>{{client.CustomerName}}</td>
 								<td>{{client.NumberPurchases}}</td>
 							</tr>

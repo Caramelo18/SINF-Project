@@ -12,6 +12,7 @@ import { ClientService } from '../../services/client.service';
 
 export class ClientComponent implements OnInit{
     private client: string[];
+    private clientSales: string[];  // TODO: get client sales
 
     constructor(
       private clientService: ClientService,
