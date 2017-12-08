@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { SalesService } from '../services/sales.service';
+import { SalesOrdersService } from '../services/salesOrders.service';
 
 @Component({
     selector: 'sales',
@@ -13,7 +13,7 @@ export class SalesComponent implements OnInit{
     private data: string[];
 
     constructor(
-      private salesService: SalesService
+      private salesService: SalesOrdersService
     ) { }
 
     ngOnInit(): void {

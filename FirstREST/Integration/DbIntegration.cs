@@ -183,7 +183,7 @@ namespace FirstREST.Integration
 
             foreach (var item in docList)
             {
-                var docVenda = db.DocCompra.Find(item.id);
+                var docVenda = db.DocVenda.Find(item.id);
 
                 if (docVenda == null)
                 {

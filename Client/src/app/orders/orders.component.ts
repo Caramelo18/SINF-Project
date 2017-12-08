@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { PurchasesService } from '../services/purchases.service';
 import { OverviewService } from '../services/overview.service';
-import { SalesService } from '../services/sales.service';
+import { SalesOrdersService } from '../services/salesOrders.service';
 
 @Component({
     selector: 'orders',
@@ -20,7 +20,7 @@ export class OrdersComponent implements OnInit {
     constructor(
         private purchasesService: PurchasesService,
         private overviewService: OverviewService,
-        private salesService: SalesService
+        private salesService: SalesOrdersService
     ) { }
 
     ngOnInit(): void {

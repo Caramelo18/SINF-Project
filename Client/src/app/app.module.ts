@@ -28,7 +28,8 @@ import { ProductService } from './services/product.service';
 import { ClientService } from './services/client.service';
 import { FinancialService } from './services/financial.service';
 import { UpdateService } from './services/update.service';
-import { SalesService } from './services/sales.service';
+import { SalesOrdersService } from './services/salesOrders.service';
+import { SalesInvoicesService } from './services/salesInvoices.service';
 import { PurchasesService } from './services/purchases.service';
 import { SuppliersService } from './services/suppliers.service';
 
@@ -64,7 +65,8 @@ import { SuppliersService } from './services/suppliers.service';
     ClientService,
     FinancialService,
     UpdateService,
-    SalesService,
+    SalesOrdersService,
+    SalesInvoicesService,
     PurchasesService,
     SuppliersService
   ],

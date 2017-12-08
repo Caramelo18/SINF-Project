@@ -81,7 +81,7 @@ namespace FirstREST.Controllers
             {
                 TotalRevenue = 1,
                 TotalSales = totalSales,
-                accountsPayable = aPayable,
+                accountsPayable = 0,
                 accountsReceivable = aReceivable,
                 numSales = numVendas,
                 numPurchases = numCompras,

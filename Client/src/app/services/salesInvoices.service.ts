@@ -4,7 +4,7 @@ import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class SalesService {
+export class SalesInvoicesService {
 
     private serverUrl = 'http://localhost:49822/api';
     private headers = new Headers({'Content-Type': 'application/json'});
