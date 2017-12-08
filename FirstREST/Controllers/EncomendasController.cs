@@ -1,96 +1,43 @@
-﻿using System;
+﻿using FirstREST.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using FirstREST.Lib_Primavera.Model;
-using FirstREST.Models;
-
 
 namespace FirstREST.Controllers
 {
-    public class DocVenda
-    {
-        public Models.Invoice invoice { get; set; }
-        public List<Models.Line> lines { get; set; }
-        public Models.DocumentTotals docs { get; set; }
-
-        public DocVenda(Models.Invoice invoice, List<Models.Line> lines, Models.DocumentTotals docs)
-        {
-            this.invoice = invoice;
-            this.lines = lines;
-            this.docs = docs;
-        }
-    }
-
-    public class DocVendaController : ApiController
+    public class EncomendasController : ApiController
     {
         DatabaseEntities db = new DatabaseEntities();
 
 
-        public List<DocVenda> Get()
+        public IEnumerable<Lib_Primavera.Model.DocVenda> Get()
         {
             var allUrlKeyValues = ControllerContext.Request.GetQueryNameValuePairs();
-            string from = allUrlKeyValues.LastOrDefault(x => x.Key == "from").Value;
-            string to = allUrlKeyValues.LastOrDefault(x => x.Key == "to").Value;
-
-            DateTime fromDate = Convert.ToDateTime(from);
-            DateTime toDate = Convert.ToDateTime(to);
-
-            var docs = new List<DocVenda>();
-
-            //acrescentar time?
-
-            List<Models.Invoice> invoices = (from i in db.Invoice select i).ToList();
-            foreach (Models.Invoice invoice in invoices)
-            {
-                List<Models.Line> lines = (from i in db.Invoice
-                                           join l in db.Line
-                                           on i.InvoiceNo equals l.InvoiceNo
-                                           where i.InvoiceNo == invoice.InvoiceNo
-                                           select l).ToList();
-
-                Models.DocumentTotals doc = (from d in db.DocumentTotals
-                                             where d.InvoiceNo == invoice.InvoiceNo
-                                             select d).AsQueryable().First();
-
-                docs.Add(new DocVenda(invoice, lines, doc));
-
-            }
-
-            //docs = docs.OrderByDescending(x => x.Data).ToList();
-            return docs;
+            string period = allUrlKeyValues.LastOrDefault(x => x.Key == "period").Value;
+            if (period == null)
+                return Lib_Primavera.PriIntegration.Encomendas_List();
+            else
+                return Lib_Primavera.PriIntegration.Encomendas_List(period);
         }
 
-        [Route("api/DocVenda/get?id={id*}")]
-        public DocVenda Get(string id)
+        public Lib_Primavera.Model.DocVenda Get(string id)
         {
-            try
+            Lib_Primavera.Model.DocVenda docvenda = Lib_Primavera.PriIntegration.Encomenda_Get(id);
+            if (docvenda == null)
             {
-                Models.Invoice invoice = (from i in db.Invoice
-                                          where i.InvoiceNo == id
-                                          select i).AsQueryable().First();
+                throw new HttpResponseException(
+                        Request.CreateResponse(HttpStatusCode.NotFound));
 
-                List<Models.Line> lines = (from i in db.Invoice
-                                           join l in db.Line
-                                           on i.InvoiceNo equals l.InvoiceNo
-                                           where i.InvoiceNo == invoice.InvoiceNo
-                                           select l).ToList();
-
-                Models.DocumentTotals doc = (from d in db.DocumentTotals
-                                             where d.InvoiceNo == invoice.InvoiceNo
-                                             select d).AsQueryable().First();
-
-                return new DocVenda(invoice, lines, doc);
             }
-            catch (Exception e)
+            else
             {
-                System.Diagnostics.Debug.WriteLine(e);
-                return null;
+                return docvenda;
             }
         }
+   
 
         [HttpGet]
         public IEnumerable<Lib_Primavera.Model.DocVenda> ProductSales()

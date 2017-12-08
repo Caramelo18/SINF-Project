@@ -19,6 +19,10 @@ namespace FirstREST.Controllers
     {
         DatabaseEntities db = new DatabaseEntities();
 
+        /**
+         * Fatura - 
+         * */
+
         public List<Models.DocCompra> Get()
         {
             var allUrlKeyValues = ControllerContext.Request.GetQueryNameValuePairs();

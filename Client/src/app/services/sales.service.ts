@@ -21,7 +21,7 @@ export class SalesService {
     }
 
     getSale(id): Promise<string[]> {
-        const url = this.serverUrl + "/DocVenda/Get/" + id;
+        const url = this.serverUrl + "/DocVenda/Get?id=" + id;
         return this.http.get(url)
                         .toPromise()
                         .then(response => response.json() as string[])

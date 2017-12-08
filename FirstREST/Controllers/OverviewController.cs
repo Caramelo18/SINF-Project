@@ -72,8 +72,8 @@ namespace FirstREST.Controllers
             double totalSales = (from s in db.SalesInvoices
                                  select s.TotalCredit).AsQueryable().First();
 
-            int numVendas = (from s in db.SalesInvoices
-                                 select s.TotalCredit).Count();
+            int numVendas = (from s in db.Invoice
+                                 select s).Count();
 
 
 
