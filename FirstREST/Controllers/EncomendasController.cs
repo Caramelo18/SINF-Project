@@ -8,6 +8,19 @@ using System.Web.Http;
 
 namespace FirstREST.Controllers
 {
+
+    public class Encomenda
+    {
+        public Models.DocVenda doc { get; set; }
+        public List<Models.LinhaDocVenda> lines { get; set; }
+
+        public Encomenda(Models.DocVenda doc, List<Models.LinhaDocVenda> lines)
+        {
+            this.doc = doc;
+            this.lines = lines;
+        }
+    }
+
     public class EncomendasController : ApiController
     {
         DatabaseEntities db = new DatabaseEntities();
@@ -59,6 +72,24 @@ namespace FirstREST.Controllers
                                         where p.Id == id
                                         select p).AsQueryable().First();
                 return doc;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return null;
+            }
+        }
+
+        [HttpGet]
+        public List<Models.LinhaDocVenda> GetByProduct(string id)
+        {
+            try
+            {
+                List<Models.LinhaDocVenda> doc = (from i in db.LinhaDocVenda
+                                                  where i.CodArtigo == id
+                                                  select i).ToList();
+
+                return doc;      
             }
             catch (Exception e)
             {

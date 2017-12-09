@@ -251,20 +251,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DocVenda_LinhaDocVenda">
-          <End Role="DocVenda" Type="Self.DocVenda" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="LinhaDocVenda" Type="Self.LinhaDocVenda" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DocVenda">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="LinhaDocVenda">
-              <PropertyRef Name="IdCabecDoc" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="DatabaseModelStoreContainer">
           <EntitySet Name="AccountPayable" EntityType="Self.AccountPayable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AccountReceivable" EntityType="Self.AccountReceivable" Schema="dbo" store:Type="Tables" />
@@ -290,10 +276,6 @@
           <AssociationSet Name="FK_DocCompra_LinhaDocCompra" Association="Self.FK_DocCompra_LinhaDocCompra">
             <End Role="DocCompra" EntitySet="DocCompra" />
             <End Role="LinhaDocCompra" EntitySet="LinhaDocCompra" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DocVenda_LinhaDocVenda" Association="Self.FK_DocVenda_LinhaDocVenda">
-            <End Role="DocVenda" EntitySet="DocVenda" />
-            <End Role="LinhaDocVenda" EntitySet="LinhaDocVenda" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -325,10 +307,6 @@
           <AssociationSet Name="FK_DocCompra_LinhaDocCompra" Association="DatabaseModel.FK_DocCompra_LinhaDocCompra">
             <End Role="DocCompra" EntitySet="DocCompra" />
             <End Role="LinhaDocCompra" EntitySet="LinhaDocCompra" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DocVenda_LinhaDocVenda" Association="DatabaseModel.FK_DocVenda_LinhaDocVenda">
-            <End Role="DocVenda" EntitySet="DocVenda" />
-            <End Role="LinhaDocVenda" EntitySet="LinhaDocVenda" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="AccountPayable">
@@ -433,7 +411,6 @@
           <Property Name="Data" Type="DateTime" Precision="3" />
           <Property Name="TotalMerc" Type="Double" />
           <Property Name="Serie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="LinhaDocVenda" Relationship="DatabaseModel.FK_DocVenda_LinhaDocVenda" FromRole="DocVenda" ToRole="LinhaDocVenda" />
         </EntityType>
         <EntityType Name="Invoice">
           <Key>
@@ -501,7 +478,6 @@
           <Property Name="TotalILiquido" Type="Double" />
           <Property Name="TotalLiquido" Type="Double" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="DocVenda" Relationship="DatabaseModel.FK_DocVenda_LinhaDocVenda" FromRole="LinhaDocVenda" ToRole="DocVenda" />
         </EntityType>
         <EntityType Name="OrderReferences">
           <Key>
@@ -579,20 +555,6 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="LinhaDocCompra">
-              <PropertyRef Name="IdCabecDoc" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DocVenda_LinhaDocVenda">
-          <End Type="DatabaseModel.DocVenda" Role="DocVenda" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DatabaseModel.LinhaDocVenda" Role="LinhaDocVenda" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DocVenda">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="LinhaDocVenda">
               <PropertyRef Name="IdCabecDoc" />
             </Dependent>
           </ReferentialConstraint>

@@ -2,27 +2,46 @@
     <div class="row">
         <div class="col-lg-4 col-md-12">
             <div class="card">
-                <div class="card-block">
+                <div class="card-block idCard">
                     <h4 class="card-title">{{product?.ProductCode}}</h4>
-                    <h5 class="product-group card-subtitle mb-2">Group: {{product?.ProductGroup}}</h5>
-                    <h5 class="product-group card-subtitle mb-2">Type: {{product?.ProductType}}</h5>
-                    <h5 class="product-group card-subtitle mb-2">Description: {{product?.ProductDescription}}</h5>
-                    <h5 class="product-group card-subtitle mb-2">Stock: {{product?.ProductStock}}</h5>
+                    <h5 class="card-text mb-2">Group: {{product?.ProductGroup}}</h5>
+                    <h5 class="card-text mb-2">Type: {{product?.ProductType}}</h5>
+                    <h5 class="card-text mb-2">Description: {{product?.ProductDescription}}</h5>
+                    <h5 class="card-text mb-2">Stock: {{product?.ProductStock}}</h5>
+                    <div class="product-total-profit">
+                            TOTAL
+                        </div>
                 </div>
             </div>
             <div class="card">
-                <div class="card-block">
-                    <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options"
-                        chart-dataset-override="datasetOverride" chart-click="onClick">
-                    </canvas>
-                </div>
+                    <canvas baseChart width="auto" height="250px"
+                    [data]="pieChartData"
+                    [labels]="pieChartLabels"
+                    [chartType]="pieChartType"
+                    [colors]="lineChartColors"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)"></canvas>
             </div>
+
+            <div class="row">
+                    <button type="button" class="product-details-btn">See Orders</button>
+                    <button type="button" class="product-details-btn">See Warehouse Distribution</button>
+                </div>
+    
         </div>
         <div class="col-lg-8 col-md-12">
             <div class="card">
                 <div class="card-block">
-                    <canvas id="pie" class="chart chart-pie" chart-data="data" chart-labels="labels" chart-options="options">
-                    </canvas>
+                    <div class="card-block">
+                        <canvas baseChart width="auto" height="120px"
+                        [datasets]="lineChartData"
+                        [labels]="lineChartLabels"
+                        [options]="lineChartOptions"
+                        [legend]="lineChartLegend"
+                        [chartType]="lineChartType"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)"></canvas>
+                    </div>
                 </div>
             </div>
             <div class="card">
@@ -43,6 +62,32 @@
                     </tbody>
                 </table>
             </div>
+            <div class="card white">
+                    <div class="card-block">
+                        <table class="table table-hover table-striped" style="width:100%;table-layout:fixed;text-align:center;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid #e6e6e6;">
+                                    <th style="text-align:center;">Client Code</th>
+                                    <th style="text-align:center;">Quantity</th>
+                                    <th style="text-align:center;">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container *ngFor="let sale of sales; let i=index">
+                                    <tr>
+                                        <td style="padding-right:0px;">
+                                            <a routerLink="#">{{sale?.Entidade}}</a>
+                                        </td>
+                                        <td style="padding-right:0px;">
+                                            <a routerLink="#">{{sale?.Quantity}}</a>
+                                        </td>
+                                        <td style="padding-right:0px;">{{sale?.TotalMerc}}</td>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
         </div>
     </div>
 </div>
