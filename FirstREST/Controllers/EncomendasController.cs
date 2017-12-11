@@ -123,6 +123,47 @@ namespace FirstREST.Controllers
                 return null;
             }
         }
+
+        [HttpGet]
+        public int GetNoInventoryOrders()
+        {
+            try
+            {
+                int total = 0;
+                List<string> produtos = new List<string>();
+
+                List<Models.DocVenda> docs = (from docVenda in db.DocVenda
+                                              select docVenda).ToList();
+
+                List<Models.Product> products = (from i in db.Product
+                                                 select i).ToList();
+
+                foreach (var doc in docs)
+                {
+                    List<Models.LinhaDocVenda> linhas = (from i in db.LinhaDocVenda
+                                                         where i.IdCabecDoc == doc.Id
+                                                         select i).ToList();
+                    foreach (var linha in linhas)
+                    {
+                        var product = products.Find(p => p.ProductCode == linha.CodArtigo);
+
+                        if (product != null && product.ProductStock < linha.Quantidade && linha.Quantidade != 0)
+                        {
+                            total++;
+                            break;
+                        }
+                    }
+
+                }
+
+                return total;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return 0;
+            }
+        }
    
 
         [HttpGet]

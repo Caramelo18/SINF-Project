@@ -45,10 +45,18 @@ export class SalesOrdersService {
     }
 
     getClientSales(clientCode): Promise<string[]> {
-        const url = this.serverUrl + "/DocVenda/ClientSales?client=" + clientCode;
+        const url = this.serverUrl + "/encomendas/ClientSales?client=" + clientCode;
         return this.http.get(url)
                         .toPromise()
                         .then(response => response.json() as string[])
+                        .catch(this.handleError);
+    }
+
+    getNumberNoInventory(): Promise<string[]> {
+        const url = this.serverUrl + "/encomendas/getnoinventoryorders";
+        return this.http.get(url)
+                        .toPromise()
+                        .then(response => response.json() as number)
                         .catch(this.handleError);
     }
     

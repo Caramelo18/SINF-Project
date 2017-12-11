@@ -5,7 +5,7 @@
                 <div class="col-sm-6">
                     <div class="card white">
                         <div class="card-block">
-                            <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{info?.numSales}}</h2>
+                            <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{info ? info.numSales : "Calculating..." }}</h2>
                             <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Sales Orders</h6>
                         </div>
                     </div>
@@ -13,7 +13,7 @@
                 <div class="col-sm-6">
                     <div class="card white">
                         <div class="card-block">
-                            <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">0</h2>
+                            <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{noInventory ? noInventory : "Calculating..."}}</h2>
                             <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Sales Orders With No Inventory</h6>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                                     <ng-container *ngFor="let sale of sales; let i=index">
                                         <tr>
                                             <td style="padding-right:0px;">
-                                                <a routerLink="#">{{sale?.Entidade}}</a>
+                                                <a routerLink="/client/{{sale?.Entidade}}">{{sale?.Entidade}}</a>
                                             </td>
                                             <td style="padding-right:0px;">
                                                 <a routerLink="#">{{sale?.NumDoc}}</a>

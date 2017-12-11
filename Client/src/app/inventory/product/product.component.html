@@ -9,7 +9,7 @@
                     <h5 class="card-text mb-2">Description: {{product?.ProductDescription}}</h5>
                     <h5 class="card-text mb-2">Stock: {{product?.ProductStock}}</h5>
                     <div class="product-total-profit">
-                        TOTAL
+                        TOTAL {{total ? total : "0"}}€
                     </div>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                             <ng-container *ngFor="let sale of sales; let i=index">
                                 <tr>
                                     <td style="padding-right:0px;">
-                                        <a routerLink="#">{{sale?.doc?.Entidade}}</a>
+                                        <a routerLink="/client/{{sale?.doc?.Entidade}}">{{sale?.doc?.Entidade}}</a>
                                     </td>
                                     <td style="padding-right:0px;">
                                         {{sale?.lines[i]?.Quantidade}}

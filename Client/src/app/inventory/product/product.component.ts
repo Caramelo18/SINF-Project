@@ -16,6 +16,7 @@ export class ProductComponent implements OnInit {
     private product: string[];
     private sales: string[];
     private docs: string[];
+    private total: number;
 
     //pie
     public pieChartLabels: string[];
@@ -67,6 +68,7 @@ export class ProductComponent implements OnInit {
 
         this.ClientService.getBestClientsByProduct(id)
             .then(response => {
+                console.log(response);
                 this.pieChartLabels = [];
                 this.pieChartData = [];
 
@@ -75,6 +77,12 @@ export class ProductComponent implements OnInit {
                     this.pieChartLabels.push(response[i]["customer"]);
                 }
                 console.log(this.pieChartData);
+            });
+
+        this.productService.getTotalAmount(id)
+            .then(response => {
+                console.log(response);
+                this.total = Number(response);
             });
     }
 }

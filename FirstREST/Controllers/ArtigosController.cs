@@ -41,6 +41,29 @@ namespace FirstREST.Controllers
                 return null;
             }
         }
+
+        public int GetAmount(string id)
+        {
+            try
+            {
+                int totalAmount = 0;
+                int auxInt = db.Line.Count();
+                if (auxInt != 0)
+                {
+                    totalAmount = (int)db.Line
+                        .Where(x => x.ProductCode == id)
+                        .ToList()
+                        .Sum(x => double.Parse(x.CreditAmount));
+                }
+
+                return totalAmount;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return 0;
+            }
+        }
     }
 }
 

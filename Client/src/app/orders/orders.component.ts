@@ -16,6 +16,7 @@ export class OrdersComponent implements OnInit {
     private data: string[];
     private info: string[];
     private sales: string[];
+    private noInventory: number;
 
     constructor(
         private purchasesService: PurchasesService,
@@ -41,5 +42,11 @@ export class OrdersComponent implements OnInit {
                 console.log(response);
                 this.sales = response;
             });
+
+        this.salesService.getNumberNoInventory()
+        .then(response => {
+            console.log(response);
+            this.noInventory = Number(response);
+        });
     }
 }
