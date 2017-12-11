@@ -19,7 +19,7 @@ export class ProductComponent implements OnInit {
     //pie
     public pieChartLabels: string[];
     public pieChartType: string = "pie";
-    public pieChartData: number[] = [123,1232];
+    public pieChartData: number[];
 
     constructor(
         private productService: ProductService,
@@ -66,10 +66,13 @@ export class ProductComponent implements OnInit {
         this.ClientService.getBestClientsByProduct(id)
             .then(response => {
                 this.pieChartLabels = [];
-                
+                this.pieChartData = [];
+
                 for (let i = 0; i < response.length; i++) {
+                    this.pieChartData.push(response[i]["sum"]);
                     this.pieChartLabels.push(response[i]["customer"]);
                 }
+                console.log(this.pieChartData);
             });
     }
 }

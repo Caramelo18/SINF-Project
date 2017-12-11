@@ -9,67 +9,55 @@
                     <h5 class="card-text mb-2">Description: {{product?.ProductDescription}}</h5>
                     <h5 class="card-text mb-2">Stock: {{product?.ProductStock}}</h5>
                     <div class="product-total-profit">
-                            TOTAL
-                        </div>
+                        TOTAL
+                    </div>
                 </div>
             </div>
-            <div class="card">
-                    <canvas baseChart width="auto" height="250px"
-                    [data]="pieChartData"
-                    [labels]="pieChartLabels"
-                    [chartType]="pieChartType"
-                    [colors]="lineChartColors"
-                    (chartHover)="chartHovered($event)"
-                    (chartClick)="chartClicked($event)"></canvas>
+            <div class="card" *ngIf="pieChartLabels != null">
+                <canvas baseChart width="auto" height="250px" [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+                    [colors]="lineChartColors" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
             </div>
 
             <div class="row">
-                    <button type="button" class="product-details-btn">See Orders</button>
-                    <button type="button" class="product-details-btn">See Warehouse Distribution</button>
-                </div>
-    
+                <button type="button" class="product-details-btn">See Orders</button>
+            </div>
+
         </div>
         <div class="col-lg-8 col-md-12">
             <div class="card">
                 <div class="card-block">
                     <div class="card-block">
-                        <canvas baseChart width="auto" height="100px"
-                        [datasets]="lineChartData"
-                        [labels]="lineChartLabels"
-                        [options]="lineChartOptions"
-                        [legend]="lineChartLegend"
-                        [chartType]="lineChartType"
-                        (chartHover)="chartHovered($event)"
-                        (chartClick)="chartClicked($event)"></canvas>
+                        <canvas baseChart width="auto" height="100px" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+                            [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
                     </div>
                 </div>
             </div>
             <div class="card card-table white">
-                    <div class="card-block">
-                        <table class="table table-hover table-striped">
-                            <thead>
+                <div class="card-block">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th style="text-align:center;">Client Code</th>
+                                <th style="text-align:center;">Quantity</th>
+                                <th style="text-align:center;">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let sale of sales; let i=index">
                                 <tr>
-                                    <th style="text-align:center;">Client Code</th>
-                                    <th style="text-align:center;">Quantity</th>
-                                    <th style="text-align:center;">Date</th>
+                                    <td style="padding-right:0px;">
+                                        <a>{{sale.doc.Entidade}}</a>
+                                    </td>
+                                    <td style="padding-right:0px;">
+                                        {{sale.lines[i].Quantidade}}
+                                    </td>
+                                    <td style="padding-right:0px;">{{sale.doc.Data}}</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <ng-container *ngFor="let sale of sales; let i=index">
-                                    <tr>
-                                        <td style="padding-right:0px;">
-                                            <a>{{sale.doc.Entidade}}</a>
-                                        </td>
-                                        <td style="padding-right:0px;">
-                                            {{sale.lines[i].Quantidade}}
-                                        </td>
-                                        <td style="padding-right:0px;">{{sale.doc.Data}}</td>
-                                    </tr>
-                                </ng-container>
-                            </tbody>
-                        </table>
-                    </div>
+                            </ng-container>
+                        </tbody>
+                    </table>
                 </div>
+            </div>
         </div>
     </div>
 </div>
