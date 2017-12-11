@@ -87,3 +87,7 @@ tbody td, thead th {
     width: 33%;
     float: left;
 }
+
+figcaption{
+    text-align: center;
+}

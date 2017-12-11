@@ -16,6 +16,8 @@
             <div class="card" *ngIf="pieChartLabels != null">
                 <canvas baseChart width="auto" height="250px" [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
                     [colors]="lineChartColors" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+            
+                    <figcaption>Chart 1 - Best clients</figcaption>
             </div>
 
             <div class="row">
@@ -29,7 +31,8 @@
                     <div class="card-block">
                         <canvas baseChart width="auto" height="100px" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
                             [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-                    </div>
+                            <figcaption>Chart 2 - Purchases</figcaption>
+                        </div>
                 </div>
             </div>
             <div class="card card-table white">
@@ -46,16 +49,17 @@
                             <ng-container *ngFor="let sale of sales; let i=index">
                                 <tr>
                                     <td style="padding-right:0px;">
-                                        <a>{{sale.doc.Entidade}}</a>
+                                        <a routerLink="#">{{sale?.doc?.Entidade}}</a>
                                     </td>
                                     <td style="padding-right:0px;">
-                                        {{sale.lines[i].Quantidade}}
+                                        {{sale?.lines[i]?.Quantidade}}
                                     </td>
-                                    <td style="padding-right:0px;">{{sale.doc.Data}}</td>
+                                    <td style="padding-right:0px;">{{sale?.doc?.Data}}</td>
                                 </tr>
                             </ng-container>
                         </tbody>
                     </table>
+                    <figcaption>Table 1 - History of purchases</figcaption>
                 </div>
             </div>
         </div>
