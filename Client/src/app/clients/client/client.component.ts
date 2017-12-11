@@ -10,8 +10,8 @@ import { ClientService } from '../../services/client.service';
     styleUrls: ['./client.component.css'],
 })
 
-export class ClientComponent implements OnInit{
-    private client: string[];
+export class ClientComponent implements OnInit {
+    client: string[];
     private clientSales: string[];  // TODO: get client sales
 
     constructor(
