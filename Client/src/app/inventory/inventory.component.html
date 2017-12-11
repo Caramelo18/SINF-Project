@@ -1,6 +1,11 @@
+<div class="col-sm-6 offset-sm-1">
+    <form #search="ngForm" (ngSubmit)="onSubmit(search)" class="search-form">
+        <input ngModel #searchText="ngModel" name="searchText" type="text" placeholder="&#xF002;" style="font-family:Arial, FontAwesome" />
+    </form>
+</div>
 <div class="container-fluid">
     <div class="row">
-        <div *ngFor="let product of data" class="col-lg-4 col-md-6">
+        <div *ngFor="let product of displayData" class="col-lg-4 col-md-6">
             <div class="card">
                 <div class="card-block">
                     <a routerLink="/product/{{product.ProductCode}}"><h4 class="card-title">{{product.ProductCode}}</h4></a>
