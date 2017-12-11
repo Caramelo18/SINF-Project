@@ -298,7 +298,8 @@
     <Compile Include="Controllers\ArtigosController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\DocCompraController.cs" />
-    <Compile Include="Controllers\DocVendaController.cs" />
+    <Compile Include="Controllers\SalesInvoicesController.cs" />
+    <Compile Include="Controllers\EncomendasController.cs" />
     <Compile Include="Controllers\FornecedorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OverviewController.cs" />
@@ -356,6 +357,9 @@
     <Compile Include="Models\DocumentTotals.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DocVenda.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Invoice.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -363,6 +367,9 @@
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LinhaDocCompra.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LinhaDocVenda.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OrderReferences.cs">

@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, EventEmitter, OnDestroy, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product.service';
+import { SalesOrdersService } from '../../services/salesOrders.service';
+import { ClientService } from '../../services/client.service';
 
 @Component({
     selector: 'product',
@@ -9,33 +11,70 @@ import { ProductService } from '../../services/product.service';
 })
 
 
-export class ProductComponent implements OnInit{
+export class ProductComponent implements OnInit {
 
     private product: string[];
+    private sales: string[];
+    private docs: string[];
+
+    //pie
+    public pieChartLabels: string[];
+    public pieChartType: string = "pie";
+    public pieChartData: number[];
+
+    //line chart
+
 
     constructor(
-        private productService: ProductService
-      ) { }
+        private productService: ProductService,
+        private salesOrdersService: SalesOrdersService,
+        private ClientService: ClientService
+    ) { }
 
-    @Input('sortable-column')
-    columnName: string;
+    public lineChartData: Array<any> = [
+        { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' }
+    ];
+    public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    public lineChartOptions: any = {
+        responsive: true
+    };
+    public lineChartLegend: boolean = true;
+    public lineChartType: string = 'line';
 
-    @Input('sort-direction')
-    sortDirection: string = '';
 
-    @HostListener('click')
-    sort() {
-        this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    // events
+    public chartClicked(e: any): void {
+        console.log(e);
+    }
+
+    public chartHovered(e: any): void {
+        console.log(e);
     }
 
     ngOnInit(): void {
-        
+
         var url = window.location.href;
         var id = url.split('http://')[1].split('/')[2];
         this.productService.getProduct(id)
-                            .then(response => {
-                              this.product = response;
-                              console.log(response);
-                            });
+            .then(response => {
+                this.product = response;
+            });
+        this.salesOrdersService.getByProduct(id)
+            .then(response => {
+                this.sales = response;
+                console.log(response);
+            });
+
+        this.ClientService.getBestClientsByProduct(id)
+            .then(response => {
+                this.pieChartLabels = [];
+                this.pieChartData = [];
+
+                for (let i = 0; i < response.length; i++) {
+                    this.pieChartData.push(response[i]["sum"]);
+                    this.pieChartLabels.push(response[i]["customer"]);
+                }
+                console.log(this.pieChartData);
+            });
     }
 }

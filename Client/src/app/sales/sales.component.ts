@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { SalesService } from '../services/sales.service';
+import { SalesInvoicesService } from '../services/salesInvoices.service';
 
 @Component({
     selector: 'sales',
@@ -13,11 +13,11 @@ export class SalesComponent implements OnInit{
     private data: string[];
 
     constructor(
-      private salesService: SalesService
+      private salesInvoicesService: SalesInvoicesService
     ) { }
 
     ngOnInit(): void {
-      this.salesService.getSales()
+      this.salesInvoicesService.getSales()
                           .then(response => {
                             console.log(response);
                             this.data = response;

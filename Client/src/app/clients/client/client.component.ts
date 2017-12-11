@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ClientService } from '../../services/client.service';
-import { SalesService } from '../../services/sales.service';
+import { SalesOrdersService } from '../../services/salesOrders.service';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class ClientComponent implements OnInit {
 
     constructor(
       private clientService: ClientService,
-      private salesService: SalesService,
+      private salesOrdersService: SalesOrdersService,
       private activatedRoute: ActivatedRoute
     ) { }
 
@@ -33,7 +33,7 @@ export class ClientComponent implements OnInit {
                 console.log(response);
             });
         
-        this.salesService.getClientSales(params.id)
+        this.salesOrdersService.getClientSales(params.id)
         .then(response => {
             this.clientSales = response;
             console.log(response);

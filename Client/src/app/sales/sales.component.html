@@ -1,3 +1,3 @@
 <div *ngFor="let order of data">
-   <a routerLink="/sale/{{order.NumDoc}}">{{order.NumDoc}} </a> - {{order.Data}} - {{order.Entidade}} -  {{order.TotalMerc}} 
+   <a routerLink="/sale/{{order.invoice.InvoiceNo}}">{{order.docs.InvoiceNo}} </a> - {{order.invoice.InvoiceDate}} - {{order.invoice.CustomerID}} -  {{order.docs.GrossTotal}} 
 </div>

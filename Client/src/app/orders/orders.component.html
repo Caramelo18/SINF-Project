@@ -1,107 +1,117 @@
 <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-6 col-md-12" style="margin-top: 40px">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="card white">
-                            <div class="card-block">
-                                <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;"></h2>
-                                <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Sales Orders</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card white">
-                            <div class="card-block">
-                                <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;"></h2>
-                                <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Sales Orders With No Inventory</h6>
-                            </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-12" style="margin-top: 40px">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card white">
+                        <div class="card-block">
+                            <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{info?.numSales}}</h2>
+                            <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Sales Orders</h6>
                         </div>
                     </div>
                 </div>
-                <div class="row" style="margin-top: 40px;">
-                    <div class="col-sm-12">
-                        <div class="card white">
-                            <div class="card-block">
-                                <table class="table table-hover" style="width:100%;table-layout:fixed;text-align:center;">
-                                    <tr style="border-bottom: 1px solid #e6e6e6;">
-                                        <th style="text-align:center;">Client Code</th>
-                                        <th style="text-align:center;">No. Document</th>
-                                        <th style="text-align:center;">Quantity</th>
-                                        <th style="text-align:center;">Data</th>
-                                    </tr>
-                                    <tr *ngFor="let order of data; let i=index">
-    
-                                        <td style="padding-right:0px;">
-                                            <a routerLink="/supplier/{{order.Entidade}}">{{order?.Entidade}}</a>
-                                        </td>
-                                        <td style="padding-right:0px;">
-                                            <a routerLink="/purchase/{{order.Id}}">{{order?.NumDoc}}</a>
-                                        </td>
-                                        <td style="padding-right:0px;">{{order?.TotalMerc}}</td>
-                                        <td style="padding-right:0px;">{{order?.Data}}</td>
-                                    </tr>
-                                </table>
-                            </div>
+                <div class="col-sm-6">
+                    <div class="card white">
+                        <div class="card-block">
+                            <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">0</h2>
+                            <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Sales Orders With No Inventory</h6>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-12" style="margin-top: 40px">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="card white">
-                            <div class="card-block">
-                                <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{info?.numPurchases}}</h2>
-                                <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Purchase Orders</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card white">
-                            <div class="card-block">
-                                <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">0</h2>
-                                <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Late Purchase Orders</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-top: 40px;">
-                    <div class="col-sm-12">
-                        <div class="card white">
-                            <div class="card-block">
-                                <table class="table table-hover" style="width:100%;table-layout:fixed;text-align:center;">
+            <div class="row" style="margin-top: 40px;">
+                <div class="col-sm-12">
+                    <div class="card white">
+                        <div class="card-block">
+                            <table class="table table-hover table-striped" style="width:100%;table-layout:fixed;text-align:center;">
+                                <thead>
                                     <tr style="border-bottom: 1px solid #e6e6e6;">
-                                        <th style="text-align:center;">Supplier Code</th>
-                                        <th style="text-align:center;">No. Document</th>
+                                        <th style="text-align:center;">Client Code</th>
+                                        <th style="text-align:center;">No. Doc.</th>
                                         <th style="text-align:center;">Quantity</th>
                                         <th style="text-align:center;">Data</th>
                                     </tr>
-                                    <tr *ngFor="let order of data">
-    
-                                        <td style="padding-right:0px;">
-                                            <a routerLink="/supplier/{{order.Entidade}}">{{order?.Entidade}}</a>
-                                        </td>
-                                        <td style="padding-right:0px;">
-                                            <a routerLink="/purchase/{{order.Id}}">{{order?.NumDoc}}</a>
-                                        </td>
-                                        <td style="padding-right:0px;">{{order?.TotalMerc}}</td>
-                                        <td style="padding-right:0px;">{{order?.Data}}</td>
+                                </thead>
+                                <tbody>
+                                    <ng-container *ngFor="let sale of sales; let i=index">
+                                        <tr>
+                                            <td style="padding-right:0px;">
+                                                <a routerLink="#">{{sale?.Entidade}}</a>
+                                            </td>
+                                            <td style="padding-right:0px;">
+                                                <a routerLink="#">{{sale?.NumDoc}}</a>
+                                            </td>
+                                            <td style="padding-right:0px;">{{sale?.TotalMerc}}</td>
+                                            <td style="padding-right:0px;">{{sale?.Data}}</td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12" style="margin-top: 40px">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card white">
+                        <div class="card-block">
+                            <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{info?.numPurchases}}</h2>
+                            <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Purchase Orders</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card white">
+                        <div class="card-block">
+                            <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">0</h2>
+                            <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Late Purchase Orders</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 40px;">
+                <div class="col-sm-12">
+                    <div class="card white">
+                        <div class="card-block">
+                            <table class="table table-hover table-striped" style="width:100%;table-layout:fixed;text-align:center;">
+                                <thead>
+                                    <tr style="border-bottom: 1px solid #e6e6e6;">
+                                        <th style="text-align:center;">Supplier Code</th>
+                                        <th style="text-align:center;">No. Doc.</th>
+                                        <th style="text-align:center;">Quantity</th>
+                                        <th style="text-align:center;">Data</th>
                                     </tr>
-                                </table>
-                            </div>
+                                </thead>
+                                <tbody>
+                                    <ng-container *ngFor="let order of data">
+                                        <tr *ngFor="let order of data">
+
+                                            <td style="padding-right:0px;">
+                                                <a routerLink="/supplier/{{order.Entidade}}">{{order?.Entidade}}</a>
+                                            </td>
+                                            <td style="padding-right:0px;">
+                                                <a routerLink="/purchase/{{order.Id}}">{{order?.NumDoc}}</a>
+                                            </td>
+                                            <td style="padding-right:0px;">{{order?.TotalMerc}}</td>
+                                            <td style="padding-right:0px;">{{order?.Data}}</td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <!--<table class="table" style="width:100%;table-layout:fixed;text-align:center;">
+</div>
+<!--<table class="table" style="width:100%;table-layout:fixed;text-align:center;">
             <thead>
                 <tr style="border-bottom: 1px solid #e6e6e6;">
                     <th style="text-align:center;">Supplier Code</th>
-                    <th style="text-align:center;">No. Document</th>
+                    <th style="text-align:center;">No. Doc.</th>
                     <th style="text-align:center;">Quantity</th>
                     <th style="text-align:center;">Data</th>
                 </tr>

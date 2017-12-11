@@ -4,7 +4,7 @@ import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class SalesService {
+export class SalesInvoicesService {
 
     private serverUrl = 'http://localhost:49822/api';
     private headers = new Headers({'Content-Type': 'application/json'});
@@ -13,7 +13,7 @@ export class SalesService {
 
 
     getSales(): Promise<string[]> {
-        const url = this.serverUrl + "/DocVenda";
+        const url = this.serverUrl + "/salesInvoices";
         return this.http.get(url)
                         .toPromise()
                         .then(response => response.json() as string[])
@@ -21,23 +21,7 @@ export class SalesService {
     }
 
     getSale(id): Promise<string[]> {
-        const url = this.serverUrl + "/DocVenda/Get/" + id;
-        return this.http.get(url)
-                        .toPromise()
-                        .then(response => response.json() as string[])
-                        .catch(this.handleError);
-    }
-
-    getProductSales(product): Promise<string[]> {
-      const url = this.serverUrl + "/DocVenda";
-      return this.http.get(url)
-                      .toPromise()
-                      .then(response => response.json() as string[])
-                      .catch(this.handleError);
-    }
-
-    getClientSales(clientCode): Promise<string[]> {
-        const url = this.serverUrl + "/DocVenda/ClientSales?client=" + clientCode;
+        const url = this.serverUrl + "/salesInvoices/Get?id=" + id;
         return this.http.get(url)
                         .toPromise()
                         .then(response => response.json() as string[])
