@@ -25,12 +25,17 @@
                     <h1>Sales</h1>
                     <h3>Number of sales</h3>
                     <p>{{ client ? client.NumberPurchases : 'No data available' }}</p>
+
+                    <li *ngFor='let sale of clientSales'>
+                        {{ sale?.id }}
+                    </li>
                 </div>
                 
             </div>
             <div class="row">
                 <div class="col">
-                    <h1>Sales</h1>
+                    <h1>Orders</h1>
+                    
                 </div>
             </div>
         </div>
