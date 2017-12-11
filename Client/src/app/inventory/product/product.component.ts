@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter, OnDestroy, HostListener } from 
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { SalesOrdersService } from '../../services/salesOrders.service';
+import { ClientService } from '../../services/client.service';
 
 @Component({
     selector: 'product',
@@ -14,10 +15,16 @@ export class ProductComponent implements OnInit {
 
     private product: string[];
     private sales: string[];
+    private docs: string[];
+    //pie
+    public pieChartLabels: string[];
+    public pieChartType: string = "pie";
+    public pieChartData: number[] = [123,1232];
 
     constructor(
         private productService: ProductService,
-        private salesOrdersService : SalesOrdersService
+        private salesOrdersService: SalesOrdersService,
+        private ClientService: ClientService
     ) { }
 
     public lineChartData: Array<any> = [
@@ -32,10 +39,6 @@ export class ProductComponent implements OnInit {
     public lineChartLegend: boolean = true;
     public lineChartType: string = 'line';
 
-    //pie
-    public pieChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales'];
-    public pieChartData: number[] = [300, 500, 100];
-    public pieChartType: string = 'pie';
 
     // events
     public chartClicked(e: any): void {
@@ -53,13 +56,20 @@ export class ProductComponent implements OnInit {
         this.productService.getProduct(id)
             .then(response => {
                 this.product = response;
-                console.log(response);
             });
         this.salesOrdersService.getByProduct(id)
             .then(response => {
                 this.sales = response;
                 console.log(response);
             });
-    }
 
+        this.ClientService.getBestClientsByProduct(id)
+            .then(response => {
+                this.pieChartLabels = [];
+                
+                for (let i = 0; i < response.length; i++) {
+                    this.pieChartLabels.push(response[i]["customer"]);
+                }
+            });
+    }
 }

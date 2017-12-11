@@ -9,13 +9,30 @@ using FirstREST.Models;
 
 namespace FirstREST.Controllers
 {
+    public class TopClients
+    {
+        public string customer {get; set;}
+        public double sum { get; set; }
+
+        public TopClients(string customer, double sum)
+        {
+            this.customer = customer;
+            this.sum = sum;
+        }
+
+        public void AddValue(double sum)
+        {
+            this.sum += sum;
+        }
+    }
+
     public class ClientesController : ApiController
     {
         DatabaseEntities db = new DatabaseEntities();
 
         //
         // GET: /Clientes/
-        
+
         public List<Models.Customer> Get()
         {
             var clients = db.Customer.SqlQuery("SELECT * FROM Customer").ToList();
@@ -41,6 +58,57 @@ namespace FirstREST.Controllers
             }
         }
 
+        [HttpGet]
+        public void test()
+        {
+            System.Diagnostics.Debug.WriteLine("fds");
+        }
+
+        [HttpGet]
+        public List<TopClients> GetBestByProduct(string product)
+        {
+            try
+            {
+                List<TopClients> listClients = new List<TopClients>();
+
+                List<Models.DocVenda> docs = (from docVenda in db.DocVenda
+                                              join linha in db.LinhaDocVenda
+                                              on docVenda.Id equals linha.IdCabecDoc
+                                              where linha.CodArtigo == product
+                                              select docVenda).ToList();
+
+                foreach (var doc in docs)
+                {
+                    if (!listClients.Any(client => client.customer == doc.Entidade))
+                    {
+                        listClients.Add(new TopClients(doc.Entidade, 0));
+                    }
+
+                    int index = listClients.FindIndex(client => client.customer == doc.Entidade);
+
+                    double? aux = db.LinhaDocVenda
+                        .Where(c => c.CodArtigo == product)
+                        .Sum(c => c.Quantidade);
+
+                    if (aux.HasValue)
+                    {
+                        double sum = aux.Value;
+                        listClients[index].AddValue(sum);
+                    }
+                }
+
+                listClients.OrderByDescending(client => client.sum);
+
+                var test = listClients.Take(5).ToList();
+
+                return listClients.Take(5).ToList();
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return null;
+            }
+        }
 
         public HttpResponseMessage Post(Lib_Primavera.Model.Cliente cliente)
         {

@@ -33,7 +33,7 @@
             <div class="card">
                 <div class="card-block">
                     <div class="card-block">
-                        <canvas baseChart width="auto" height="120px"
+                        <canvas baseChart width="auto" height="100px"
                         [datasets]="lineChartData"
                         [labels]="lineChartLabels"
                         [options]="lineChartOptions"
@@ -44,29 +44,11 @@
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <table>
-                    <thead>
-                        <tr>
-                            <th sortable-column="id">Client Code</th>
-                            <th sortable-column="firstname">Quantity</th>
-                            <th sortable-column="lastname">Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>SOFRIO</td>
-                            <td>10</td>
-                            <td>10-10-2015</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="card white">
+            <div class="card card-table white">
                     <div class="card-block">
-                        <table class="table table-hover table-striped" style="width:100%;table-layout:fixed;text-align:center;">
+                        <table class="table table-hover table-striped">
                             <thead>
-                                <tr style="border-bottom: 1px solid #e6e6e6;">
+                                <tr>
                                     <th style="text-align:center;">Client Code</th>
                                     <th style="text-align:center;">Quantity</th>
                                     <th style="text-align:center;">Date</th>
@@ -76,12 +58,12 @@
                                 <ng-container *ngFor="let sale of sales; let i=index">
                                     <tr>
                                         <td style="padding-right:0px;">
-                                            <a routerLink="#">{{sale?.Entidade}}</a>
+                                            <a>{{sale.doc.Entidade}}</a>
                                         </td>
                                         <td style="padding-right:0px;">
-                                            <a routerLink="#">{{sale?.Quantity}}</a>
+                                            {{sale.lines[i].Quantidade}}
                                         </td>
-                                        <td style="padding-right:0px;">{{sale?.TotalMerc}}</td>
+                                        <td style="padding-right:0px;">{{sale.doc.Data}}</td>
                                     </tr>
                                 </ng-container>
                             </tbody>

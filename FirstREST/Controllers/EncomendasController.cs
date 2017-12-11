@@ -21,6 +21,18 @@ namespace FirstREST.Controllers
         }
     }
 
+    public class EncomendaProduto
+    {
+        public Models.DocVenda doc { get; set; }
+        public List<Models.LinhaDocVenda> lines { get; set; }
+
+        public EncomendaProduto(Models.DocVenda doc, List<Models.LinhaDocVenda> lines)
+        {
+            this.doc = doc;
+            this.lines = lines;
+        }
+    }
+
     public class EncomendasController : ApiController
     {
         DatabaseEntities db = new DatabaseEntities();
@@ -81,15 +93,29 @@ namespace FirstREST.Controllers
         }
 
         [HttpGet]
-        public List<Models.LinhaDocVenda> GetByProduct(string id)
+        public List<EncomendaProduto> GetByProduct(string id)
         {
             try
             {
-                List<Models.LinhaDocVenda> doc = (from i in db.LinhaDocVenda
-                                                  where i.CodArtigo == id
-                                                  select i).ToList();
+                List<EncomendaProduto> listaDocVenda = new List<EncomendaProduto>();
 
-                return doc;      
+                List<Models.DocVenda> docs = (from docVenda in db.DocVenda
+                                             join linha in db.LinhaDocVenda
+                                             on docVenda.Id equals linha.IdCabecDoc
+                                             where linha.CodArtigo == id
+                                             select docVenda).ToList();
+
+                foreach (var doc in docs)
+                {
+                    List<Models.LinhaDocVenda> linhas = (from i in db.LinhaDocVenda
+                                                         where i.CodArtigo == id
+                                                         select i).ToList();
+
+                    EncomendaProduto encomenda = new EncomendaProduto(doc, linhas);
+                    listaDocVenda.Add(encomenda);
+                }
+                
+                return listaDocVenda;      
             }
             catch (Exception e)
             {
