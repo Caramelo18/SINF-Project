@@ -33,6 +33,8 @@ import { SalesService } from './services/sales.service';
 import { PurchasesService } from './services/purchases.service';
 import { SuppliersService } from './services/suppliers.service';
 
+import { NotFoundComponent } from './common/404.component';
+
 
 
 @NgModule({
@@ -42,6 +44,7 @@ import { SuppliersService } from './services/suppliers.service';
     ClientComponent,
     FinancialComponent,
     InventoryComponent,
+    NotFoundComponent,
     OrdersComponent,
     OverviewComponent,
     ProductComponent,

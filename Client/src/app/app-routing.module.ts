@@ -6,6 +6,7 @@ import { ClientsComponent } from './clients/clients.component';
 import { ClientComponent } from './clients/client/client.component';
 import { FinancialComponent } from './financial/financial.component';
 import { InventoryComponent } from './inventory/inventory.component';
+import { NotFoundComponent } from './common/404.component';
 import { OrdersComponent } from './orders/orders.component';
 import { SalesComponent } from './sales/sales.component';
 import { SaleComponent } from './sales/sale/sale.component';
@@ -33,7 +34,10 @@ const appRoutes: Routes = [
   { path: 'purchases', component: PurchasesComponent },
   { path: 'purchase/:id', component: PurchaseComponent },
   { path: 'suppliers', component: SuppliersComponent },
-  { path: 'supplier/:id', component: SupplierComponent }
+  { path: 'supplier/:id', component: SupplierComponent },
+  { path: '404', component: NotFoundComponent},
+
+  { path: '**', component: NotFoundComponent}  // redirect any path that is not found to 404
 ];
 
 @NgModule({
