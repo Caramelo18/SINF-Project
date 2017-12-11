@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module'
 
 import { ChartsModule } from 'ng2-charts';
+import { DataTableModule } from 'angular-4-data-table/src/index';
+
 
 import { AppComponent } from './app.component';
 
@@ -68,7 +70,8 @@ import { OrdersService } from './services/orders.service';
     HttpModule,
     AppRoutingModule,
     ChartsModule,
-    FormsModule
+    FormsModule,
+    DataTableModule
   ],
   providers: [
     OverviewService,

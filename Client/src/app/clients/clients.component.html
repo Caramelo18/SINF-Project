@@ -4,7 +4,7 @@
     </form>
 </div>
 
-<div class="container-fluid">
+<!--div class="container-fluid">
 	<div class="row" style="margin-top: 40px;">
 		<div class="col-sm-12 col-lg-8 offset-lg-2">
 			<div class="card white">
@@ -47,4 +47,26 @@
 			</div>
 		</div>
 	</div>
+</div-->
+<div *ngIf="data != null" style="margin: auto; max-width: 1000px; margin-bottom: 50px;">
+    <data-table id="clients-grid"
+        headerTitle="Clients"
+        [items]="displayData"
+        [itemCount]="count"
+        (rowClick)="rowClick($event)"
+        >
+        <data-table-column
+            [property]="'CustomerID'"
+            [header]="'Code'"
+            width="150px">
+        </data-table-column>
+        <data-table-column
+            [property]="'CompanyName'"
+            [header]="'Name'">
+        </data-table-column>
+        <data-table-column
+            property="Telephone"
+            header="Phone number">
+        </data-table-column>
+    </data-table>
 </div>

@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^4.4.6",
     "@angular/platform-server": "^4.4.6",
     "@angular/router": "^4.4.6",
+    "angular-4-data-table": "^0.3.0",
     "angular-breadcrumbs": "^0.5.3",
     "chart.js": "^2.7.1",
     "core-js": "^2.4.1",

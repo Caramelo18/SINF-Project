@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 
@@ -15,10 +15,13 @@ import { ClientService } from '../services/client.service';
 export class ClientsComponent implements OnInit{
     private data: string[];
     private displayData: string[];
+    private count: number;
     private image = '/assets/avatar.png';
 
+
     constructor(
-      private clientService: ClientService
+      private clientService: ClientService,
+      private router: Router
     ) { }
 
     ngOnInit(): void {
@@ -26,6 +29,7 @@ export class ClientsComponent implements OnInit{
                           .then(response => {
                             this.data = response;
                             this.displayData = response;
+                            this.count = response.length;
                             console.log(response);
                           });
     }
@@ -70,6 +74,11 @@ export class ClientsComponent implements OnInit{
           this.displayData.push(client);
         }
       }
+    }
+
+    rowClick(rowEvent) {
+        let route = '/client/' + rowEvent.row.item.CustomerID;
+        this.router.navigateByUrl(route);
     }
 
     //source: https://gist.github.com/andrei-m/982927
