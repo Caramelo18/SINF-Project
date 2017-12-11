@@ -26,9 +26,18 @@
                     <h3>Number of sales</h3>
                     <p>{{ client ? client.NumberPurchases : 'No data available' }}</p>
 
-                    <li *ngFor='let sale of clientSales'>
-                        {{ sale?.id }}
-                    </li>
+                    <table style="width:100%;table-layout:fixed;text-align:center;">
+                            <tr style="border-bottom: 1px solid #e6e6e6;">
+                                <th style="text-align:center;">ID</th>
+                                <th style="text-align:center;">Date</th>
+                            </tr>
+                          
+                            <tr *ngFor='let sale of clientSales'>
+                                <td style="padding-right:0px;">{{sale?.id}}</td>
+                                <td style="padding-right:0px;">{{sale?.Data}}</td>
+                            </tr>
+                        </table>
+
                 </div>
                 
             </div>
