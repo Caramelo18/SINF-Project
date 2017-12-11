@@ -20,14 +20,21 @@ export class ClientService {
                         .catch(this.handleError);
     }
 
-    getBestClientsByProduct(product): Promise<string[]> {
-        const url = this.serverUrl + "/Clientes/getbestbyproduct?product=" + product;
+    getClient(clientCode): Promise<string[]> {
+        const url = this.serverUrl + "/Clientes/get/" + clientCode;
         return this.http.get(url)
                         .toPromise()
                         .then(response => response.json() as string[])
                         .catch(this.handleError);
     }
 
+	getBestClientsByProduct(product): Promise<string[]> {
+        const url = this.serverUrl + "/Clientes/getbestbyproduct?product=" + product;
+        return this.http.get(url)
+                        .toPromise()
+                        .then(response => response.json() as string[])
+                        .catch(this.handleError);
+    }
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);

@@ -13,7 +13,7 @@ export class SalesInvoicesService {
 
 
     getSales(): Promise<string[]> {
-        const url = this.serverUrl + "/DocVenda";
+        const url = this.serverUrl + "/salesInvoices";
         return this.http.get(url)
                         .toPromise()
                         .then(response => response.json() as string[])
@@ -21,19 +21,11 @@ export class SalesInvoicesService {
     }
 
     getSale(id): Promise<string[]> {
-        const url = this.serverUrl + "/DocVenda/Get?id=" + id;
+        const url = this.serverUrl + "/salesInvoices/Get?id=" + id;
         return this.http.get(url)
                         .toPromise()
                         .then(response => response.json() as string[])
                         .catch(this.handleError);
-    }
-
-    getProductSales(product): Promise<string[]> {
-      const url = this.serverUrl + "/DocVenda";
-      return this.http.get(url)
-                      .toPromise()
-                      .then(response => response.json() as string[])
-                      .catch(this.handleError);
     }
 
     private handleError(error: any): Promise<any> {
