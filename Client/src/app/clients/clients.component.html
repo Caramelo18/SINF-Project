@@ -27,6 +27,7 @@
 											<p>Morada: {{client.BillingAddress.AddressDetail}}</p>
 											<p>Número de Contribuinte: {{client.CustomerTaxID}}</p>
 											<h6>Total de Vendas: {{client.NumberPurchases}}</h6>
+											<a routerLink="/client/{{client.CustomerID}}" class="btn btn-primary" role="button">Details</a>
 										</div>
 										<div class="col-sm-5">
 											<img src="{{image}}">
