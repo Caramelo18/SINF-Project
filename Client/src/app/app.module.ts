@@ -19,6 +19,7 @@ import { ClientComponent } from './clients/client/client.component';
 import { FinancialComponent } from './financial/financial.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { OrdersComponent } from './orders/orders.component';
+import { OrderComponent } from './orders/order/order.component';
 import { SalesComponent } from './sales/sales.component';
 import { SaleComponent } from './sales/sale/sale.component';
 import { PayableComponent } from './financial/payable/payable.component';
@@ -54,6 +55,7 @@ import { OrdersService } from './services/orders.service';
     InventoryComponent,
     NotFoundComponent,
     OrdersComponent,
+    OrderComponent,
     OverviewComponent,
     ProductComponent,
     SalesComponent,

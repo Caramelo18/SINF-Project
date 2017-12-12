@@ -17,6 +17,7 @@ import { PurchaseComponent } from './purchases/purchase/purchase.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
 import { ProductComponent } from './inventory/product/product.component';
 import { SupplierComponent } from './suppliers/supplier/supplier.component';
+import { OrderComponent } from './orders/order/order.component';
 
 
 const appRoutes: Routes = [
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
   { path: 'purchase/:id', component: PurchaseComponent },
   { path: 'suppliers', component: SuppliersComponent },
   { path: 'supplier/:id', component: SupplierComponent },
+  { path: 'order/:id', component: OrderComponent },
   { path: '404', component: NotFoundComponent},
 
   { path: '**', component: NotFoundComponent}  // redirect any path that is not found to 404
