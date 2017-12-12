@@ -10,14 +10,17 @@ import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 export class AppComponent {
   title = 'app';
+  private loaded = true;
 
   constructor(
     private updateService: UpdateService
   ) { }
 
   update(): void {
+    this.loaded = false
      this.updateService.update()
       .then(response => {
+        this.loaded = true;
         console.log(response);
       });
   }

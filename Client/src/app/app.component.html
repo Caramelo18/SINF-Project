@@ -29,6 +29,12 @@
 </nav-->
 
 <!--The content below is only a placeholder and can be replaced.-->
+<!-- source: https://stackoverflow.com/questions/28931791/jquery-how-to-grey-out-the-background-while-showing-the-loading-icon-over-it
+            https://www.w3schools.com/howto/howto_css_loader.asp
+          -->
+<div *ngIf="!this.loaded" class="loader-container">
+    <div class="loader"></div>
+</div>
 
   <!-- source: https://bootsnipp.com/snippets/featured/responsive-navigation-menu -->
 <div class="nav-side-menu">
@@ -60,7 +66,6 @@
       </li>
       <ul class="sub-menu collapse" id="clients">
         <li><a routerLink="/clients"> Clients List</a></li>
-        <li><a routerLink="/clients"> Clients Details</a></li>
       </ul>
 
       <li data-toggle="collapse" data-target="#suppliers" class="collapsed">
