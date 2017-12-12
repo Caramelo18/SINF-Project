@@ -35,8 +35,6 @@ namespace FirstREST.Integration
 
         public static void addClientsFromPrimaveraToDb(DatabaseEntities db)
         {
-
-            System.Diagnostics.Debug.WriteLine("Primavera Customers");
             List<Lib_Primavera.Model.Cliente> clientsList = Lib_Primavera.PriIntegration.ListaClientes();
 
             foreach (var item in clientsList)
@@ -51,8 +49,9 @@ namespace FirstREST.Integration
                     client.CustomerTaxID = item.NumContribuinte;
                     client.NumberPurchases = item.NumCompras;
                 }
+                saveToDb(db);
+
             }
-            saveToDb(db);
         }
 
         #endregion Cliente;   // -----------------------------  END   CLIENTE    -----------------------
@@ -62,7 +61,6 @@ namespace FirstREST.Integration
 
         public static void addProductsFromPrimaveraToDb(DatabaseEntities db)
         {
-            System.Diagnostics.Debug.WriteLine("Primavera Products");
             List<Lib_Primavera.Model.Artigo> listaArtigos = Lib_Primavera.PriIntegration.ListaArtigos();
 
             foreach (var item in listaArtigos)
@@ -73,9 +71,20 @@ namespace FirstREST.Integration
                 {
                     product.ProductStock = Convert.ToInt32(item.STKAtual);
                     product.Armazem = item.Localizacao;
-                }
+                }/*
+                else
+                {
+                    Models.Product newProduct = new Models.Product
+                    {
+                        ProductCode = item.CodArtigo,
+                        ProductDescription = item.DescArtigo,
+                        ProductStock = Convert.ToInt32(item.STKAtual),
+                        Armazem = item.Localizacao
+                    };
+                    db.Product.Add(newProduct);
+                }*/
+                saveToDb(db);
             }
-            saveToDb(db);
         }
 
         #endregion Artigo
@@ -105,14 +114,14 @@ namespace FirstREST.Integration
                     Unidade = linha.Unidade
                 };
                 db.LinhaDocCompra.Add(newLinha);
+
+                saveToDb(db);
+
             }
-            saveToDb(db);
         }
 
         public static void addDocCompraToDb(DatabaseEntities db)
         {
-
-            System.Diagnostics.Debug.WriteLine("Primavera Docs Compra");
             List<Lib_Primavera.Model.DocCompra> docList = Lib_Primavera.PriIntegration.VGR_List();
 
             foreach (var item in docList)
@@ -135,8 +144,8 @@ namespace FirstREST.Integration
 
                     addLinhaDocCompraToDb(db, item);
                 }
+                saveToDb(db);
             }
-            saveToDb(db);
         }
 
         #endregion DocCompra
@@ -162,13 +171,14 @@ namespace FirstREST.Integration
                     Unidade = linha.Unidade
                 };
                 db.LinhaDocVenda.Add(newLinha);
+
+                saveToDb(db);
+
             }
-            saveToDb(db);
         }
 
         public static void addDocVendaToDb(DatabaseEntities db)
         {
-            System.Diagnostics.Debug.WriteLine("Primavera Docs Venda");
             List<Lib_Primavera.Model.DocVenda> docList = Lib_Primavera.PriIntegration.Encomendas_List();
 
             foreach (var item in docList)
@@ -190,8 +200,8 @@ namespace FirstREST.Integration
 
                     addLinhaDocVendaToDb(db, item);
                 }
+                saveToDb(db);
             }
-            saveToDb(db);
         }
 
         #endregion DocsVenda
@@ -200,7 +210,6 @@ namespace FirstREST.Integration
 
         public static void addSupplierToDb(DatabaseEntities db)
         {
-            System.Diagnostics.Debug.WriteLine("Primavera Suppliers");
             List<Lib_Primavera.Model.Fornecedor> supplierList = Lib_Primavera.PriIntegration.SupplierList();
 
             foreach (var item in supplierList)
@@ -219,8 +228,8 @@ namespace FirstREST.Integration
                     };
                     db.Supplier.Add(newSupplier);
                 }
+                saveToDb(db);
             }
-            saveToDb(db);
         }
 
         #endregion
@@ -229,7 +238,6 @@ namespace FirstREST.Integration
 
         public static void addAccountsReceivableToDb(DatabaseEntities db)
         {
-            System.Diagnostics.Debug.WriteLine("Primavera Accounts Receivable");
             List<Lib_Primavera.Model.Pendente> accountsList = Lib_Primavera.PriIntegration.Accounts_Receivable_List();
 
             foreach (var item in accountsList)
@@ -250,14 +258,13 @@ namespace FirstREST.Integration
                         ModoPag = item.ModoPag
                     };
                     db.AccountReceivable.Add(newAccount);
+                    saveToDb(db);
                 }
             }
-            saveToDb(db);
         }
 
         public static void addAccountsPayableToDb(DatabaseEntities db)
         {
-            System.Diagnostics.Debug.WriteLine("Primavera Accounts Payable");
             List<Lib_Primavera.Model.Pendente> accountsList = Lib_Primavera.PriIntegration.Accounts_Payable_List();
 
             foreach (var item in accountsList)
@@ -278,9 +285,9 @@ namespace FirstREST.Integration
                         ModoPag = item.ModoPag
                     };
                     db.AccountPayable.Add(newAccount);
+                    saveToDb(db);
                 }
             }
-            saveToDb(db);
         }
 
         #endregion
