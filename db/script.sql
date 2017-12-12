@@ -34,6 +34,12 @@ IF OBJECT_ID('dbo.LinhaDocCompra', 'U') IS NOT NULL
 IF OBJECT_ID('dbo.DocCompra', 'U') IS NOT NULL
   DROP TABLE [dbo].[DocCompra];
 
+IF OBJECT_ID('dbo.LinhaDocVenda', 'U') IS NOT NULL
+  DROP TABLE [dbo].[LinhaDocVenda];
+
+IF OBJECT_ID('dbo.DocVenda', 'U') IS NOT NULL
+  DROP TABLE [dbo].[DocVenda];
+
 IF OBJECT_ID('dbo.Product', 'U') IS NOT NULL
   DROP TABLE [dbo].[Product];
 
@@ -219,6 +225,56 @@ CREATE TABLE [dbo].[LinhaDocCompra](
 	[Lote] [varchar](50) NULL,
 	[Id] [int] IDENTITY(1,1) NOT NULL,
  CONSTRAINT [PK_LinhaDocCompra] PRIMARY KEY CLUSTERED
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[DocVenda]    Script Date: 04-12-2017 19:18:48 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[DocVenda](
+	[Id] [varchar](50) NOT NULL,
+	[Entidade] [varchar](50) NULL,
+	[NumDoc] [int] NULL,
+	[Data] [datetime] NULL,
+	[TotalMerc] [float] NULL,
+	[Serie] [varchar](50) NULL,
+ CONSTRAINT [PK_DocVenda] PRIMARY KEY CLUSTERED
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[LinhaDocVenda]    Script Date: 04-12-2017 19:18:48 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[LinhaDocVenda](
+	[CodArtigo] [varchar](50) NULL,
+	[DescArtigo] [varchar](50) NULL,
+	[IdCabecDoc] [varchar](50) NOT NULL,
+	[Quantidade] [float] NULL,
+	[Unidade] [varchar](50) NULL,
+	[Desconto] [float] NULL,
+	[PrecoUnitario] [float] NULL,
+	[TotalILiquido] [float] NULL,
+	[TotalLiquido] [float] NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+ CONSTRAINT [PK_LinhaDocVenda] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -436,3 +492,11 @@ ON UPDATE CASCADE
 ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[LinhaDocCompra] CHECK CONSTRAINT [FK_DocCompra_LinhaDocCompra]
+GO
+ALTER TABLE [dbo].[LinhaDocVenda]  WITH CHECK ADD  CONSTRAINT [FK_DocVenda_LinhaDocVenda] FOREIGN KEY([IdCabecDoc])
+REFERENCES [dbo].[DocVenda] ([Id])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[LinhaDocCompra] CHECK CONSTRAINT [FK_DocCompra_LinhaDocCompra]
+

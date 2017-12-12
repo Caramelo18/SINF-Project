@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
+import { DataTable, DataTableTranslations, DataTableResource } from 'angular-4-data-table/src/index';
 
 import { FinancialService } from '../../services/financial.service'
 
@@ -11,6 +13,8 @@ import { FinancialService } from '../../services/financial.service'
 
 export class PayableComponent implements OnInit{
     private data: string[];
+    private count: number;
+    @ViewChild(DataTable) filmsTable;
 
     constructor(
       private financialService: FinancialService
@@ -21,6 +25,7 @@ export class PayableComponent implements OnInit{
                           .then(response => {
                             console.log(response);
                             this.data = response;
+                            this.count = response.length;
                           });
     }
 }

@@ -2,46 +2,65 @@
     <div class="row">
         <div class="col-lg-4 col-md-12">
             <div class="card">
-                <div class="card-block">
+                <div class="card-block idCard">
                     <h4 class="card-title">{{product?.ProductCode}}</h4>
-                    <h5 class="product-group card-subtitle mb-2">Group: {{product?.ProductGroup}}</h5>
-                    <h5 class="product-group card-subtitle mb-2">Type: {{product?.ProductType}}</h5>
-                    <h5 class="product-group card-subtitle mb-2">Description: {{product?.ProductDescription}}</h5>
-                    <h5 class="product-group card-subtitle mb-2">Stock: {{product?.ProductStock}}</h5>
+                    <h5 class="card-text mb-2">Group: {{product?.ProductGroup}}</h5>
+                    <h5 class="card-text mb-2">Type: {{product?.ProductType}}</h5>
+                    <h5 class="card-text mb-2">Description: {{product?.ProductDescription}}</h5>
+                    <h5 class="card-text mb-2">Stock: {{product?.ProductStock}}</h5>
+                    <div class="product-total-profit">
+                        TOTAL {{total ? total : "0"}}€
+                    </div>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-block">
-                    <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options"
-                        chart-dataset-override="datasetOverride" chart-click="onClick">
-                    </canvas>
-                </div>
+            <div class="card" *ngIf="pieChartLabels != null">
+                <canvas baseChart width="auto" height="250px" [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+                    [colors]="lineChartColors" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+            
+                    <figcaption>Chart 1 - Best clients</figcaption>
             </div>
+
+            <div class="row">
+                <button type="button" class="product-details-btn">See Orders</button>
+            </div>
+
         </div>
         <div class="col-lg-8 col-md-12">
             <div class="card">
                 <div class="card-block">
-                    <canvas id="pie" class="chart chart-pie" chart-data="data" chart-labels="labels" chart-options="options">
-                    </canvas>
+                    <div class="card-block">
+                        <canvas baseChart width="auto" height="100px" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+                            [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                            <figcaption>Chart 2 - Purchases</figcaption>
+                        </div>
                 </div>
             </div>
-            <div class="card">
-                <table>
-                    <thead>
-                        <tr>
-                            <th sortable-column="id">Client Code</th>
-                            <th sortable-column="firstname">Quantity</th>
-                            <th sortable-column="lastname">Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>SOFRIO</td>
-                            <td>10</td>
-                            <td>10-10-2015</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="card card-table white">
+                <div class="card-block">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th style="text-align:center;">Client Code</th>
+                                <th style="text-align:center;">Quantity</th>
+                                <th style="text-align:center;">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let sale of sales; let i=index">
+                                <tr>
+                                    <td style="padding-right:0px;">
+                                        <a routerLink="/client/{{sale?.doc?.Entidade}}">{{sale?.doc?.Entidade}}</a>
+                                    </td>
+                                    <td style="padding-right:0px;">
+                                        {{sale?.lines[i]?.Quantidade}}
+                                    </td>
+                                    <td style="padding-right:0px;">{{sale?.doc?.Data}}</td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                    <figcaption>Table 1 - History of purchases</figcaption>
+                </div>
             </div>
         </div>
     </div>

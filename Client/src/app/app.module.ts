@@ -2,10 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule }    from '@angular/http';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module'
 
 import { ChartsModule } from 'ng2-charts';
+import { DataTableModule } from 'angular-4-data-table/src/index';
+
 
 import { AppComponent } from './app.component';
 
@@ -35,7 +38,8 @@ import { ProductService } from './services/product.service';
 import { ClientService } from './services/client.service';
 import { FinancialService } from './services/financial.service';
 import { UpdateService } from './services/update.service';
-import { SalesService } from './services/sales.service';
+import { SalesOrdersService } from './services/salesOrders.service';
+import { SalesInvoicesService } from './services/salesInvoices.service';
 import { PurchasesService } from './services/purchases.service';
 import { SuppliersService } from './services/suppliers.service';
 import { OrdersService } from './services/orders.service';
@@ -65,7 +69,9 @@ import { OrdersService } from './services/orders.service';
     BrowserModule,
     HttpModule,
     AppRoutingModule,
-    ChartsModule
+    ChartsModule,
+    FormsModule,
+    DataTableModule
   ],
   providers: [
     OverviewService,
@@ -73,7 +79,8 @@ import { OrdersService } from './services/orders.service';
     ClientService,
     FinancialService,
     UpdateService,
-    SalesService,
+    SalesOrdersService,
+    SalesInvoicesService,
     PurchasesService,
     SuppliersService,
     OrdersService

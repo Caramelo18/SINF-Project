@@ -6,38 +6,82 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using FirstREST.Lib_Primavera.Model;
+using FirstREST.Models;
 
 
 namespace FirstREST.Controllers
 {
-    public class DocVendaController : ApiController
+    public class DocVenda
     {
-        //
-        // GET: /docvendas/
-        public IEnumerable<Lib_Primavera.Model.DocVenda> Get()
+        public Models.Invoice invoice { get; set; }
+        public List<Models.Line> lines { get; set; }
+        public Models.DocumentTotals docs { get; set; }
+
+        public DocVenda(Models.Invoice invoice, List<Models.Line> lines, Models.DocumentTotals docs)
         {
-            var allUrlKeyValues = ControllerContext.Request.GetQueryNameValuePairs();
-            string period = allUrlKeyValues.LastOrDefault(x => x.Key == "period").Value;
-            if (period == null)
-            return Lib_Primavera.PriIntegration.Encomendas_List();
-              else
-            return Lib_Primavera.PriIntegration.Encomendas_List(period);
+            this.invoice = invoice;
+            this.lines = lines;
+            this.docs = docs;
+        }
+    }
+
+    public class SalesInvoicesController : ApiController
+    {
+        DatabaseEntities db = new DatabaseEntities();
+
+
+        public List<DocVenda> Get()
+        {
+
+            var docs = new List<DocVenda>();
+
+            List<Models.Invoice> invoices = (from i in db.Invoice select i).ToList();
+            foreach (Models.Invoice invoice in invoices)
+            {
+                List<Models.Line> lines = (from i in db.Invoice
+                                           join l in db.Line
+                                           on i.InvoiceNo equals l.InvoiceNo
+                                           where i.InvoiceNo == invoice.InvoiceNo
+                                           select l).ToList();
+
+                Models.DocumentTotals doc = (from d in db.DocumentTotals
+                                             where d.InvoiceNo == invoice.InvoiceNo
+                                             select d).AsQueryable().First();
+
+                docs.Add(new DocVenda(invoice, lines, doc));
+
+            }
+
+            //docs = docs.OrderByDescending(x => x.Data).ToList();
+            return docs;
         }
 
 
-        // GET api/docvendas/5    
-        public Lib_Primavera.Model.DocVenda Get(string id)
+        [Route("api/DocVenda/get?id={id*}")]
+        public DocVenda Get(string id)
         {
-            Lib_Primavera.Model.DocVenda docvenda = Lib_Primavera.PriIntegration.Encomenda_Get(id);
-            if (docvenda == null)
+            try
             {
-                throw new HttpResponseException(
-                        Request.CreateResponse(HttpStatusCode.NotFound));
+                Models.Invoice invoice = (from i in db.Invoice
+                                          where i.InvoiceNo == id
+                                          select i).AsQueryable().First();
 
+                List<Models.Line> lines = (from i in db.Invoice
+                                           join l in db.Line
+                                           on i.InvoiceNo equals l.InvoiceNo
+                                           where i.InvoiceNo == invoice.InvoiceNo
+                                           select l).ToList();
+
+                Models.DocumentTotals doc = (from d in db.DocumentTotals
+                                             where d.InvoiceNo == invoice.InvoiceNo
+                                             select d).AsQueryable().First();
+
+                return new DocVenda(invoice, lines, doc);
             }
-            else
+            catch (Exception e)
             {
-                return docvenda;
+                System.Diagnostics.Debug.WriteLine(e);
+                return null;
             }
         }
 
@@ -70,7 +114,7 @@ namespace FirstREST.Controllers
             {
                 var response = Request.CreateResponse(
                    HttpStatusCode.Created, dv.id);
-                string uri = Url.Link("DefaultApi", new {DocId = dv.id });
+                string uri = Url.Link("DefaultApi", new { DocId = dv.id });
                 response.Headers.Location = new Uri(uri);
                 return response;
             }

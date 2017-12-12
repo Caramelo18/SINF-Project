@@ -94,6 +94,17 @@
           <Property Name="NetTotal" Type="float" Nullable="false" />
           <Property Name="GrossTotal" Type="float" Nullable="false" />
         </EntityType>
+        <EntityType Name="DocVenda">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Entidade" Type="varchar" MaxLength="50" />
+          <Property Name="NumDoc" Type="int" />
+          <Property Name="Data" Type="datetime" />
+          <Property Name="TotalMerc" Type="float" />
+          <Property Name="Serie" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Invoice">
           <Key>
             <PropertyRef Name="InvoiceNo" />
@@ -143,6 +154,21 @@
           <Property Name="TotalLiquido" Type="float" />
           <Property Name="Armazem" Type="varchar" MaxLength="50" />
           <Property Name="Lote" Type="varchar" MaxLength="50" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LinhaDocVenda">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="CodArtigo" Type="varchar" MaxLength="50" />
+          <Property Name="DescArtigo" Type="varchar" MaxLength="50" />
+          <Property Name="IdCabecDoc" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Quantidade" Type="float" />
+          <Property Name="Unidade" Type="varchar" MaxLength="50" />
+          <Property Name="Desconto" Type="float" />
+          <Property Name="PrecoUnitario" Type="float" />
+          <Property Name="TotalILiquido" Type="float" />
+          <Property Name="TotalLiquido" Type="float" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderReferences">
@@ -233,9 +259,11 @@
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DocCompra" EntityType="Self.DocCompra" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DocumentTotals" EntityType="Self.DocumentTotals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocVenda" EntityType="Self.DocVenda" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Line" EntityType="Self.Line" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LinhaDocCompra" EntityType="Self.LinhaDocCompra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LinhaDocVenda" EntityType="Self.LinhaDocVenda" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderReferences" EntityType="Self.OrderReferences" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SalesInvoices" EntityType="Self.SalesInvoices" Schema="dbo" store:Type="Tables" />
@@ -262,9 +290,11 @@
           <EntitySet Name="Customer" EntityType="DatabaseModel.Customer" />
           <EntitySet Name="DocCompra" EntityType="DatabaseModel.DocCompra" />
           <EntitySet Name="DocumentTotals" EntityType="DatabaseModel.DocumentTotals" />
+          <EntitySet Name="DocVenda" EntityType="DatabaseModel.DocVenda" />
           <EntitySet Name="Invoice" EntityType="DatabaseModel.Invoice" />
           <EntitySet Name="Line" EntityType="DatabaseModel.Line" />
           <EntitySet Name="LinhaDocCompra" EntityType="DatabaseModel.LinhaDocCompra" />
+          <EntitySet Name="LinhaDocVenda" EntityType="DatabaseModel.LinhaDocVenda" />
           <EntitySet Name="OrderReferences" EntityType="DatabaseModel.OrderReferences" />
           <EntitySet Name="Product" EntityType="DatabaseModel.Product" />
           <EntitySet Name="SalesInvoices" EntityType="DatabaseModel.SalesInvoices" />
@@ -371,6 +401,17 @@
           <Property Name="NetTotal" Type="Double" Nullable="false" />
           <Property Name="GrossTotal" Type="Double" Nullable="false" />
         </EntityType>
+        <EntityType Name="DocVenda">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Entidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NumDoc" Type="Int32" />
+          <Property Name="Data" Type="DateTime" Precision="3" />
+          <Property Name="TotalMerc" Type="Double" />
+          <Property Name="Serie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="Invoice">
           <Key>
             <PropertyRef Name="InvoiceNo" />
@@ -422,6 +463,21 @@
           <Property Name="Lote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="DocCompra" Relationship="DatabaseModel.FK_DocCompra_LinhaDocCompra" FromRole="LinhaDocCompra" ToRole="DocCompra" />
+        </EntityType>
+        <EntityType Name="LinhaDocVenda">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="CodArtigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DescArtigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdCabecDoc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Quantidade" Type="Double" />
+          <Property Name="Unidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Desconto" Type="Double" />
+          <Property Name="PrecoUnitario" Type="Double" />
+          <Property Name="TotalILiquido" Type="Double" />
+          <Property Name="TotalLiquido" Type="Double" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="OrderReferences">
           <Key>
@@ -597,6 +653,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DocVenda">
+            <EntityTypeMapping TypeName="DatabaseModel.DocVenda">
+              <MappingFragment StoreEntitySet="DocVenda">
+                <ScalarProperty Name="Serie" ColumnName="Serie" />
+                <ScalarProperty Name="TotalMerc" ColumnName="TotalMerc" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="NumDoc" ColumnName="NumDoc" />
+                <ScalarProperty Name="Entidade" ColumnName="Entidade" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Invoice">
             <EntityTypeMapping TypeName="DatabaseModel.Invoice">
               <MappingFragment StoreEntitySet="Invoice">
@@ -644,6 +712,22 @@
                 <ScalarProperty Name="Unidade" ColumnName="Unidade" />
                 <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
                 <ScalarProperty Name="NumLinha" ColumnName="NumLinha" />
+                <ScalarProperty Name="IdCabecDoc" ColumnName="IdCabecDoc" />
+                <ScalarProperty Name="DescArtigo" ColumnName="DescArtigo" />
+                <ScalarProperty Name="CodArtigo" ColumnName="CodArtigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LinhaDocVenda">
+            <EntityTypeMapping TypeName="DatabaseModel.LinhaDocVenda">
+              <MappingFragment StoreEntitySet="LinhaDocVenda">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TotalLiquido" ColumnName="TotalLiquido" />
+                <ScalarProperty Name="TotalILiquido" ColumnName="TotalILiquido" />
+                <ScalarProperty Name="PrecoUnitario" ColumnName="PrecoUnitario" />
+                <ScalarProperty Name="Desconto" ColumnName="Desconto" />
+                <ScalarProperty Name="Unidade" ColumnName="Unidade" />
+                <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
                 <ScalarProperty Name="IdCabecDoc" ColumnName="IdCabecDoc" />
                 <ScalarProperty Name="DescArtigo" ColumnName="DescArtigo" />
                 <ScalarProperty Name="CodArtigo" ColumnName="CodArtigo" />

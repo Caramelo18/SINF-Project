@@ -29,8 +29,11 @@ namespace FirstREST.Controllers
                 Integration.SaftIntegration.ParseProducts(doc, db);
                 Integration.DbIntegration.addProductsFromPrimaveraToDb(db);
 
-                Integration.SaftIntegration.ParseSalesInvoices(doc, db);
+                // TODO: fix this
+                //Integration.SaftIntegration.ParseSalesInvoices(doc, db);
+
                 Integration.DbIntegration.addDocCompraToDb(db);
+                Integration.DbIntegration.addDocVendaToDb(db);
 
                 Integration.DbIntegration.addSupplierToDb(db);
                 Integration.DbIntegration.addAccountsReceivableToDb(db);

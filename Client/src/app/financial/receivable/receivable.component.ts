@@ -11,6 +11,7 @@ import { FinancialService } from '../../services/financial.service'
 
 export class ReceivableComponent implements OnInit{
     private data: string[];
+    private count: number;
 
     constructor(
       private financialService: FinancialService
@@ -21,6 +22,7 @@ export class ReceivableComponent implements OnInit{
                           .then(response => {
                             console.log(response);
                             this.data = response;
+                            this.count = response.length;
                           });
     }
 }
