@@ -24,6 +24,12 @@ export class ClientComponent implements OnInit {
       private activatedRoute: ActivatedRoute
     ) { }
 
+    convertToDate(date) {
+        function pad(s) { return (s < 10) ? '0' + s : s; }
+        const d = new Date(date);
+        return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
+    }
+
     ngOnInit(): void {
         const params: any = this.activatedRoute.snapshot.params;
 

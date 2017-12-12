@@ -1,4 +1,16 @@
 /*-------------------------------*/
+/*            Common             */
+/*-------------------------------*/
+
+.negative-number {
+    color: #700;
+}
+
+.positive-number{
+    color: #070;
+}
+
+/*-------------------------------*/
 /*           Menu Bar            */
 /*-------------------------------*/
 
@@ -40,6 +52,8 @@
     border-radius: 10px;
     display: block;
 }
+
+
 
 .loginmodal-container h1{
    text-align: center;
