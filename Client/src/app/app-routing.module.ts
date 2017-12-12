@@ -11,6 +11,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { SalesComponent } from './sales/sales.component';
 import { SaleComponent } from './sales/sale/sale.component';
 import { PayableComponent } from './financial/payable/payable.component';
+import { ProductSalesComponent } from './sales/product/product.component';
 import { ReceivableComponent } from './financial/receivable/receivable.component';
 import { PurchasesComponent } from './purchases/purchases.component';
 import { PurchaseComponent } from './purchases/purchase/purchase.component';
@@ -27,6 +28,8 @@ const appRoutes: Routes = [
   { path: 'inventory', component: InventoryComponent },
   { path: 'orders', component: OrdersComponent },
   { path: 'sales', component: SalesComponent },
+  { path: 'sales/product', component: ProductSalesComponent },
+  { path: 'sales/product/:id', component: ProductSalesComponent },
   { path: 'sale/:id', component: SaleComponent },
   { path: 'payables', component: PayableComponent },
   { path: 'receivables', component: ReceivableComponent },

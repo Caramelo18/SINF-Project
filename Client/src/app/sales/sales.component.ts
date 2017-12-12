@@ -13,17 +13,16 @@ export class SalesComponent implements OnInit{
     private data: string[];
     private sums: string;
 
-    public barChartOptions:any = {
+    public lineChartOptions:any = {
         scaleShowVerticalLines: false,
         responsive: true
     };
-    public barChartLabels:string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-    public barChartType:string = 'bar';
-    public barChartLegend:boolean = true;
+    public lineChartLabels:string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    public lineChartType:string = 'line';
+    public lineChartLegend:boolean = true;
 
-    public barChartData:any[] = [
-      {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-      {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
+    public lineChartData:any[] = [
+      {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'}
     ];
 
     constructor(
@@ -36,6 +35,23 @@ export class SalesComponent implements OnInit{
                             console.log(response);
                             this.data = response;
                             this.sums = this.data.pop();
+                            this.parseData();
                           });
+    }
+
+    parseData() {
+      let data = new Array();
+      for(let i = 0; i < 12; i++)
+        data[i] = 0;
+      for(let sale of this.data){
+        let month = Number(sale["invoice"]["InvoiceDate"].split("-")[1]) - 1;
+        let gross = Number(sale["docs"]["GrossTotal"]);
+        data[month] = data[month] + gross;
+      }
+
+      this.lineChartData = [
+        {data: data, label: 'Sales Gross Value'}
+      ]
+      
     }
 }
