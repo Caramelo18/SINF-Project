@@ -1,6 +1,9 @@
-<div class="col-sm-8 offset-sm-1">
+<div class="col-sm-4 offset-sm-4">
     <form #search="ngForm" (ngSubmit)="onSubmit(search)" class="search-form">
-        <input ngModel #searchText="ngModel" name="searchText" type="text" placeholder="&#xF002;" style="font-family:Arial, FontAwesome" />
+        <div class="search-container">
+            <label for="search-bar"><i class="fa fa-search"></i></label>
+            <input id="search-bar" ngModel #searchText="ngModel" name="searchText" type="text" placeholder="Search" autocomplete="off"/>
+        </div>
     </form>
 </div>
 

@@ -31,3 +31,28 @@ div.col-5{
     -ms-user-select: none;
     user-select: none;
 }
+
+.search-container{
+  position: relative;
+}
+
+.search-container  i{
+    position: absolute;
+    padding: 10px;
+    margin-top: 21px;
+    pointer-events: none;
+
+}
+
+#search-bar {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  border-style: solid;
+  border-color: #707070;
+  box-shadow: none;
+  text-shadow: none;
+  padding-left: 30px;
+  outline: none;
+}

@@ -30,7 +30,6 @@ export class ClientsComponent implements OnInit{
                             this.data = response;
                             this.displayData = response;
                             this.count = response.length;
-                            console.log(response);
                           });
     }
 

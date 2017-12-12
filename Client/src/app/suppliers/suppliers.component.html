@@ -1,3 +1,34 @@
-<ul>
+<div class="col-sm-4 offset-sm-4">
+    <form #search="ngForm" (ngSubmit)="onSubmit(search)" class="search-form">
+        <div class="search-container">
+            <label for="search-bar"><i class="fa fa-search"></i></label>
+            <input id="search-bar" ngModel #searchText="ngModel" name="searchText" type="text" placeholder="Search" autocomplete="off"/>
+        </div>
+    </form>
+</div>
+
+<!--ul>
   <li *ngFor="let supplier of data"> <a routerLink="/supplier/{{supplier.CodFornecedor}}">{{supplier.CodFornecedor}} </a> - {{supplier.Nome}}</li>
-</ul>
+</ul-->
+<div *ngIf="data != null" style="margin: auto; max-width: 1000px; margin-bottom: 50px;">
+    <data-table id="suppliers-grid"
+        headerTitle="Suppliers"
+        [items]="displayData"
+        [itemCount]="count"
+        (rowClick)="rowClick($event)"
+        >
+        <data-table-column
+            [property]="'CodFornecedor'"
+            [header]="'Code'"
+            width="150px">
+        </data-table-column>
+        <data-table-column
+            [property]="'Nome'"
+            [header]="'Name'">
+        </data-table-column>
+        <data-table-column
+            property="Telefone"
+            header="Phone number">
+        </data-table-column>
+    </data-table>
+</div>

@@ -21,7 +21,7 @@ export class ClientService {
     }
 
     getClient(clientCode): Promise<string[]> {
-        const url = this.serverUrl + "/Clientes/get/" + clientCode;
+        const url = this.serverUrl + "/Clientes/get?id=" + clientCode;
         return this.http.get(url)
                         .toPromise()
                         .then(response => response.json() as string[])
