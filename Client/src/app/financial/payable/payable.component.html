@@ -1,3 +1,33 @@
-<div *ngFor="let payable of data">
-  {{payable.Entidade}} -  {{payable.DataDoc}} - {{payable.ValorPendente}}
+<div *ngIf="data !=null" style="margin: auto; max-width: 1250px; margin-bottom: 50px;">
+    <data-table id="payables-grid"
+        headerTitle="Payables"
+        [items]="data"
+        [limit]="8"
+        >
+        <data-table-column
+            [property]="'Entidade'"
+            [header]="'Entity'"
+            [sortable]="true"
+            width="150px">
+        </data-table-column>
+        <data-table-column
+            [property]="DataVenc"
+            [header]="'Date'"
+            [sortable]="true">
+            <ng-template #dataTableCell let-item="item">
+                <span>{{item.DataVenc | date:'yyyy-MM-dd'}}</span>
+            </ng-template>
+        </data-table-column>
+        <data-table-column
+            [property]="'ValorPendente'"
+            [header]="'Pending Value'"
+            sortable="true">
+        </data-table-column>
+        <data-table-column
+            [property]="'ModoPag'"
+            [header]="'Payment Mode'"
+            sortable="true"
+            width="150px">
+        </data-table-column>
+    </data-table>
 </div>
