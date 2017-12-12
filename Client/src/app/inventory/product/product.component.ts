@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { SalesOrdersService } from '../../services/salesOrders.service';
 import { ClientService } from '../../services/client.service';
+import { PurchasesService } from '../../services/purchases.service';
 
 @Component({
     selector: 'product',
@@ -15,6 +16,7 @@ export class ProductComponent implements OnInit {
 
     private product: string[];
     private sales: string[];
+    private purchases: string[];
     private docs: string[];
     private total: number;
 
@@ -29,7 +31,8 @@ export class ProductComponent implements OnInit {
     constructor(
         private productService: ProductService,
         private salesOrdersService: SalesOrdersService,
-        private ClientService: ClientService
+        private ClientService: ClientService,
+        private purchaseService: PurchasesService
     ) { }
 
     public lineChartData: Array<any> = [
@@ -63,6 +66,11 @@ export class ProductComponent implements OnInit {
         this.salesOrdersService.getByProduct(id)
             .then(response => {
                 this.sales = response;
+                console.log(response);
+            });
+        this.purchaseService.getByProduct(id)
+            .then(response => {
+                this.purchases = response;
                 console.log(response);
             });
 

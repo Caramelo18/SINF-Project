@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="card" *ngIf="pieChartLabels != null">
-                <canvas baseChart width="auto" height="220px" [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+                <canvas baseChart width="auto" height="200px" [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
                     [colors]="lineChartColors" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
             
                     <figcaption>Chart 1 - Best clients</figcaption>
@@ -22,9 +22,9 @@
             <div class="card">
                 <div class="card-block">
                     <div class="card-block">
-                        <canvas baseChart width="auto" height="250px" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+                        <canvas baseChart width="auto" height="242px" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
                             [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-                            <figcaption>Chart 2 - Purchases</figcaption>
+                            <figcaption>Chart 2 - Sales</figcaption>
                         </div>
                 </div>
             </div>
@@ -37,6 +37,7 @@
                             <tr>
                                 <th style="text-align:center;">Client Code</th>
                                 <th style="text-align:center;">Quantity</th>
+                                <th style="text-align:center;">Total (€)</th>
                                 <th style="text-align:center;">Date</th>
                             </tr>
                         </thead>
@@ -49,12 +50,15 @@
                                     <td style="padding-right:0px;">
                                         {{sale?.lines[i]?.Quantidade}}
                                     </td>
+                                    <td style="padding-right:0px;">
+                                        {{sale?.lines[i]?.TotalLiquido}}
+                                    </td>
                                     <td style="padding-right:0px;">{{sale?.doc?.Data}}</td>
                                 </tr>
                             </ng-container>
                         </tbody>
                     </table>
-                    <figcaption>Table 1 - History of orders</figcaption>
+                    <figcaption>Table 1 - History of sales orders</figcaption>
                 </div>
             </div>
             <div class="card card-table white">
@@ -62,26 +66,30 @@
                     <table class="table table-hover table-striped">
                         <thead>
                             <tr>
-                                <th style="text-align:center;">Client Code</th>
+                                <th style="text-align:center;">Supplier Code</th>
                                 <th style="text-align:center;">Quantity</th>
+                                <th style="text-align:center;">Total (€)</th>
                                 <th style="text-align:center;">Date</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <ng-container *ngFor="let sale of sales; let i=index">
+                            <ng-container *ngFor="let purchase of purchases; let i=index">
                                 <tr>
                                     <td style="padding-right:0px;">
-                                        <a routerLink="/client/{{sale?.doc?.Entidade}}">{{sale?.doc?.Entidade}}</a>
+                                        <a routerLink="/">{{purchase?.Entidade}}</a>
                                     </td>
                                     <td style="padding-right:0px;">
-                                        {{sale?.lines[i]?.Quantidade}}
+                                        {{purchase?.LinhaDocCompra?.Quantidade}}
                                     </td>
-                                    <td style="padding-right:0px;">{{sale?.doc?.Data}}</td>
+                                    <td style="padding-right:0px;">
+                                        {{purchase?.LinhaDocCompra?.TotalLiquido}}
+                                    </td>
+                                    <td style="padding-right:0px;">{{purchase?.LinhaDocCompra?.Data}}</td>
                                 </tr>
                             </ng-container>
                         </tbody>
                     </table>
-                    <figcaption>Table 2 - History of purchases</figcaption>
+                    <figcaption>Table 2 - History of purchases orders</figcaption>
                 </div>
             </div>
         </div>
