@@ -11,6 +11,7 @@ import { SalesInvoicesService } from '../services/salesInvoices.service';
 
 export class SalesComponent implements OnInit{
     private data: string[];
+    private sums: string;
 
     public barChartOptions:any = {
         scaleShowVerticalLines: false,
@@ -34,6 +35,7 @@ export class SalesComponent implements OnInit{
                           .then(response => {
                             console.log(response);
                             this.data = response;
+                            this.sums = this.data.pop();
                           });
     }
 }

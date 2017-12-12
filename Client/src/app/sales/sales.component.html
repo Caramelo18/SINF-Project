@@ -6,7 +6,7 @@
             <div class="col-sm-3">
                 <div class="card white">
                     <div class="card-block">
-                        <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data?.TotalRevenue}} € </h2>
+                        <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{sums?.sumDay}} € </h2>
                         <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Sales Today</h6>
                     </div>
                 </div>
@@ -15,7 +15,7 @@
             <div class="col-sm-3">
                 <div class="card white-background">
                     <div class="card-block">
-                        <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data?.TotalSales}} € </h2>
+                        <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{sums?.sumMonth}} € </h2>
                         <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Sales this month</h6>
                     </div>
                 </div>
@@ -24,17 +24,17 @@
             <div class="col-sm-3">
                 <div class="card white-background">
                     <div class="card-block">
-                        <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data?.accountsPayable}} €</h2>
+                        <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{sums?.sumYear}} €</h2>
                         <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Sales this year</h6>
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-sm-3">
                 <div class="card white-background">
                     <div class="card-block">
-                        <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data?.accountsPayable}} €</h2>
-                        <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Growth</h6>
+                        <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{sums?.accountsPayable}} €</h2>
+                        <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Sales Total</h6>
                     </div>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-sm-6" style="margin-top: 40px;">
                 <div class="card white">
                     <div class="card-block">
@@ -105,10 +105,10 @@
                 </div>
             </div>
         </div>
-        
-        
 
-    
+
+
+
 
   </div>
 </div>
