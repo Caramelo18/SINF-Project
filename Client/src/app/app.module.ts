@@ -22,6 +22,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { OrderComponent } from './orders/order/order.component';
 import { SalesComponent } from './sales/sales.component';
 import { SaleComponent } from './sales/sale/sale.component';
+import { ProductSalesComponent } from './sales/product/product.component';
 import { PayableComponent } from './financial/payable/payable.component';
 import { ReceivableComponent } from './financial/receivable/receivable.component';
 import { PurchasesComponent } from './purchases/purchases.component';
@@ -58,6 +59,7 @@ import { OrdersService } from './services/orders.service';
     OrderComponent,
     OverviewComponent,
     ProductComponent,
+    ProductSalesComponent,
     SalesComponent,
     SaleComponent,
     PayableComponent,

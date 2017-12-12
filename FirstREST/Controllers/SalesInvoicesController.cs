@@ -23,6 +23,22 @@ namespace FirstREST.Controllers
             this.lines = lines;
             this.docs = docs;
         }
+        public DocVenda() { }
+    }
+
+    public class Sums : DocVenda
+    {
+        public double sumDay = 0;
+        public double sumMonth = 0;
+        public double sumYear = 0;
+        public double sumTotal = 0;
+        public Sums(double year, double month, double day, double total)
+        {
+            sumDay = day;
+            sumMonth = month;
+            sumYear = year;
+            sumTotal = total;
+        }
     }
 
     public class SalesInvoicesController : ApiController
@@ -32,6 +48,15 @@ namespace FirstREST.Controllers
 
         public List<DocVenda> Get()
         {
+            DateTime time = DateTime.Today;
+            var year = time.Year;
+            var month = time.Month;
+            var day = time.Day;
+
+            double sumYear = 0;
+            double sumMonth = 0;
+            double sumDay = 0;
+            double sumTotal = 0;
 
             var docs = new List<DocVenda>();
 
@@ -49,10 +74,24 @@ namespace FirstREST.Controllers
                                              select d).AsQueryable().First();
 
                 docs.Add(new DocVenda(invoice, lines, doc));
-
+                DateTime de = DateTime.Parse(invoice.InvoiceDate);
+                sumTotal += doc.GrossTotal;
+                if (de.Year >= year-1)
+                {
+                    sumYear += doc.GrossTotal;
+                    if (de.Month >= month)
+                    {
+                        sumMonth += doc.GrossTotal;
+                        if (de.Day == day)
+                        {
+                            sumDay += doc.GrossTotal;
+                        }
+                    }
+                }
             }
-
+            docs.Add(new Sums(sumYear, sumMonth, sumDay, sumTotal));
             //docs = docs.OrderByDescending(x => x.Data).ToList();
+            
             return docs;
         }
 

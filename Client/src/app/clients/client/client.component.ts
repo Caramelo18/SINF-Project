@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ClientService } from '../../services/client.service';
 import { SalesOrdersService } from '../../services/salesOrders.service';
+import { SalesInvoicesService } from '../../services/salesInvoices.service';
 
 
 @Component({
@@ -13,7 +14,8 @@ import { SalesOrdersService } from '../../services/salesOrders.service';
 
 export class ClientComponent implements OnInit {
     private client: string[];
-    private clientSales;  // TODO: get client sales
+    private clientSalesOrders;
+    private clientInvoices;
 
     private pageSize = 10;
     private currentPage = 0;
@@ -21,8 +23,15 @@ export class ClientComponent implements OnInit {
     constructor(
       private clientService: ClientService,
       private salesOrdersService: SalesOrdersService,
+      private salesInvoicesService: SalesInvoicesService,
       private activatedRoute: ActivatedRoute
     ) { }
+
+    convertToDate(date) {
+        function pad(s) { return (s < 10) ? '0' + s : s; }
+        const d = new Date(date);
+        return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
+    }
 
     ngOnInit(): void {
         const params: any = this.activatedRoute.snapshot.params;
@@ -32,11 +41,17 @@ export class ClientComponent implements OnInit {
                 this.client = response;
                 console.log(response);
             });
-        
-        this.salesOrdersService.getClientSales(params.id)
-        .then(response => {
-            this.clientSales = response;
-            console.log(response);
-            });
+
+        this.salesOrdersService.getClientSales(params.id)   // get client sales ORDERS
+            .then(response => {
+                this.clientSalesOrders = response;
+                console.log(response);
+                });
+
+        this.salesInvoicesService.getClientSalesInvoices(params.id)   // get client sales ORDERS
+            .then(response => {
+                this.clientInvoices = response;
+                console.log(response);
+                });
     }
 }

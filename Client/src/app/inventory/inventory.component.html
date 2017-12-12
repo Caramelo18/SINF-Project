@@ -18,7 +18,7 @@
                         <h5 *ngIf="product.ProductStock <= 0 " class="unavailable">Unavailable</h5>
                         <h5 *ngIf="product.ProductStock > 0 " class="available">Available</h5>
                     </div>
-                    <a href="#" class="card-link see-orders">See Orders</a>
+                    <a routerLink="/sales/product/{{product.ProductCode}}" class="card-link see-orders">See Orders</a>
                     <br>
                     <a class="card-link">See warehouse distribution</a>
                   </div>

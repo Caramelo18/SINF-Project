@@ -1,4 +1,14 @@
-<div id="body">
+<div *ngIf="this.id == null" class="col-sm-4 offset-sm-4">
+    <form #search="ngForm" (ngSubmit)="onSubmit(search)" class="search-form">
+        <div class="search-container">
+            <label for="search-bar"><i class="fa fa-search"></i></label>
+            <input id="search-bar" ngModel #searchText="ngModel" name="searchText" type="text" placeholder="Search" autocomplete="off"/>
+        </div>
+    </form>
+</div>
+
+
+<div *ngIf="this.id != null" id="body">
     <div class="container-fluid">
         <div class="row" style="margin-top: 40px">
             <div class="col-sm-3">
@@ -45,17 +55,6 @@
                     <div class="card-block">
                         <div id="piechart" class="container-fluid" style="width:100%">
                           <div style="display: block">
-                            <canvas baseChart width="auto"  [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
-                                [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
-                                <figcaption>Chart 1 - Monthly Gross Sales Value</figcaption>
-                          </div>
-                        </div>
-                    </div>
-                </div>
-                <!--div class="card white spacing">
-                    <div class="card-block">
-                        <div id="curve_chart" class="container-fluid" style="width:100%">
-                          <div style="display: block">
                               <canvas baseChart
                                       [datasets]="barChartData"
                                       [labels]="barChartLabels"
@@ -67,7 +66,7 @@
                           </div>
                         </div>
                     </div>
-                </div-->
+                </div>
             </div>
 
             <div class="col-sm-6" style="margin-top: 40px;">
