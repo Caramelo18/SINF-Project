@@ -35,6 +35,7 @@ namespace FirstREST.Integration
 
         public static void addClientsFromPrimaveraToDb(DatabaseEntities db)
         {
+            System.Diagnostics.Debug.WriteLine("Primavera Customers");
             List<Lib_Primavera.Model.Cliente> clientsList = Lib_Primavera.PriIntegration.ListaClientes();
 
             foreach (var item in clientsList)
@@ -61,6 +62,7 @@ namespace FirstREST.Integration
 
         public static void addProductsFromPrimaveraToDb(DatabaseEntities db)
         {
+            System.Diagnostics.Debug.WriteLine("Primavera Products");
             List<Lib_Primavera.Model.Artigo> listaArtigos = Lib_Primavera.PriIntegration.ListaArtigos();
 
             foreach (var item in listaArtigos)
@@ -71,18 +73,7 @@ namespace FirstREST.Integration
                 {
                     product.ProductStock = Convert.ToInt32(item.STKAtual);
                     product.Armazem = item.Localizacao;
-                }/*
-                else
-                {
-                    Models.Product newProduct = new Models.Product
-                    {
-                        ProductCode = item.CodArtigo,
-                        ProductDescription = item.DescArtigo,
-                        ProductStock = Convert.ToInt32(item.STKAtual),
-                        Armazem = item.Localizacao
-                    };
-                    db.Product.Add(newProduct);
-                }*/
+                }
                 saveToDb(db);
             }
         }
@@ -122,6 +113,7 @@ namespace FirstREST.Integration
 
         public static void addDocCompraToDb(DatabaseEntities db)
         {
+            System.Diagnostics.Debug.WriteLine("Primavera Doc Compra");
             List<Lib_Primavera.Model.DocCompra> docList = Lib_Primavera.PriIntegration.VGR_List();
 
             foreach (var item in docList)
@@ -179,6 +171,7 @@ namespace FirstREST.Integration
 
         public static void addDocVendaToDb(DatabaseEntities db)
         {
+            System.Diagnostics.Debug.WriteLine("Primavera Doc Venda");
             List<Lib_Primavera.Model.DocVenda> docList = Lib_Primavera.PriIntegration.Encomendas_List();
 
             foreach (var item in docList)
@@ -210,6 +203,7 @@ namespace FirstREST.Integration
 
         public static void addSupplierToDb(DatabaseEntities db)
         {
+            System.Diagnostics.Debug.WriteLine("Primavera Suppliers");
             List<Lib_Primavera.Model.Fornecedor> supplierList = Lib_Primavera.PriIntegration.SupplierList();
 
             foreach (var item in supplierList)
@@ -238,6 +232,7 @@ namespace FirstREST.Integration
 
         public static void addAccountsReceivableToDb(DatabaseEntities db)
         {
+            System.Diagnostics.Debug.WriteLine("Primavera Accounts Receivable");
             List<Lib_Primavera.Model.Pendente> accountsList = Lib_Primavera.PriIntegration.Accounts_Receivable_List();
 
             foreach (var item in accountsList)
@@ -265,6 +260,7 @@ namespace FirstREST.Integration
 
         public static void addAccountsPayableToDb(DatabaseEntities db)
         {
+            System.Diagnostics.Debug.WriteLine("Primavera Account Payable");
             List<Lib_Primavera.Model.Pendente> accountsList = Lib_Primavera.PriIntegration.Accounts_Payable_List();
 
             foreach (var item in accountsList)
