@@ -1,50 +1,72 @@
 <div *ngIf="!client">
     <h1>There is no information about this client.</h1>
 </div>
-<div *ngIf="client" class="container-fluid main">
+<div *ngIf="client" class="main">
 	<div class = "row">
         <div class="col">
-            <h1>Client Information</h1>
-
-            <h3>Name</h3>
-            <p>{{ client?.CompanyName }}</p>
-
-            <h3>Email</h3>
-            <p>{{ client ? client.CustomerEmail : 'No email available.' }}</p>
-
-            <h3>Telephone</h3>
-            <p>{{ client ? client.Telephone : 'No telephone available.'  }}</p>
-
-            <h3>Website</h3>
-            <p>{{ client ? client.Website : 'No website available.' }}</p>
+            <div class="card">
+                <h1 class="card-header">Client information</h1>
+                <div class="card-block">
+                    <h3>Name</h3>
+                    <p>{{ client?.CompanyName }}</p>
+        
+                    <h3>Email</h3>
+                    <p>{{ client ? client.CustomerEmail : 'No email available.' }}</p>
+        
+                    <h3>Telephone</h3>
+                    <p>{{ client ? client.Telephone : 'No telephone available.'  }}</p>
+        
+                    <h3>Website</h3>
+                    <p>{{ client ? client.Website : 'No website available.' }}</p>
+                </div>
+            </div>
         </div>
 
         <div class="col-8">
             <div class="row">
                 <div class="col">
-                    <h1>Sales</h1>
-                    <h3>Number of sales</h3>
-                    <p>{{ client ? client.NumberPurchases : 'No data available' }}</p>
+                    <div class="card">
+                        <h1 class="card-header">Sales Invoices</h1>
+                        <div class="card-block">
+                            <h6 >Number of sales</h6>
+                            <p >{{clientSales?.length}}</p>
 
-                    <table style="width:100%;table-layout:fixed;text-align:center;">
-                            <tr style="border-bottom: 1px solid #e6e6e6;">
-                                <th style="text-align:center;">ID</th>
-                                <th style="text-align:center;">Date</th>
-                            </tr>
-                          
-                            <tr *ngFor='let sale of clientSales'>
-                                <td style="padding-right:0px;">{{sale?.id}}</td>
-                                <td style="padding-right:0px;">{{sale?.Data}}</td>
-                            </tr>
-                        </table>
-
+                            <table style="width:100%;table-layout:fixed;text-align:center;">
+                                <tr style="border-bottom: 1px solid #e6e6e6;">
+                                    <th style="text-align:center;">Document Number</th>
+                                    <th style="text-align:center;">Date</th>
+                                </tr>
+                                
+                                <tr *ngFor='let sale of clientSales'>
+                                    <a routerLink="/sale/{{sale?.NumDoc}}"><td style="padding-right:0px;">{{sale?.NumDoc}}</td></a>
+                                    <td style="padding-right:0px;">{{convertToDate(sale?.Data)}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                
             </div>
+            <br>
             <div class="row">
                 <div class="col">
-                    <h1>Orders</h1>
-                    
+                    <div class="card">
+                        <h1 class="card-header">Orders</h1>
+                        <div class="card-block">
+                            <h6 >Number of orders</h6>
+                            <p></p>
+                            <table style="width:100%;table-layout:fixed;text-align:center;">
+                                <tr style="border-bottom: 1px solid #e6e6e6;">
+                                    <th style="text-align:center;">Document Number</th>
+                                    <th style="text-align:center;">Date</th>
+                                </tr>
+                                
+                                <tr *ngFor='let sale of clientSales'>
+                                    <a routerLink="/sale/{{sale?.NumDoc}}"><td style="padding-right:0px;">{{sale?.NumDoc}}</td></a>
+                                    <td style="padding-right:0px;">{{convertToDate(sale?.Data)}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
