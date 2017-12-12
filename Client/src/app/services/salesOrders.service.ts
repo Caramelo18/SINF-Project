@@ -28,14 +28,6 @@ export class SalesOrdersService {
                         .catch(this.handleError);
     }
 
-    getProductSales(product): Promise<string[]> {
-      const url = this.serverUrl + "/DocVenda";
-      return this.http.get(url)
-                      .toPromise()
-                      .then(response => response.json() as string[])
-                      .catch(this.handleError);
-    }
-
     getByProduct(id): Promise<string[]> {
         const url = this.serverUrl + "/encomendas/getbyproduct/" + id;
         return this.http.get(url)

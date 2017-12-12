@@ -44,6 +44,7 @@ namespace FirstREST.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
             }
 
