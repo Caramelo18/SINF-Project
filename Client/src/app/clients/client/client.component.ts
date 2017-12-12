@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ClientService } from '../../services/client.service';
 import { SalesOrdersService } from '../../services/salesOrders.service';
 import { SalesInvoicesService } from '../../services/salesInvoices.service';
+import { UtilsService } from '../../services/utils.service';
 
 
 @Component({
@@ -24,14 +25,9 @@ export class ClientComponent implements OnInit {
       private clientService: ClientService,
       private salesOrdersService: SalesOrdersService,
       private salesInvoicesService: SalesInvoicesService,
+      private utilsService: UtilsService,
       private activatedRoute: ActivatedRoute
     ) { }
-
-    convertToDate(date) {
-        function pad(s) { return (s < 10) ? '0' + s : s; }
-        const d = new Date(date);
-        return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
-    }
 
     ngOnInit(): void {
         const params: any = this.activatedRoute.snapshot.params;

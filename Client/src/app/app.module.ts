@@ -28,6 +28,7 @@ import { PurchaseComponent } from './purchases/purchase/purchase.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
 import { ProductComponent } from './inventory/product/product.component';
 import { SupplierComponent } from './suppliers/supplier/supplier.component';
+import { SaleOrderComponent } from './orders/saleOrder/saleOrder.component';
 
 /** Common components */
 import { NotFoundComponent } from './common/404.component';
@@ -43,6 +44,7 @@ import { SalesInvoicesService } from './services/salesInvoices.service';
 import { PurchasesService } from './services/purchases.service';
 import { SuppliersService } from './services/suppliers.service';
 import { OrdersService } from './services/orders.service';
+import { UtilsService } from './services/utils.service';
 
 
 @NgModule({
@@ -63,7 +65,8 @@ import { OrdersService } from './services/orders.service';
     PurchasesComponent,
     PurchaseComponent,
     SuppliersComponent,
-    SupplierComponent
+    SupplierComponent,
+    SaleOrderComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +86,8 @@ import { OrdersService } from './services/orders.service';
     SalesInvoicesService,
     PurchasesService,
     SuppliersService,
-    OrdersService
+    OrdersService,
+    UtilsService
   ],
   bootstrap: [AppComponent]
 })

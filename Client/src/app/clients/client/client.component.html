@@ -28,8 +28,8 @@
                     <div class="card">
                         <h1 class="card-header">Sales Invoices</h1>
                         <div class="card-block">
-                            <h6 >Number of sales</h6>
-                            <p >{{clientSales?.length}}</p>
+                            <h6 >Number of invoices</h6>
+                            <p >{{clientInvoices?.length}}</p>
 
                             <table style="width:100%;table-layout:fixed;text-align:center;">
                                 <tr style="border-bottom: 1px solid #e6e6e6;">
@@ -37,9 +37,9 @@
                                     <th style="text-align:center;">Date</th>
                                 </tr>
                                 
-                                <tr *ngFor='let sale of clientSales'>
-                                    <a routerLink="/sale/{{sale?.NumDoc}}"><td style="padding-right:0px;">{{sale?.NumDoc}}</td></a>
-                                    <td style="padding-right:0px;">{{convertToDate(sale?.Data)}}</td>
+                                <tr *ngFor='let invoice of clientInvoices'>
+                                    <a routerLink="/sale/{{invoice?.id}}"><td style="padding-right:0px;">{{invoice?.NumDoc}}</td></a>
+                                    <td style="padding-right:0px;">{{utilsService.convertToDate(invoice?.Data)}}</td>
                                 </tr>
                             </table>
                         </div>
@@ -60,9 +60,9 @@
                                     <th style="text-align:center;">Date</th>
                                 </tr>
                                 
-                                <tr *ngFor='let sale of clientSales'>
+                                <tr *ngFor='let order of clientSalesOrders'>
                                     <a routerLink="/sale/{{sale?.NumDoc}}"><td style="padding-right:0px;">{{sale?.NumDoc}}</td></a>
-                                    <td style="padding-right:0px;">{{convertToDate(sale?.Data)}}</td>
+                                    <td style="padding-right:0px;">{{utilsService.convertToDate(sale?.Data)}}</td>
                                 </tr>
                             </table>
                         </div>
