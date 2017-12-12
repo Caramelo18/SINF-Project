@@ -161,6 +161,8 @@ namespace FirstREST.Integration
 
         public static void ParseCustomers(XmlDocument doc, DatabaseEntities db)
         {
+            System.Diagnostics.Debug.WriteLine("Parse Customers");
+
             XmlNodeList clientsList = doc.GetElementsByTagName("Customer");
 
             foreach (XmlNode xml in clientsList)
@@ -173,7 +175,6 @@ namespace FirstREST.Integration
 
                     if (client != null)
                     {
-                        System.Diagnostics.Debug.WriteLine("vou dar update");
                         //TO DO: update
                         //client = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Customer");
 
@@ -195,6 +196,7 @@ namespace FirstREST.Integration
 
         public static void ParseProducts(XmlDocument doc, DatabaseEntities db)
         {
+            System.Diagnostics.Debug.WriteLine("Parse Products");
             XmlNodeList productsList = doc.GetElementsByTagName("Product");
 
             foreach (XmlNode xml in productsList)
@@ -234,6 +236,7 @@ namespace FirstREST.Integration
 
         public static void ParseSalesInvoices(XmlDocument doc, DatabaseEntities db)
         {
+            System.Diagnostics.Debug.WriteLine("Parse Sales Invoices");
             XmlNodeList salesInvoicesList = doc.GetElementsByTagName("SalesInvoices");
 
             foreach (XmlNode xml in salesInvoicesList)
@@ -246,7 +249,6 @@ namespace FirstREST.Integration
 
                     if (client != null)
                     {
-                        System.Diagnostics.Debug.WriteLine("vou dar update");
                         //TO DO: update
                         //client = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Customer");
 
