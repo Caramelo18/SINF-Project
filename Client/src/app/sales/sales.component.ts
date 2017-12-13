@@ -52,17 +52,14 @@ export class SalesComponent implements OnInit{
 
     getListFrom(date) {
       if (date !== null) {
-        this.salesInvoicesService.getSales()
+        this.salesInvoicesService.getSalesInvoicesFrom(date)
                             .then(response => {
                               console.log(response);
                               this.data = response;
-                              this.sums = this.data.pop();
-                              console.log(this.sums);
                               this.parseData();
-                              this.formatValues();
                             });
       } else {
-        this.salesInvoicesService.getSalesInvoicesFrom(date)
+        this.salesInvoicesService.getSales()
                             .then(response => {
                               console.log(response);
                               this.data = response;

@@ -21,7 +21,7 @@ export class SalesInvoicesService {
     }
 
     getSalesInvoicesFrom(date): Promise<string[]> {
-        const url = this.serverUrl + "/salesInvoices?date=" + date;
+        const url = this.serverUrl + "/salesInvoices/GetByDate?date=" + date;
         return this.http.get(url)
                         .toPromise()
                         .then(response => response.json() as string[])

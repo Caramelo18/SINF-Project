@@ -25,18 +25,6 @@ namespace FirstREST.Controllers
         }
         public SaleInvoice() { }
     }
-    /*
-    public class SaleInvoice
-    {
-        public Models.Invoice invoice { get; set; }
-        public List<Models.Line> line { get; set; }
-
-        public SaleInvoice(Models.Invoice invoice, List<Models.Line> line)
-        {
-            this.invoice = invoice;
-            this.line = line;
-        }
-    }*/
 
     public class Sums : SaleInvoice
     {
@@ -57,7 +45,7 @@ namespace FirstREST.Controllers
     {
         DatabaseEntities db = new DatabaseEntities();
 
-
+        [Route("api/salesInvoices")]
         public List<SaleInvoice> Get()
         {
             DateTime time = DateTime.Today;
@@ -75,6 +63,7 @@ namespace FirstREST.Controllers
             List<Models.Invoice> invoices = (from i in db.Invoice select i).ToList();
             foreach (Models.Invoice invoice in invoices)
             {
+                DateTime de = DateTime.Parse( invoice.InvoiceDate);
                 List<Models.Line> lines = (from i in db.Invoice
                                            join l in db.Line
                                            on i.InvoiceNo equals l.InvoiceNo
@@ -86,7 +75,6 @@ namespace FirstREST.Controllers
                                              select d).AsQueryable().First();
 
                 docs.Add(new SaleInvoice(invoice, lines, doc));
-                DateTime de = DateTime.Parse(invoice.InvoiceDate);
                 sumTotal += doc.GrossTotal;
                 if (de.Year >= year - 1)
                 {
@@ -102,6 +90,42 @@ namespace FirstREST.Controllers
                 }
             }
             docs.Add(new Sums(sumYear, sumMonth, sumDay, sumTotal));
+            //docs = docs.OrderByDescending(x => x.Data).ToList();
+
+            return docs;
+        }
+
+        [HttpGet]
+        public List<SaleInvoice> GetByDate(string date)
+        {
+            DateTime time = DateTime.Today;
+            var year = time.Year;
+            var month = time.Month;
+            var day = time.Day;
+
+            double sumYear = 0;
+            double sumMonth = 0;
+            double sumDay = 0;
+            double sumTotal = 0;
+
+            var docs = new List<SaleInvoice>();
+
+            List<Models.Invoice> invoices = (from i in db.Invoice where i.InvoiceDate.CompareTo(date) >= 0 select i).ToList();
+            foreach (Models.Invoice invoice in invoices)
+            {
+                DateTime de = DateTime.Parse(invoice.InvoiceDate);
+                List<Models.Line> lines = (from i in db.Invoice
+                                           join l in db.Line
+                                           on i.InvoiceNo equals l.InvoiceNo
+                                           where i.InvoiceNo == invoice.InvoiceNo
+                                           select l).ToList();
+
+                Models.DocumentTotals doc = (from d in db.DocumentTotals
+                                             where d.InvoiceNo == invoice.InvoiceNo
+                                             select d).AsQueryable().First();
+
+                docs.Add(new SaleInvoice(invoice, lines, doc));
+            }
             //docs = docs.OrderByDescending(x => x.Data).ToList();
 
             return docs;
