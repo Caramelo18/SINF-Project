@@ -33,6 +33,9 @@ export class InventoryComponent implements OnInit{
       if(searchText == ""){
         this.displayData = this.data.slice(0);
         return;
+      } else if(searchText == "unavailable"){
+        this.unavailableProducts();
+        return;
       }
 
       this.displayData = new Array();
@@ -61,7 +64,15 @@ export class InventoryComponent implements OnInit{
           this.displayData.push(product);
         }
       }
+    }
 
+    unavailableProducts(){
+      for(let product of this.data){
+        let productStock = Number(product["ProductStock"]);
+        if(productStock <= 0){
+          this.displayData.push(product);
+        }
+      }
 
     }
 

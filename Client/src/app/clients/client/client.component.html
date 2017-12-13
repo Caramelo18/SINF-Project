@@ -9,15 +9,25 @@
                 <div class="card-block">
                     <h3>Name</h3>
                     <p>{{ client?.CompanyName }}</p>
-        
+
                     <h3>Email</h3>
-                    <p>{{ client ? client.CustomerEmail : 'No email available.' }}</p>
-        
+                    <p>{{ client.CustomerEmail ? client.CustomerEmail : 'No email available.' }}</p>
+
+
+                    <h3>Address </h3>
+                      <div *ngIf="client.BillingAddress != null">
+                        <p> {{client.BillingAddress.AddressDetail}} </p>
+                        <p> {{client.BillingAddress.PostalCode}}, {{client.BillingAddress.City}}, {{client.BillingAddress.Country}}</p>
+                      </div>
+                      <div *ngIf="client.BillingAddress == null">
+                        <p> No address available. </p>
+                      </div>
+
                     <h3>Telephone</h3>
-                    <p>{{ client ? client.Telephone : 'No telephone available.'  }}</p>
-        
+                    <p>{{ client.Telephone ? client.Telephone : 'No telephone available.'  }}</p>
+
                     <h3>Website</h3>
-                    <p>{{ client ? client.Website : 'No website available.' }}</p>
+                    <p>{{ client.Website ? client.Website : 'No website available.' }}</p>
                 </div>
             </div>
         </div>
@@ -36,7 +46,7 @@
                                     <th style="text-align:center;">Document Number</th>
                                     <th style="text-align:center;">Date</th>
                                 </tr>
-                                
+
                                 <tr *ngFor='let sale of clientSales'>
                                     <a routerLink="/sale/{{sale?.NumDoc}}"><td style="padding-right:0px;">{{sale?.NumDoc}}</td></a>
                                     <td style="padding-right:0px;">{{convertToDate(sale?.Data)}}</td>
@@ -59,7 +69,7 @@
                                     <th style="text-align:center;">Document Number</th>
                                     <th style="text-align:center;">Date</th>
                                 </tr>
-                                
+
                                 <tr *ngFor='let sale of clientSales'>
                                     <a routerLink="/sale/{{sale?.NumDoc}}"><td style="padding-right:0px;">{{sale?.NumDoc}}</td></a>
                                     <td style="padding-right:0px;">{{convertToDate(sale?.Data)}}</td>
