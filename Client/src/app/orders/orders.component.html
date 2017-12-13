@@ -1,8 +1,8 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-6 col-md-12" style="margin-top: 40px">
+        <div class="col-md-12" style="margin-top: 40px">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <div class="card white">
                         <div class="card-block">
                             <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{info ? info.numSales : "Calculating..." }}</h2>
@@ -10,7 +10,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <div class="card white">
                         <div class="card-block">
                             <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{noInventory ? noInventory : "Calculating..."}}</h2>
@@ -18,7 +18,17 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-4">
+                    <div class="card white">
+                        <div class="card-block">
+                            <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{info?.numPurchases}}</h2>
+                            <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Purchase Orders</h6>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+        <div class="col-lg-6 col-md-12" style="margin-top: 40px">
             <div class="row" style="margin-top: 40px;">
                 <div class="col-sm-12">
                     <div class="card white">
@@ -47,30 +57,13 @@
                                     </ng-container>
                                 </tbody>
                             </table>
+                            <figcaption>Table1 - Sales Orders</figcaption>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-6 col-md-12" style="margin-top: 40px">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="card white">
-                        <div class="card-block">
-                            <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{info?.numPurchases}}</h2>
-                            <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Purchase Orders</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card white">
-                        <div class="card-block">
-                            <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">0</h2>
-                            <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Late Purchase Orders</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="row" style="margin-top: 40px;">
                 <div class="col-sm-12">
                     <div class="card white">
@@ -100,6 +93,7 @@
                                     </ng-container>
                                 </tbody>
                             </table>
+                            <figcaption>Table2 - Purchase Orders</figcaption>
                         </div>
                     </div>
                 </div>
@@ -107,33 +101,3 @@
         </div>
     </div>
 </div>
-<!--<table class="table" style="width:100%;table-layout:fixed;text-align:center;">
-            <thead>
-                <tr style="border-bottom: 1px solid #e6e6e6;">
-                    <th style="text-align:center;">Supplier Code</th>
-                    <th style="text-align:center;">No. Doc.</th>
-                    <th style="text-align:center;">Quantity</th>
-                    <th style="text-align:center;">Data</th>
-                </tr>
-            </thead>
-    
-            <tbody *ngFor="let order of data; let i=index">
-    
-                <tr data-toggle="collapse" [attr.data-target]="'#' + i" class="clickable">
-                    <td style="padding-right:0px;">
-                        {{order.Entidade}}
-                    </td>
-                    <td style="padding-right:0px;">
-                        {{order.NumDoc}}
-                    </td>
-                    <td style="padding-right:0px;">{{order.TotalMerc}}</td>
-                    <td style="padding-right:0px;">{{order.Data}}</td>
-                </tr>
-                <tr class="collapse" [attr.id]="i" colspan="4">
-                        <th style="text-align:center;">Product Code</th>
-                        <th style="text-align:center;">Quantity</th>
-                        <th style="text-align:center;">Price Unit</th>
-                        <th style="text-align:center;">Discount</th>
-                </tr>
-            </tbody>
-        </table>-->

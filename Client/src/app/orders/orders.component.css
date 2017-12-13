@@ -44,3 +44,7 @@ tbody td, thead th {
     width: 25%;
     float: left;
 }
+
+figcaption{
+    text-align: center;
+}
