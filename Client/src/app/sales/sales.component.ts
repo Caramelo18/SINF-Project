@@ -51,7 +51,7 @@ export class SalesComponent implements OnInit{
     }
 
     getListFrom(date) {
-      if (date !== null) {
+      if (date !== null && date!== "") {
         this.salesInvoicesService.getSalesInvoicesFrom(date)
                             .then(response => {
                               console.log(response);

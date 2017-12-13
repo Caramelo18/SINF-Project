@@ -9,3 +9,14 @@ a:hover {
 .card {
     width: 90%;
 }
+
+
+.spacing {
+    margin-top: 45px;
+}
+
+.center {
+    align-self: center;
+    align-content: center;
+    align-items: center;
+}

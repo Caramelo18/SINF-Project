@@ -20,6 +20,14 @@ export class PurchasesService {
                         .catch(this.handleError);
     }
 
+    getPurchasesFrom(date): Promise<string[]> {
+        const url = this.serverUrl + "/DocCompra?from=" + date;
+        return this.http.get(url)
+                        .toPromise()
+                        .then(response => response.json() as string[])
+                        .catch(this.handleError);
+    }
+
     getPurchase(id): Promise<string[]> {
         const url = this.serverUrl + "/DocCompra/Get/" + id;
         return this.http.get(url)

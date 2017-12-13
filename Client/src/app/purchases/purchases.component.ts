@@ -39,6 +39,25 @@ export class PurchasesComponent implements OnInit{
       this.parseData();
     }
 
+    getListFrom(date){
+      console.log(date)
+      if (date !== null && date.length !== 0) {
+          this.purchasesService.getPurchasesFrom(date)
+                              .then(response => {
+                                console.log(response);
+                                this.data = response;
+                                this.parseData();
+                              });
+      }else {
+        this.purchasesService.getPurchases()
+                            .then(response => {
+                              console.log(response);
+                              this.data = response;
+                              this.parseData();
+                            });
+      }
+    }
+
     parseData() {
       let data = new Array();
       for(let i = 0; i < 12; i++)

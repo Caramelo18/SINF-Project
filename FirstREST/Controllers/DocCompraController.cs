@@ -60,7 +60,7 @@ namespace FirstREST.Controllers
             docs = docs.OrderByDescending(x => x.Data).ToList();
             return docs;
         }
-        
+
         // GET api/DocCompra/id   
         public Models.DocCompra Get(string id)
         {

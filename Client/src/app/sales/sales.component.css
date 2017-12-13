@@ -16,6 +16,12 @@ a:hover {
     margin-top: 45px;
 }
 
+.center {
+    align-self: center;
+    align-content: center;
+    align-items: center;
+}
+
 table {
     width: 100%;
     border-spacing: 0;

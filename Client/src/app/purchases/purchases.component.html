@@ -1,8 +1,17 @@
 <div id="body">
     <div class="container-fluid">
-        
+
         <div class="row" style="margin-top: 40px;">
             <div class="col-sm-6">
+                <div class="card white spacing">
+                    <div class="card-block center">
+                        <label for="">
+                          Orders since:
+                          <input type="date" (change)=getListFrom($event.target.value) value="">
+                         </label>
+                    </div>
+                </div>
+
                 <div class="card white spacing">
                     <div class="card-block">
                         <div id="piechart" class="container-fluid" style="width:100%">
