@@ -15,6 +15,7 @@ import { SalesInvoicesService } from '../services/salesInvoices.service';
 export class OverviewComponent implements OnInit{
     private data: any;
     private orderedProducts: any;
+    private salesData: any;
 
     private ordersChartReady = false;
 
@@ -26,7 +27,9 @@ export class OverviewComponent implements OnInit{
     public lineChartLabels:string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     public lineChartType:string = 'line';
     public lineChartLegend:boolean = true;
-    public lineChartData:any[];
+    public lineChartData:any[] = [
+      {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'}
+    ];
     public lineChartOptions:any = {
         scaleShowVerticalLines: false,
         responsive: true
@@ -56,8 +59,8 @@ export class OverviewComponent implements OnInit{
       this.salesInvoicesService.getSales()
                                .then(response => {
                                   console.log(response);
-                                  this.data = response;
-                                  this.data.pop();
+                                  this.salesData = response;
+                                  this.salesData.pop();
                                   this.invoicesChart();
                                });
     }
@@ -66,7 +69,6 @@ export class OverviewComponent implements OnInit{
       var map: Map<string, number> = new Map<string, number>();
 
       for(let order of this.orderedProducts){
-
         let lines = order["LinhaDocVenda"];
 
         for(let product of lines){
@@ -96,13 +98,17 @@ export class OverviewComponent implements OnInit{
       let data = new Array();
       for(let i = 0; i < 12; i++)
         data[i] = 0;
-      for(let sale of this.data){
+      for(let sale of this.salesData){
         var split = sale["invoice"]["InvoiceDate"].split("-");
         let month = Number(split[1]) - 1;
         let net = Number(sale["docs"]["NetTotal"]);
 
         data[month] = data[month] + net;
       }
+
+      this.lineChartData = [{
+        data: data, label: "Sales Net Value"
+      }];
 
       console.log(data);
     }
