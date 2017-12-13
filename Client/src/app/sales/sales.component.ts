@@ -34,7 +34,7 @@ export class SalesComponent implements OnInit{
 
     ngOnInit(): void {
       this.chartYear = 2016;
-      this.salesInvoicesService.getSalesInvoices()
+      this.salesInvoicesService.getSales()
                           .then(response => {
                             console.log(response);
                             this.data = response;
@@ -48,6 +48,32 @@ export class SalesComponent implements OnInit{
     newGraph(choice) {
       this.chartYear = choice;
       this.parseData();
+    }
+
+    getListFrom(date){
+      if(date !== null){
+        this.salesInvoicesService.getSales()
+                            .then(response => {
+                              console.log(response);
+                              this.data = response;
+                              this.sums = this.data.pop();
+                              console.log(this.sums);
+                              this.parseData();
+                              this.formatValues();
+                            });
+      }else{
+        this.salesInvoicesService.getSalesFrom(date)
+                            .then(response => {
+                              console.log(response);
+                              this.data = response;
+                              this.sums = this.data.pop();
+                              console.log(this.sums);
+                              this.parseData();
+                              this.formatValues();
+                            });
+      }
+
+
     }
 
     parseData() {
