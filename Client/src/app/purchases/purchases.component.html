@@ -1,4 +1,68 @@
-<div class="container-fluid">
+<div id="body">
+    <div class="container-fluid">
+        
+        <div class="row" style="margin-top: 40px;">
+            <div class="col-sm-6">
+                <div class="card white spacing">
+                    <div class="card-block">
+                        <div id="piechart" class="container-fluid" style="width:100%">
+                          <div style="display: block">
+                            <canvas baseChart width="auto"  [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+                                [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+                                <figcaption>Chart 1 - Monthly Gross Sales Value</figcaption>
+                          </div>
+                        </div>
+                        <div class="dropdown">
+                          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{chartYear}}
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <button class="dropdown-item" (click)="newGraph(2015)" type="button">2015</button>
+                            <button class="dropdown-item" (click)="newGraph(2016)" type="button">2016</button>
+                            <button class="dropdown-item" (click)="newGraph(2017)" type="button">2017</button>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6" style="margin-top: 40px;">
+                <div class="card white">
+                    <div class="card-block">
+                        <table class="table table-hover table-striped" style="width:100%;table-layout:fixed;text-align:center;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid #e6e6e6;">
+                                    <th style="text-align:center;">Client code</th>
+                                    <th style="text-align:center;">Purchase Code</th>
+                                    <th style="text-align:center;">Total ammount</th>
+                                    <th style="text-align:center;">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container *ngFor="let order of data">
+                                    <tr >
+                                      <td style="padding-right:0px;">
+                                          <a routerLink="/supplier/{{order.Entidade}}">{{order.Entidade}}</a>
+                                      </td>
+                                      <td style="padding-right:0px;">
+                                          <a routerLink="/purchase/{{order.Id}}">{{order.NumDoc}}</a>
+                                      </td>
+                                      <td style="padding-right:0px;">{{order.TotalMerc}}</td>
+                                      <td style="padding-right:0px;">{{order.Data}}</td>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </div>
+</div>
+
+
+<!--div class="container-fluid">
     <div class="row" style="margin-top: 40px">
         <div class="col-lg-6 col-md-12">
             <div class="row">
@@ -95,7 +159,7 @@
             </div>
         </div>
     </div>
-</div>
+</div-->
 
 <!--<table class="table" style="width:100%;table-layout:fixed;text-align:center;">
         <thead>
