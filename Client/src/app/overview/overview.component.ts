@@ -91,7 +91,8 @@ export class OverviewComponent implements OnInit{
         this.ordersChartData.push(value);
       });
       this.ordersChartReady = true;
-      console.log(map);
+      console.log(this.ordersChartLabels);
+      console.log(this.ordersChartData);
     }
 
     invoicesChart(){
