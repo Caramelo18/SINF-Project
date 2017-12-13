@@ -50,6 +50,16 @@
                                 <figcaption>Chart 1 - Monthly Gross Sales Value</figcaption>
                           </div>
                         </div>
+                        <div class="dropdown">
+                          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{chartYear}}
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <button class="dropdown-item" (click)="newGraph(2015)" type="button">2015</button>
+                            <button class="dropdown-item" (click)="newGraph(2016)" type="button">2016</button>
+                            <button class="dropdown-item" (click)="newGraph(2017)" type="button">2017</button>
+                          </div>
+                        </div>
                     </div>
                 </div>
                 <!--div class="card white spacing">
