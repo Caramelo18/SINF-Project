@@ -41,7 +41,7 @@ export class ProductComponent implements OnInit {
     public lineChartData: Array<any> = [
         { data: [65, 59, 80], label: 'Series A' }
     ];
-    public lineChartLabels: Array<any> = ['2014', '2015', '2016'];
+    public lineChartLabels: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     public lineChartOptions: any = {
         responsive: true
     };
@@ -66,11 +66,11 @@ export class ProductComponent implements OnInit {
             .then(response => {
                 this.product = response;
             });
-        this.salesOrdersService.getByProduct(id)
+      /*  this.salesOrdersService.getByProduct(id)
             .then(response => {
                 this.sales = response;
                 console.log(response);
-            });
+            });*/
         this.purchaseService.getByProduct(id)
             .then(response => {
                 this.purchases = response;
@@ -79,6 +79,7 @@ export class ProductComponent implements OnInit {
         this.salesInvoicesService.getByProduct(id)
             .then(response => {
                 this.invoices = response;
+                this.parseInvoices();
                 console.log("Sales Invoices");
                 console.log(response);
             });
@@ -101,5 +102,23 @@ export class ProductComponent implements OnInit {
                 console.log(response);
                 this.total = Number(response);
             });
+    }
+
+    parseInvoices(){
+      let data = new Array();
+      for(let i = 0; i < 12; i++)
+        data[i] = 0;
+      for(let invoice of this.invoices){
+        var split = invoice["invoice"]["InvoiceDate"].split("-");
+        let month = Number(split[1]) - 1;
+        data[month] = data[month] + 1;
+      }
+
+      this.lineChartData = [
+        {data: data, label: 'Sales Monthly Volume'}
+      ]
+
+      console.log(data);
+
     }
 }
