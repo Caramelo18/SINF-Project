@@ -11,7 +11,7 @@ import { SalesInvoicesService } from '../services/salesInvoices.service';
 
 export class SalesComponent implements OnInit{
     private data: string[];
-    private sums: string;
+    private sums: any;
     public  chartYear : number;
 
     public lineChartOptions:any = {
@@ -26,6 +26,8 @@ export class SalesComponent implements OnInit{
       {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'}
     ];
 
+    public format : string[] = ["", "K", "M", "B", "T"];
+
     constructor(
       private salesInvoicesService: SalesInvoicesService
     ) { }
@@ -37,7 +39,9 @@ export class SalesComponent implements OnInit{
                             console.log(response);
                             this.data = response;
                             this.sums = this.data.pop();
+                            console.log(this.sums);
                             this.parseData();
+                            this.formatValues();
                           });
     }
 
@@ -63,5 +67,40 @@ export class SalesComponent implements OnInit{
         {data: data, label: 'Sales Gross Value'}
       ]
 
+    }
+
+    formatValues() {
+      let i = 0;
+      this.sums.sumDay = Number(this.sums.sumDay);
+      this.sums.sumMonth = Number(this.sums.sumMonth);
+      this.sums.sumYear = Number(this.sums.sumYear);
+      this.sums.sumTotal = Number(this.sums.sumTotal);
+
+      while(this.sums.sumDay> 1000){
+          this.sums.sumDay = Math.round(this.sums.sumDay/1000 * 10) / 10;
+          i++;
+      }
+      this.sums.sumDay += " " + this.format[i];
+
+      i = 0;
+      while(this.sums.sumMonth > 1000){
+          this.sums.sumMonth = Math.round(this.sums.sumMonth/1000 * 10) / 10;
+          i++;
+      }
+      this.sums.sumMonth += " " + this.format[i];
+
+      i = 0;
+      while(this.sums.sumYear> 1000){
+          this.sums.sumYear = Math.round(this.sums.sumYear/1000 * 10) / 10;
+          i++;
+      }
+      this.sums.sumYear += " " + this.format[i];
+
+      i = 0;
+      while(this.sums.sumTotal> 1000){
+          this.sums.sumTotal = Math.round(this.sums.sumTotal/1000 * 10) / 10;
+          i++;
+      }
+      this.sums.sumTotal += " " + this.format[i];
     }
 }

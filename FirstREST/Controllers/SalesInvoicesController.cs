@@ -170,5 +170,34 @@ namespace FirstREST.Controllers
                 return null;
             }
         }
+
+        public List<SaleInvoice> GetByClient(string id)
+        {
+            try
+            {
+                List<SaleInvoice> list = new List<SaleInvoice>();
+
+                List<Models.Invoice> invoices = (from i in db.Invoice
+                                                 where i.CustomerID == id
+                                                 select i).ToList();
+
+                foreach (var invoice in invoices)
+                {
+                    List<Models.Line> lines = (from i in db.Line
+                                               where i.InvoiceNo == invoice.InvoiceNo
+                                               select i).ToList();
+
+                    list.Add(new SaleInvoice(invoice, lines));
+                }
+
+                return list;
+
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return null;
+            }
+        }
     }
 }
