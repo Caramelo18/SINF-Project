@@ -13,4 +13,8 @@ export class UtilsService {
     decodeURI(str) {
         return decodeURIComponent(str);
     }
+
+    divideBy100(number) {
+        return parseFloat((number / 100).toFixed(2));
+    }
 }
