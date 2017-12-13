@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { OverviewService } from '../services/overview.service';
+import { SalesOrdersService } from '../services/salesOrders.service';
+import { SalesInvoicesService } from '../services/salesInvoices.service';
+
 
 @Component({
     selector: 'overview',
@@ -11,23 +14,29 @@ import { OverviewService } from '../services/overview.service';
 
 export class OverviewComponent implements OnInit{
     private data: any;
+    private orderedProducts: any;
 
-    public barChartOptions:any = {
+    private ordersChartReady = false;
+
+    public ordersChartLabels:string[];
+    public ordersChartType:string = 'pie';
+    public ordersChartLegend:boolean = true;
+    public ordersChartData:any[];
+
+    public lineChartLabels:string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    public lineChartType:string = 'line';
+    public lineChartLegend:boolean = true;
+    public lineChartData:any[];
+    public lineChartOptions:any = {
         scaleShowVerticalLines: false,
         responsive: true
     };
-    public barChartLabels:string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-    public barChartType:string = 'bar';
-    public barChartLegend:boolean = true;
-
-    public barChartData:any[] = [
-      {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-      {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
-    ];
 
     public format : string[] = ["", "K", "M", "B", "T"];
     constructor(
-      private overviewService: OverviewService
+      private overviewService: OverviewService,
+      private salesOrdersService: SalesOrdersService,
+      private salesInvoicesService: SalesInvoicesService
     ) { }
 
     ngOnInit(): void {
@@ -37,6 +46,65 @@ export class OverviewComponent implements OnInit{
                             console.log(this.data);
                             this.formatValues();
                           });
+
+      this.salesOrdersService.getSales()
+                             .then(response => {
+                               this.orderedProducts = response;
+                               this.ordersChart();
+                             });
+
+      this.salesInvoicesService.getSales()
+                               .then(response => {
+                                  console.log(response);
+                                  this.data = response;
+                                  this.data.pop();
+                                  this.invoicesChart();
+                               });
+    }
+
+    ordersChart(){
+      var map: Map<string, number> = new Map<string, number>();
+
+      for(let order of this.orderedProducts){
+
+        let lines = order["LinhaDocVenda"];
+
+        for(let product of lines){
+          let codProd = product["CodArtigo"];
+          let quantity = product["Quantidade"];
+          if(!map.has(codProd)){
+            map.set(codProd, quantity);
+          } else{
+            let currVal = map.get(codProd);
+            map.set(codProd, (currVal + quantity));
+          }
+        }
+      }
+
+      this.ordersChartLabels = [];
+      this.ordersChartData = [];
+
+      map.forEach((value: number, key: string) => {
+        this.ordersChartLabels.push(key);
+        this.ordersChartData.push(value);
+      });
+      this.ordersChartReady = true;
+      console.log(map);
+    }
+
+    invoicesChart(){
+      let data = new Array();
+      for(let i = 0; i < 12; i++)
+        data[i] = 0;
+      for(let sale of this.data){
+        var split = sale["invoice"]["InvoiceDate"].split("-");
+        let month = Number(split[1]) - 1;
+        let net = Number(sale["docs"]["NetTotal"]);
+
+        data[month] = data[month] + net;
+      }
+
+      console.log(data);
     }
 
     formatValues() {

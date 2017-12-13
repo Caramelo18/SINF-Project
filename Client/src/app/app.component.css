@@ -83,7 +83,7 @@
     font-weight: 20px;
     font-size: 30px;
     font-family: sans-serif;
-    color: #cc5200;
+    color: #ff8c00;
 }
 
 .nav-side-menu a:active{
@@ -95,7 +95,7 @@
 }
 
 #refresh{
-    background: #cc5200;
+    background: #ff8c00;
     margin-top: 50px;
     margin-left: 120px;
     color: #e1ffff;
