@@ -9,18 +9,6 @@ using System.Web.Http;
 namespace FirstREST.Controllers
 {
 
-    public class Encomenda
-    {
-        public Models.DocVenda doc { get; set; }
-        public List<Models.LinhaDocVenda> lines { get; set; }
-
-        public Encomenda(Models.DocVenda doc, List<Models.LinhaDocVenda> lines)
-        {
-            this.doc = doc;
-            this.lines = lines;
-        }
-    }
-
     public class EncomendaProduto
     {
         public Models.DocVenda doc { get; set; }
@@ -76,14 +64,21 @@ namespace FirstREST.Controllers
             return docs;
         }
 
-        public Models.DocVenda Get(string id)
+        public EncomendaProduto Get(string id)
         {
             try
             {
                 Models.DocVenda doc = (from p in db.DocVenda
                                         where p.Id == id
                                         select p).AsQueryable().First();
-                return doc;
+
+                List<Models.LinhaDocVenda> linhas = (from i in db.LinhaDocVenda
+                                                     where i.IdCabecDoc == id
+                                                     select i).ToList();
+
+                EncomendaProduto encomenda = new EncomendaProduto(doc, linhas);
+                
+                return encomenda;
             }
             catch (Exception e)
             {

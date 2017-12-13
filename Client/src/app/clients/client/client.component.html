@@ -28,6 +28,11 @@
 
                     <h3>Website</h3>
                     <p>{{ client.Website ? client.Website : 'No website available.' }}</p>
+
+                    
+                    <h5>Company ID</h5>
+                    <p>{{ client?.CustomerID }}</p>
+
                 </div>
             </div>
         </div>
@@ -38,18 +43,18 @@
                     <div class="card">
                         <h1 class="card-header">Sales Invoices</h1>
                         <div class="card-block">
-                            <h6 >Number of sales</h6>
-                            <p >{{clientSales?.length}}</p>
+                            <h6 >Number of invoices</h6>
+                            <p >{{clientInvoices?.length}}</p>
 
                             <table style="width:100%;table-layout:fixed;text-align:center;">
                                 <tr style="border-bottom: 1px solid #e6e6e6;">
-                                    <th style="text-align:center;">Document Number</th>
+                                    <th style="text-align:center;">Invoice Number</th>
                                     <th style="text-align:center;">Date</th>
                                 </tr>
-
-                                <tr *ngFor='let sale of clientSales'>
-                                    <a routerLink="/sale/{{sale?.NumDoc}}"><td style="padding-right:0px;">{{sale?.NumDoc}}</td></a>
-                                    <td style="padding-right:0px;">{{convertToDate(sale?.Data)}}</td>
+                                
+                                <tr *ngFor='let invoice of clientInvoices'>
+                                    <a routerLink="/saleinvoice/{{utilsService.encodeURI(invoice?.invoice.InvoiceNo)}}"><td style="padding-right:0px;">{{invoice?.invoice.InvoiceNo}}</td></a>
+                                    <td style="padding-right:0px;">{{utilsService.convertToDate(invoice?.invoice.InvoiceDate)}}</td>
                                 </tr>
                             </table>
                         </div>
@@ -69,10 +74,10 @@
                                     <th style="text-align:center;">Document Number</th>
                                     <th style="text-align:center;">Date</th>
                                 </tr>
-
-                                <tr *ngFor='let sale of clientSales'>
-                                    <a routerLink="/sale/{{sale?.NumDoc}}"><td style="padding-right:0px;">{{sale?.NumDoc}}</td></a>
-                                    <td style="padding-right:0px;">{{convertToDate(sale?.Data)}}</td>
+                                
+                                <tr *ngFor='let order of clientSalesOrders'>
+                                    <a routerLink="/saleorder/{{order?.id}}"><td style="padding-right:0px;">{{order?.NumDoc}}</td></a>
+                                    <td style="padding-right:0px;">{{utilsService.convertToDate(order?.Data)}}</td>
                                 </tr>
                             </table>
                         </div>
