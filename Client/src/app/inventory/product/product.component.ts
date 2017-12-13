@@ -77,7 +77,7 @@ export class ProductComponent implements OnInit {
                 console.log("suppliers");
                 console.log(response);
             });
-        this.salesInvoicesService.getSaleInvoicesByProduct(id)
+        this.salesInvoicesService.getProductSalesInvoices(id)
             .then(response => {
                 this.invoices = response;
                 this.parseInvoices();

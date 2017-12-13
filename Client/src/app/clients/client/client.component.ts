@@ -44,7 +44,7 @@ export class ClientComponent implements OnInit {
                 console.log(response);
                 });
 
-        this.salesInvoicesService.getSaleInvoicesByClient(params.id)   // get client sales ORDERS
+        this.salesInvoicesService.getClientSalesInvoices(params.id)   // get client sales ORDERS
             .then(response => {
                 this.clientInvoices = response;
                 console.log(response);

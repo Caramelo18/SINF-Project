@@ -20,7 +20,7 @@ export class SalesInvoicesService {
                         .catch(this.handleError);
     }
 
-    getSalesFrom(date): Promise<string[]> {
+    getSalesInvoicesFrom(date): Promise<string[]> {
         const url = this.serverUrl + "/salesInvoices?date=" + date;
         return this.http.get(url)
                         .toPromise()
@@ -28,7 +28,7 @@ export class SalesInvoicesService {
                         .catch(this.handleError);
     }
 
-    getSale(id): Promise<string[]> {
+    getSaleInvoice(id): Promise<string[]> {
         const url = this.serverUrl + "/salesInvoices/Get?id=" + id;
         return this.http.get(url)
                         .toPromise()
@@ -44,7 +44,7 @@ export class SalesInvoicesService {
             .catch(this.handleError);
     }
 
-    getByProduct(productCode): Promise <string[]> {
+    getProductSalesInvoices(productCode): Promise <string[]> {
         const url = this.serverUrl + "/salesInvoices/GetByProduct/" + productCode;
         return this.http.get(url)
             .toPromise()

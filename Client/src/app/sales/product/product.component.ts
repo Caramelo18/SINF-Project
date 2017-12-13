@@ -26,7 +26,7 @@ export class ProductSalesComponent implements OnInit {
       if(this.id == null)
         return;
 
-      this.salesService.getSaleInvoicesByProduct(params.id)
+      this.salesService.getProductSalesInvoices(params.id)
                           .then(response => {
                             console.log(response);
                             this.data = response;
