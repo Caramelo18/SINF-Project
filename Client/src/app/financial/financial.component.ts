@@ -60,14 +60,13 @@ export class FinancialComponent implements OnInit{
           map.set(entity, (currVal + value));
         }
       }
-
+      this.receivablesLabels = [];
+      this.receivablesData = [];
+      
       map.forEach((value: number, key: string) => {
         this.receivablesLabels.push(key);
         this.receivablesData.push(value);
       });
-
-      console.log(this.receivablesLabels);
-      console.log(this.receivablesData);
     }
 
     parsePayablesData(){
@@ -93,7 +92,7 @@ export class FinancialComponent implements OnInit{
       this.payablesData = [];
       map.forEach((value: number, key: string) => {
         this.payablesLabels.push(key);
-        this.payablesData.push(value);
+        this.payablesData.push(-value);
       });
       console.log(this.payablesLabels);
       console.log(this.payablesData);

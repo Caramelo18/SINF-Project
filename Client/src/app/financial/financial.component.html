@@ -22,14 +22,14 @@
 
     <div class="row" style="margin-top: 50px;">
       <div class="col-sm-6">
-          <div class="card white-background">
+          <div class="card white-background" *ngIf="payablesData != null">
             <canvas baseChart width="auto" height="400px" [data]="payablesData" [labels]="payablesLabels" [chartType]="pieChartType"></canvas>
                 <figcaption>Chart 1 - Accounts Payable distribution</figcaption>
           </div>
       </div>
 
       <div class="col-sm-6">
-        <div class="card white-background">
+        <div class="card white-background" *ngIf="receivablesData != null">
           <canvas baseChart width="auto" height="400px" [data]="receivablesData" [labels]="receivablesLabels" [chartType]="pieChartType"></canvas>
               <figcaption>Chart 2 - Accounts Receivable distribution</figcaption>
         </div>
