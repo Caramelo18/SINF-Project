@@ -162,7 +162,6 @@ namespace FirstREST.Integration
         public static void ParseCustomers(XmlDocument doc, DatabaseEntities db)
         {
             System.Diagnostics.Debug.WriteLine("Parse Customers");
-
             XmlNodeList clientsList = doc.GetElementsByTagName("Customer");
 
             foreach (XmlNode xml in clientsList)
@@ -184,7 +183,6 @@ namespace FirstREST.Integration
                         Models.Customer newClient = (Models.Customer)ParseRecursive(xml.ChildNodes, "FirstREST.Models.Customer", db);
                         db.Customer.Add(newClient);
                     }
-
                     saveToDb(db);
                 }
             }
@@ -220,12 +218,7 @@ namespace FirstREST.Integration
                         db.Product.Add(newProduct);
                     }
 
-                    try
-                    {
-                        db.SaveChanges();
-                    }
-                    catch (DbEntityValidationException e)
-                    { }
+                    saveToDb(db);
                 }
             }
         }

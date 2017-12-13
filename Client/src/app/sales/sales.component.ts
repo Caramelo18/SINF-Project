@@ -12,6 +12,7 @@ import { SalesInvoicesService } from '../services/salesInvoices.service';
 export class SalesComponent implements OnInit{
     private data: string[];
     private sums: string;
+    public  chartYear : number;
 
     public lineChartOptions:any = {
         scaleShowVerticalLines: false,
@@ -30,6 +31,7 @@ export class SalesComponent implements OnInit{
     ) { }
 
     ngOnInit(): void {
+      this.chartYear = 2016;
       this.salesInvoicesService.getSales()
                           .then(response => {
                             console.log(response);
@@ -39,19 +41,27 @@ export class SalesComponent implements OnInit{
                           });
     }
 
+    newGraph(choice) {
+      this.chartYear = choice;
+      this.parseData();
+    }
+
     parseData() {
       let data = new Array();
       for(let i = 0; i < 12; i++)
         data[i] = 0;
       for(let sale of this.data){
-        let month = Number(sale["invoice"]["InvoiceDate"].split("-")[1]) - 1;
+        var split = sale["invoice"]["InvoiceDate"].split("-");
+        let month = Number(split[1]) - 1;
         let gross = Number(sale["docs"]["GrossTotal"]);
-        data[month] = data[month] + gross;
+        var currentYearChoice = Number(split[0]) == this.chartYear;
+        if(currentYearChoice)
+          data[month] = data[month] + gross;
       }
 
       this.lineChartData = [
         {data: data, label: 'Sales Gross Value'}
       ]
-      
+
     }
 }

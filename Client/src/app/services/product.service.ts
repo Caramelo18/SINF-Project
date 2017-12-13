@@ -21,7 +21,7 @@ export class ProductService {
     }
 
     getProduct(id): Promise<string[]> {
-        const url = this.serverUrl + "/artigos/get/" + id;
+        const url = this.serverUrl + "/artigos/get?id=" + id;
         return this.http.get(url)
                         .toPromise()
                         .then(response => response.json() as string[])

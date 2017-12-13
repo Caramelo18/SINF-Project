@@ -78,13 +78,13 @@ tr:after {
 }
 
 tbody {
-    height: 410px;
+    height: 350px;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
 tbody td, thead th {
-    width: 33%;
+    width: 25%;
     float: left;
 }
 

@@ -32,6 +32,7 @@ export class OverviewComponent implements OnInit{
       this.overviewService.getOverview()
                           .then(response => {
                             this.data = response;
+                            console.log(response);
                           });
     }
 
