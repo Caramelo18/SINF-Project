@@ -11,21 +11,21 @@ using FirstREST.Models;
 
 namespace FirstREST.Controllers
 {
-    public class DocVenda
+    public class SaleInvoice
     {
         public Models.Invoice invoice { get; set; }
         public List<Models.Line> lines { get; set; }
         public Models.DocumentTotals docs { get; set; }
 
-        public DocVenda(Models.Invoice invoice, List<Models.Line> lines, Models.DocumentTotals docs)
+        public SaleInvoice(Models.Invoice invoice, List<Models.Line> lines, Models.DocumentTotals docs)
         {
             this.invoice = invoice;
             this.lines = lines;
             this.docs = docs;
         }
-        public DocVenda() { }
+        public SaleInvoice() { }
     }
-
+    /*
     public class SaleInvoice
     {
         public Models.Invoice invoice { get; set; }
@@ -36,9 +36,9 @@ namespace FirstREST.Controllers
             this.invoice = invoice;
             this.line = line;
         }
-    }
+    }*/
 
-    public class Sums : DocVenda
+    public class Sums : SaleInvoice
     {
         public double sumDay = 0;
         public double sumMonth = 0;
@@ -58,7 +58,7 @@ namespace FirstREST.Controllers
         DatabaseEntities db = new DatabaseEntities();
 
 
-        public List<DocVenda> Get()
+        public List<SaleInvoice> Get()
         {
             DateTime time = DateTime.Today;
             var year = time.Year;
@@ -70,7 +70,7 @@ namespace FirstREST.Controllers
             double sumDay = 0;
             double sumTotal = 0;
 
-            var docs = new List<DocVenda>();
+            var docs = new List<SaleInvoice>();
 
             List<Models.Invoice> invoices = (from i in db.Invoice select i).ToList();
             foreach (Models.Invoice invoice in invoices)
@@ -85,10 +85,10 @@ namespace FirstREST.Controllers
                                              where d.InvoiceNo == invoice.InvoiceNo
                                              select d).AsQueryable().First();
 
-                docs.Add(new DocVenda(invoice, lines, doc));
+                docs.Add(new SaleInvoice(invoice, lines, doc));
                 DateTime de = DateTime.Parse(invoice.InvoiceDate);
                 sumTotal += doc.GrossTotal;
-                if (de.Year >= year-1)
+                if (de.Year >= year - 1)
                 {
                     sumYear += doc.GrossTotal;
                     if (de.Month >= month)
@@ -103,13 +103,13 @@ namespace FirstREST.Controllers
             }
             docs.Add(new Sums(sumYear, sumMonth, sumDay, sumTotal));
             //docs = docs.OrderByDescending(x => x.Data).ToList();
-            
+
             return docs;
         }
 
 
         [Route("api/DocVenda/get?id={id*}")]
-        public DocVenda Get(string id)
+        public SaleInvoice Get(string id)
         {
             try
             {
@@ -127,7 +127,7 @@ namespace FirstREST.Controllers
                                              where d.InvoiceNo == invoice.InvoiceNo
                                              select d).AsQueryable().First();
 
-                return new DocVenda(invoice, lines, doc);
+                return new SaleInvoice(invoice, lines, doc);
             }
             catch (Exception e)
             {
@@ -143,10 +143,10 @@ namespace FirstREST.Controllers
                 List<SaleInvoice> list = new List<SaleInvoice>();
 
                 List<Models.Invoice> invoices = (from i in db.Invoice
-                                                join l in db.Line
-                                                on i.InvoiceNo equals l.InvoiceNo
-                                                where l.ProductCode == id
-                                                select i).ToList();
+                                                 join l in db.Line
+                                                 on i.InvoiceNo equals l.InvoiceNo
+                                                 where l.ProductCode == id
+                                                 select i).ToList();
 
                 foreach (var invoice in invoices)
                 {
@@ -155,9 +155,13 @@ namespace FirstREST.Controllers
                                                && i.ProductCode == id
                                                select i).ToList();
 
+                    Models.DocumentTotals doc = (from d in db.DocumentTotals
+                                                 where d.InvoiceNo == invoice.InvoiceNo
+                                                 select d).AsQueryable().First();
+
                     if (list.Find(x => x.invoice == invoice) == null)
                     {
-                        list.Add(new SaleInvoice(invoice, lines));
+                        list.Add(new SaleInvoice(invoice, lines, doc));
                     }
                 }
 
@@ -187,7 +191,11 @@ namespace FirstREST.Controllers
                                                where i.InvoiceNo == invoice.InvoiceNo
                                                select i).ToList();
 
-                    list.Add(new SaleInvoice(invoice, lines));
+                    Models.DocumentTotals doc = (from d in db.DocumentTotals
+                                                 where d.InvoiceNo == invoice.InvoiceNo
+                                                 select d).AsQueryable().First();
+
+                    list.Add(new SaleInvoice(invoice, lines, doc));
                 }
 
                 return list;
