@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { PurchasesService } from '../../services/purchases.service';
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
     selector: 'purchase',
@@ -14,6 +15,7 @@ export class PurchaseComponent implements OnInit {
 
     constructor(
       private purchasesService: PurchasesService,
+      private utilsService: UtilsService,
       private activatedRoute: ActivatedRoute
     ) { }
 

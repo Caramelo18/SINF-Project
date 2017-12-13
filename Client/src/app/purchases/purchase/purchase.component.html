@@ -1,54 +1,56 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-4 col-md-12">
-            <div class="card">
-                <div class="card-block" style="margin-top: 15px;">
-                    <h5 class="product-group card-subtitle mb-2">Supplier: <span class="info-supplier">{{data?.Entidade}}</span></h5>
-                    <h5 class="product-group card-subtitle mb-2">Date: <span class="info-supplier"> {{data?.Data}}</span></h5>
-                    <h5 class="product-group card-subtitle mb-2">Doc Id: <span class="info-supplier">{{data?.Id}}</span></h5>
-                    <h5 class="product-group card-subtitle mb-2">No. Doc: <span class="info-supplier">{{data?.NumDoc}}</span></h5>
-                    <h5 class="product-group card-subtitle mb-2">Total Merc: <span class="info-supplier">{{data?.TotalMerc}}</span></h5>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-block">
-                    <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options"
-                        chart-dataset-override="datasetOverride" chart-click="onClick">
-                    </canvas>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-8 col-md-12">
-            <div class="card">
-                <div class="card-block">
-                    <canvas id="pie" class="chart chart-pie" chart-data="data" chart-labels="labels" chart-options="options">
-                    </canvas>
-                </div>
-            </div>
-            <div style="margin-top: 40px;">
-                <div class="card white">
-                    <div class="card-block">
-                        <table style="width:100%;table-layout:fixed;text-align:center;">
-                            <tr style="border-bottom: 1px solid #e6e6e6;">
-                                <th style="text-align:center;">Product Code</th>
-                                <th style="text-align:center;">Quantity</th>
-                                <th style="text-align:center;">Price Unit</th>
-                                <th style="text-align:center;">Discount</th>
-                                <th style="text-align:center;">Total Price</th>
-                                <th style="text-align:center;">Location</th>     
-                            </tr>
-                            <tr *ngFor="let line of data?.LinhaDocCompra">
-                                <td *ngIf="line.CodArtigo != ''" style="padding-right:0px;">{{line?.CodArtigo}}</td>
-                                <td *ngIf="line.CodArtigo != ''" style="padding-right:0px;">{{line?.Quantidade}}</td>
-                                <td *ngIf="line.CodArtigo != ''" style="padding-right:0px;">{{line?.PrecoUnitario}}</td>
-                                <td *ngIf="line.CodArtigo != ''" style="padding-right:0px;">{{line?.Desconto}}</td>
-                                <td *ngIf="line.CodArtigo != ''" style="padding-right:0px;">{{line?.TotalLiquido}}</td>
-                                <td *ngIf="line.CodArtigo != ''" style="padding-right:0px;">{{line?.Armazem}}</td>
-                            </tr>
-                        </table>
+        <div class="card main">
+            <h1 class="card-header">Purchase Order</h1>
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="card">
+                            <div class="card-block" style="margin-top: 15px;">
+                                <h3 class="product-group card-subtitle mb-2">Supplier ID</h3>
+                                    <a routerLink="/supplier/{{data?.Entidade}}"><p class="info-supplier">{{data?.Entidade}}</p></a>
+                                
+                                <h3 class="product-group card-subtitle mb-2">Date</h3>
+                                    <p class="info-supplier"> {{utilsService.convertToDate(data?.Data)}}</p>
+                                
+                                <h3 class="product-group card-subtitle mb-2">Document ID</h3>
+                                    <p class="info-supplier">{{data?.Id}}</p>
+                                
+                                <h3 class="product-group card-subtitle mb-2">Document number</h3>
+                                    <p class="info-supplier">{{data?.NumDoc}}</p>
+                                
+                                <h3 class="product-group card-subtitle mb-2">Total merchandise value</h3>
+                                    <p class="info-supplier">{{data?.TotalMerc}}€</p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-12">
+                        <div style="margin-top: 40px;">
+                            <div class="card white">
+                                <div class="card-block">
+                                    <h3>Products</h3>
+                                    <br>
+                                    <table style="width:100%;table-layout:fixed;text-align:center;">
+                                        <tr style="border-bottom: 1px solid #e6e6e6;">
+                                            <th style="text-align:center;">Product Code</th>
+                                            <th style="text-align:center;">Quantity</th>
+                                            <th style="text-align:center;">Unit Price (€)</th>
+                                            <th style="text-align:center;">Discount (€)</th>
+                                            <th style="text-align:center;">Total Price (€)</th>
+                                        </tr>
+                                        <tr *ngFor="let line of data?.LinhaDocCompra">
+                                            <a routerLink="/product/{{line?.CodArtigo}}"><td *ngIf="line.CodArtigo != ''" style="padding-right:0px;">{{line?.CodArtigo}}</td></a>
+                                            <td *ngIf="line.CodArtigo != ''" style="padding-right:0px;">{{line?.Quantidade}}</td>
+                                            <td *ngIf="line.CodArtigo != ''" style="padding-right:0px;">{{line?.PrecoUnitario}}</td>
+                                            <td *ngIf="line.CodArtigo != ''" style="padding-right:0px;">{{line?.Desconto}}</td>
+                                            <td *ngIf="line.CodArtigo != ''" style="padding-right:0px;">{{line?.TotalLiquido}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    

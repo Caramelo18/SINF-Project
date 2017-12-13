@@ -1,51 +1,7 @@
-
-.card {
-    padding: 5px 5px 5px 8px;
-    margin: 10px 0;
+.main{
+    margin: 1rem;
 }
 
-a, a:hover{
-    text-decoration: none;
-}
-
-.card-title{
-    color: #4caf50;
-}
-
-.product-group.card-subtitle.mb-2{
-    color: #1779ba;
-}
-
-.card-title, .availability{
-    text-align: center;
-}
-
-.card-link{
-    color: #2196f3;
-}
-
-
-.available{
-    color: green;
-}
-
-.unavailable{
-    color: red;
-}
-
-.card-link{
-    text-align: center;
-
-}
-
-.no-padding{
-    padding: 0px;
-}
-
-.no-margin{
-    margin: 0px;
-}
-
-.info-supplier{
-    color: black;
+.card-block{
+    margin: 1rem;
 }
