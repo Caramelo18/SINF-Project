@@ -5,4 +5,12 @@ export class UtilsService {
         const d = new Date(date);
         return [d.getFullYear(), pad(d.getMonth() + 1), pad(d.getDate())].join('-');
     }
+
+    encodeURI(str) {
+        return encodeURIComponent(str);
+    }
+
+    decodeURI(str) {
+        return decodeURIComponent(str);
+    }
 }

@@ -48,13 +48,13 @@
 
                             <table style="width:100%;table-layout:fixed;text-align:center;">
                                 <tr style="border-bottom: 1px solid #e6e6e6;">
-                                    <th style="text-align:center;">Document Number</th>
+                                    <th style="text-align:center;">Invoice Number</th>
                                     <th style="text-align:center;">Date</th>
                                 </tr>
                                 
                                 <tr *ngFor='let invoice of clientInvoices'>
-                                    <a routerLink="/sale/{{invoice?.id}}"><td style="padding-right:0px;">{{invoice?.NumDoc}}</td></a>
-                                    <td style="padding-right:0px;">{{utilsService.convertToDate(invoice?.Data)}}</td>
+                                    <a routerLink="/saleinvoice/{{utilsService.encodeURI(invoice?.invoice.InvoiceNo)}}"><td style="padding-right:0px;">{{invoice?.invoice.InvoiceNo}}</td></a>
+                                    <td style="padding-right:0px;">{{utilsService.convertToDate(invoice?.invoice.InvoiceDate)}}</td>
                                 </tr>
                             </table>
                         </div>
