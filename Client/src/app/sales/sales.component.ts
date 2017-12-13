@@ -50,8 +50,8 @@ export class SalesComponent implements OnInit{
       this.parseData();
     }
 
-    getListFrom(date){
-      if(date !== null){
+    getListFrom(date) {
+      if (date !== null) {
         this.salesInvoicesService.getSales()
                             .then(response => {
                               console.log(response);
@@ -61,8 +61,8 @@ export class SalesComponent implements OnInit{
                               this.parseData();
                               this.formatValues();
                             });
-      }else{
-        this.salesInvoicesService.getSalesFrom(date)
+      } else {
+        this.salesInvoicesService.getSalesInvoicesFrom(date)
                             .then(response => {
                               console.log(response);
                               this.data = response;
