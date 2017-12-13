@@ -19,9 +19,8 @@ import { ClientComponent } from './clients/client/client.component';
 import { FinancialComponent } from './financial/financial.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { OrdersComponent } from './orders/orders.component';
-import { OrderComponent } from './orders/order/order.component';
 import { SalesComponent } from './sales/sales.component';
-import { SaleComponent } from './sales/sale/sale.component';
+import { SaleInvoiceComponent } from './sales/saleInvoice/saleInvoice.component';
 import { ProductSalesComponent } from './sales/product/product.component';
 import { PayableComponent } from './financial/payable/payable.component';
 import { ReceivableComponent } from './financial/receivable/receivable.component';
@@ -30,6 +29,7 @@ import { PurchaseComponent } from './purchases/purchase/purchase.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
 import { ProductComponent } from './inventory/product/product.component';
 import { SupplierComponent } from './suppliers/supplier/supplier.component';
+import { SaleOrderComponent } from './orders/saleOrder/saleOrder.component';
 
 /** Common components */
 import { NotFoundComponent } from './common/404.component';
@@ -45,6 +45,7 @@ import { SalesInvoicesService } from './services/salesInvoices.service';
 import { PurchasesService } from './services/purchases.service';
 import { SuppliersService } from './services/suppliers.service';
 import { OrdersService } from './services/orders.service';
+import { UtilsService } from './services/utils.service';
 
 
 @NgModule({
@@ -56,18 +57,18 @@ import { OrdersService } from './services/orders.service';
     InventoryComponent,
     NotFoundComponent,
     OrdersComponent,
-    OrderComponent,
     OverviewComponent,
     ProductComponent,
     ProductSalesComponent,
     SalesComponent,
-    SaleComponent,
+    SaleInvoiceComponent,
     PayableComponent,
     ReceivableComponent,
     PurchasesComponent,
     PurchaseComponent,
     SuppliersComponent,
-    SupplierComponent
+    SupplierComponent,
+    SaleOrderComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +88,8 @@ import { OrdersService } from './services/orders.service';
     SalesInvoicesService,
     PurchasesService,
     SuppliersService,
-    OrdersService
+    OrdersService,
+    UtilsService
   ],
   bootstrap: [AppComponent]
 })

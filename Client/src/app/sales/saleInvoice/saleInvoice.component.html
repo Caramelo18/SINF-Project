@@ -1,0 +1,65 @@
+<div class="container-fluid">
+    <div class="card main">
+        <h1 class="card-header">Sale Invoice</h1>
+        <div class="card-block">
+            <div class="row">
+                <div class="col-lg-4 col-md-12">
+                    <div class="card">
+                        <div class="card-block" style="margin-top: 15px;">
+                            <h3 class="product-group card-subtitle mb-2">Client ID</h3>
+                            <a routerLink="/client/{{data?.invoice.CustomerID}}">
+                                <p class="info-client">{{data?.invoice.CustomerID}}</p>
+                            </a>
+
+                            <h3 class="product-group card-subtitle mb-2">Date</h3>
+                            <p class="info-client"> {{data?.invoice.InvoiceDate}}</p>
+
+                            <h3 class="product-group card-subtitle mb-2">Invoice number</h3>
+                            <p class="info-client">{{data?.invoice.InvoiceNo}}</p>
+
+                            <h5 class="product-group card-subtitle mb-2">Invoice type</h5>
+                            <p class="info-client">{{data?.invoice.InvoiceType}}</p>
+
+                            <br>
+
+                            <h3 class="product-group card-subtitle mb-2">Gross total</h3>
+                            <p class="info-client">{{utilsService.divideBy100(data?.docs.GrossTotal)}}€</p>
+
+                            <h3 class="product-group card-subtitle mb-2">Tax payable</h3>
+                            <p class="info-client">{{utilsService.divideBy100(data?.docs.TaxPayable)}}€</p>
+
+                            <h3 class="product-group card-subtitle mb-2">Net total</h3>
+                            <p class="info-client">{{utilsService.divideBy100(data?.docs.NetTotal)}}€</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-12">
+                    <div style="margin-top: 40px;">
+                        <div class="card white">
+                            <div class="card-block">
+                                <h3>Products</h3>
+                                <br>
+                                <table style="width:100%;table-layout:fixed;text-align:center;">
+                                    <tr style="border-bottom: 1px solid #e6e6e6;">
+                                        <th style="text-align:center;">Product Code</th>
+                                        <th style="text-align:center;">Quantity</th>
+                                        <th style="text-align:center;">Unit Price (€)</th>
+                                        <th style="text-align:center;">Total Amount (€)</th>
+                                    </tr>
+                                    <tr *ngFor="let line of data?.lines">
+                                        <a routerLink="/product/{{line?.ProductCode}}">
+                                            <td *ngIf="line.CodArtigo != ''" style="padding-right:0px;">{{line?.ProductCode}}</td>
+                                        </a>
+                                        <td *ngIf="line.CodArtigo != ''" style="padding-right:0px;">{{line?.Quantity}}</td>
+                                        <td *ngIf="line.CodArtigo != ''" style="padding-right:0px;">{{line?.UnitPrice}}</td>
+                                        <td *ngIf="line.CodArtigo != ''" style="padding-right:0px;">{{line?.CreditAmount}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

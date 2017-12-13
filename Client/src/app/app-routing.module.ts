@@ -1,4 +1,4 @@
-import { NgModule }             from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { OverviewComponent } from './overview/overview.component';
@@ -9,7 +9,7 @@ import { InventoryComponent } from './inventory/inventory.component';
 import { NotFoundComponent } from './common/404.component';
 import { OrdersComponent } from './orders/orders.component';
 import { SalesComponent } from './sales/sales.component';
-import { SaleComponent } from './sales/sale/sale.component';
+import { SaleInvoiceComponent } from './sales/saleInvoice/saleInvoice.component';
 import { PayableComponent } from './financial/payable/payable.component';
 import { ProductSalesComponent } from './sales/product/product.component';
 import { ReceivableComponent } from './financial/receivable/receivable.component';
@@ -18,7 +18,7 @@ import { PurchaseComponent } from './purchases/purchase/purchase.component';
 import { SuppliersComponent } from './suppliers/suppliers.component';
 import { ProductComponent } from './inventory/product/product.component';
 import { SupplierComponent } from './suppliers/supplier/supplier.component';
-import { OrderComponent } from './orders/order/order.component';
+import { SaleOrderComponent } from './orders/saleOrder/saleOrder.component';
 
 
 const appRoutes: Routes = [
@@ -31,7 +31,7 @@ const appRoutes: Routes = [
   { path: 'sales', component: SalesComponent },
   { path: 'sales/product', component: ProductSalesComponent },
   { path: 'sales/product/:id', component: ProductSalesComponent },
-  { path: 'sale/:id', component: SaleComponent },
+  { path: 'saleinvoice/:id', component: SaleInvoiceComponent },
   { path: 'payables', component: PayableComponent },
   { path: 'receivables', component: ReceivableComponent },
   { path: 'product/:id', component: ProductComponent},
@@ -39,8 +39,8 @@ const appRoutes: Routes = [
   { path: 'purchase/:id', component: PurchaseComponent },
   { path: 'suppliers', component: SuppliersComponent },
   { path: 'supplier/:id', component: SupplierComponent },
-  { path: 'order/:id', component: OrderComponent },
   { path: '404', component: NotFoundComponent},
+  { path: 'saleorder/:id', component: SaleOrderComponent },
 
   { path: '**', component: NotFoundComponent}  // redirect any path that is not found to 404
 ];
