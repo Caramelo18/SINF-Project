@@ -12,7 +12,7 @@ export class SalesInvoicesService {
     constructor(private http: Http) { }
 
 
-    getSales(): Promise<string[]> {
+    getSalesInvoices(): Promise<string[]> {
         const url = this.serverUrl + "/salesInvoices";
         return this.http.get(url)
                         .toPromise()
@@ -20,7 +20,7 @@ export class SalesInvoicesService {
                         .catch(this.handleError);
     }
 
-    getSale(id): Promise<string[]> {
+    getSaleInvoice(id): Promise<string[]> {
         const url = this.serverUrl + "/salesInvoices/Get?id=" + id;
         return this.http.get(url)
                         .toPromise()
@@ -28,7 +28,7 @@ export class SalesInvoicesService {
                         .catch(this.handleError);
     }
 
-    getClientSalesInvoices(clientCode): Promise <string[]> {
+    getSaleInvoiceByProduct(clientCode): Promise <string[]> {
         const url = this.serverUrl + "/salesInvoices/ClientSales?client=" + clientCode;
         return this.http.get(url)
             .toPromise()

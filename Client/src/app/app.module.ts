@@ -20,7 +20,7 @@ import { FinancialComponent } from './financial/financial.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { OrdersComponent } from './orders/orders.component';
 import { SalesComponent } from './sales/sales.component';
-import { SaleComponent } from './sales/sale/sale.component';
+import { SaleInvoiceComponent } from './sales/saleInvoice/saleInvoice.component';
 import { ProductSalesComponent } from './sales/product/product.component';
 import { PayableComponent } from './financial/payable/payable.component';
 import { ReceivableComponent } from './financial/receivable/receivable.component';
@@ -61,7 +61,7 @@ import { UtilsService } from './services/utils.service';
     ProductComponent,
     ProductSalesComponent,
     SalesComponent,
-    SaleComponent,
+    SaleInvoiceComponent,
     PayableComponent,
     ReceivableComponent,
     PurchasesComponent,

@@ -32,7 +32,7 @@ export class SalesComponent implements OnInit{
 
     ngOnInit(): void {
       this.chartYear = 2016;
-      this.salesInvoicesService.getSales()
+      this.salesInvoicesService.getSalesInvoices()
                           .then(response => {
                             console.log(response);
                             this.data = response;

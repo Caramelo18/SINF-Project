@@ -5,12 +5,12 @@ import { SalesOrdersService } from '../../services/salesOrders.service';
 import { UtilsService } from '../../services/utils.service';
 
 @Component({
-    selector: 'sale',
-    templateUrl: './sale.component.html',
-    styleUrls: ['./sale.component.css']
+    selector: 'saleInvoice',
+    templateUrl: './saleInvoice.component.html',
+    styleUrls: ['./saleInvoice.component.css']
 })
 
-export class SaleComponent implements OnInit {
+export class SaleInvoiceComponent implements OnInit {
     private data: string[];
 
     constructor(
