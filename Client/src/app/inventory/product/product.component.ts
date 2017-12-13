@@ -66,11 +66,11 @@ export class ProductComponent implements OnInit {
             .then(response => {
                 this.product = response;
             });
-      /*  this.salesOrdersService.getByProduct(id)
+        this.salesOrdersService.getByProduct(id)
             .then(response => {
                 this.sales = response;
                 console.log(response);
-            });*/
+            });
         this.purchaseService.getByProduct(id)
             .then(response => {
                 this.purchases = response;
