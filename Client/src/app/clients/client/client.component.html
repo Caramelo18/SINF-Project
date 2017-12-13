@@ -28,6 +28,11 @@
 
                     <h3>Website</h3>
                     <p>{{ client.Website ? client.Website : 'No website available.' }}</p>
+
+                    
+                    <h5>Company ID</h5>
+                    <p>{{ client?.CustomerID }}</p>
+
                 </div>
             </div>
         </div>
@@ -71,8 +76,8 @@
                                 </tr>
                                 
                                 <tr *ngFor='let order of clientSalesOrders'>
-                                    <a routerLink="/sale/{{sale?.NumDoc}}"><td style="padding-right:0px;">{{sale?.NumDoc}}</td></a>
-                                    <td style="padding-right:0px;">{{utilsService.convertToDate(sale?.Data)}}</td>
+                                    <a routerLink="/saleorder/{{order?.id}}"><td style="padding-right:0px;">{{order?.NumDoc}}</td></a>
+                                    <td style="padding-right:0px;">{{utilsService.convertToDate(order?.Data)}}</td>
                                 </tr>
                             </table>
                         </div>
