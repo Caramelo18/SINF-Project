@@ -2,12 +2,14 @@
     <div class="container-fluid">
         <div class="row" style="margin-top: 40px">
             <div class="col-sm-4">
-                <div class="card white-background">
-                    <div class="card-block">
-                        <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data?.TotalSales}} € </h2>
-                        <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Sales</h6>
+                <a routerLink="sales">
+                    <div class="card white-background">
+                        <div class="card-block">
+                            <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data?.TotalSales}} € </h2>
+                            <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Sales</h6>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <div class="col-sm-4">
@@ -20,12 +22,12 @@
             </div>
 
             <div class="col-sm-4">
-              <div class="card white-background">
-                  <div class="card-block">
-                      <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data?.accountsReceivable}} €</h2>
-                      <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Accounts Receivable</h6>
-                  </div>
-              </div>
+                <div class="card white-background">
+                    <div class="card-block">
+                        <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data?.accountsReceivable}} €</h2>
+                        <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Accounts Receivable</h6>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -35,16 +37,10 @@
                 <div class="card white">
                     <div class="card-block">
                         <div id="piechart" class="container-fluid" style="width:100%">
-                          <div style="display: block">
-                              <canvas baseChart
-                                      [datasets]="barChartData"
-                                      [labels]="barChartLabels"
-                                      [options]="barChartOptions"
-                                      [legend]="barChartLegend"
-                                      [chartType]="barChartType"
-                                      (chartHover)="chartHovered($event)"
-                                      (chartClick)="chartClicked($event)"></canvas>
-                          </div>
+                            <div style="display: block">
+                                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+                                    [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -54,16 +50,10 @@
                 <div class="card white">
                     <div class="card-block">
                         <div id="curve_chart" class="container-fluid" style="width:100%">
-                          <div style="display: block">
-                              <canvas baseChart
-                                      [datasets]="barChartData"
-                                      [labels]="barChartLabels"
-                                      [options]="barChartOptions"
-                                      [legend]="barChartLegend"
-                                      [chartType]="barChartType"
-                                      (chartHover)="chartHovered($event)"
-                                      (chartClick)="chartClicked($event)"></canvas>
-                          </div>
+                            <div style="display: block">
+                                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+                                    [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -85,17 +75,17 @@
 
         </div>
 
-    <div class="row" style="margin-top: 40px;">
-        <div class="col-sm-8" >
-            <div class="card white">
-                <div class="card-block">
-                    <table style="width:100%;table-layout:fixed;text-align:center;">
-                        <tr style="border-bottom: 1px solid #e6e6e6;">
-                            <th style="text-align:center;">Article</th>
-                            <th style="text-align:center;">Quantity Available</th>
-                            <th style="text-align:center;">Warehouse</th>
-                        </tr>
-                        <!--@foreach (var article in ViewBag.articles)
+        <div class="row" style="margin-top: 40px;">
+            <div class="col-sm-8">
+                <div class="card white">
+                    <div class="card-block">
+                        <table style="width:100%;table-layout:fixed;text-align:center;">
+                            <tr style="border-bottom: 1px solid #e6e6e6;">
+                                <th style="text-align:center;">Article</th>
+                                <th style="text-align:center;">Quantity Available</th>
+                                <th style="text-align:center;">Warehouse</th>
+                            </tr>
+                            <!--@foreach (var article in ViewBag.articles)
                         {
                             <tr>
                                 <td title="@article.DescArtigo" style="padding-right:0px;">@article.CodArtigo</td>
@@ -103,25 +93,24 @@
                                 <td style="padding-right:0px;">@article.Localizacao</td>
                             </tr>
                         }-->
-                        <tr *ngFor="let product of data?.articles; let i=index">
-                            <td style="padding-right:0px;">{{product?.ProductCode}}</td>
-                            <td style="padding-right:0px;">{{product?.ProductStock}}</td>
-                            <td style="padding-right:0px;">{{product?.Armazem}}</td>
-                        </tr>
-                    </table>
+                            <tr *ngFor="let product of data?.articles; let i=index">
+                                <td style="padding-right:0px;">{{product?.ProductCode}}</td>
+                                <td style="padding-right:0px;">{{product?.ProductStock}}</td>
+                                <td style="padding-right:0px;">{{product?.Armazem}}</td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-sm-4">
-            <div class="card white-background">
-                <div class="card-block">
-                    <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data?.numPurchases}}</h2>
-                    <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Purchase Orders</h6>
+            <div class="col-sm-4">
+                <div class="card white-background">
+                    <div class="card-block">
+                        <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{data?.numPurchases}}</h2>
+                        <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Purchase Orders</h6>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-  </div>
 </div>
