@@ -4,6 +4,7 @@ import { ProductService } from '../../services/product.service';
 import { SalesOrdersService } from '../../services/salesOrders.service';
 import { ClientService } from '../../services/client.service';
 import { PurchasesService } from '../../services/purchases.service';
+import { SalesInvoicesService } from '../../services/salesInvoices.service';
 
 @Component({
     selector: 'product',
@@ -18,6 +19,7 @@ export class ProductComponent implements OnInit {
     private sales: string[];
     private purchases: string[];
     private docs: string[];
+    private invoices: string[];
     private total: number;
 
     //pie
@@ -32,7 +34,8 @@ export class ProductComponent implements OnInit {
         private productService: ProductService,
         private salesOrdersService: SalesOrdersService,
         private ClientService: ClientService,
-        private purchaseService: PurchasesService
+        private purchaseService: PurchasesService,
+        private salesInvoicesService: SalesInvoicesService
     ) { }
 
     public lineChartData: Array<any> = [
@@ -71,6 +74,12 @@ export class ProductComponent implements OnInit {
         this.purchaseService.getByProduct(id)
             .then(response => {
                 this.purchases = response;
+                console.log(response);
+            });
+        this.salesInvoicesService.getByProduct(id)
+            .then(response => {
+                this.invoices = response;
+                console.log("Sales Invoices");
                 console.log(response);
             });
 
