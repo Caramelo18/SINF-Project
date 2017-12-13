@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PurchasesService } from '../services/purchases.service';
 import { OverviewService } from '../services/overview.service';
 import { SalesOrdersService } from '../services/salesOrders.service';
+import { UtilsService } from '../services/utils.service';
 
 @Component({
     selector: 'orders',
@@ -13,7 +14,7 @@ import { SalesOrdersService } from '../services/salesOrders.service';
 
 export class OrdersComponent implements OnInit {
 
-    private data: string[];
+    private purchases: string[];
     private info: string[];
     private sales: string[];
     private noInventory: number;
@@ -21,14 +22,15 @@ export class OrdersComponent implements OnInit {
     constructor(
         private purchasesService: PurchasesService,
         private overviewService: OverviewService,
-        private salesService: SalesOrdersService
+        private salesService: SalesOrdersService,
+        private utilsService: UtilsService
     ) { }
 
     ngOnInit(): void {
         this.purchasesService.getPurchases()
             .then(response => {
                 console.log(response);
-                this.data = response;
+                this.purchases = response;
             });
 
         this.overviewService.getOverview()
