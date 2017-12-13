@@ -1,1 +1,38 @@
-Financial Component
+<div class="container-fluid">
+    <div class="row" style="margin-top: 50px;">
+      <div class="col-sm-6">
+          <div class="card white-background">
+              <div class="card-block">
+                  <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{payablesTotal}} €</h2>
+                  <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Accounts Payable</h6>
+              </div>
+          </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="card white-background">
+            <div class="card-block">
+                <h2 class="card-title" style="font-size: 50px; font-weight:800; color: red;text-align:center;">{{receivablesTotal}} €</h2>
+                <h6 class="card-subtitle mb-2 text-muted" style="text-align:center;">Accounts Receivable</h6>
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row" style="margin-top: 50px;">
+      <div class="col-sm-6">
+          <div class="card white-background">
+            <canvas baseChart width="auto" height="400px" [data]="payablesData" [labels]="payablesLabels" [chartType]="pieChartType"></canvas>
+                <figcaption>Chart 1 - Accounts Payable distribution</figcaption>
+          </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="card white-background">
+          <canvas baseChart width="auto" height="400px" [data]="receivablesData" [labels]="receivablesLabels" [chartType]="pieChartType"></canvas>
+              <figcaption>Chart 2 - Accounts Receivable distribution</figcaption>
+        </div>
+      </div>
+    </div>
+</div>

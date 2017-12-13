@@ -10,7 +10,7 @@ import { OverviewService } from '../services/overview.service';
 })
 
 export class OverviewComponent implements OnInit{
-    private data: string[];
+    private data: any;
 
     public barChartOptions:any = {
         scaleShowVerticalLines: false,
@@ -24,6 +24,8 @@ export class OverviewComponent implements OnInit{
       {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
       {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
     ];
+
+    public format : string[] = ["", "K", "M", "B", "T"];
     constructor(
       private overviewService: OverviewService
     ) { }
@@ -32,8 +34,36 @@ export class OverviewComponent implements OnInit{
       this.overviewService.getOverview()
                           .then(response => {
                             this.data = response;
-                            console.log(response);
+                            console.log(this.data);
+                            this.formatValues();
                           });
+    }
+
+    formatValues() {
+      let i = 0;
+      this.data.TotalSales = Number(this.data.TotalSales);
+      this.data.accountsPayable = Number(this.data.accountsPayable);
+      this.data.accountsReceivable = Number(this.data.accountsReceivable);
+
+      while(this.data.TotalSales> 1000){
+          this.data.TotalSales = Math.round(this.data.TotalSales/1000 * 10) / 10;
+          i++;
+      }
+      this.data.TotalSales += " " + this.format[i];
+
+      i = 0;
+      while(this.data.accountsPayable > 1000){
+          this.data.accountsPayable = Math.round(this.data.accountsPayable/1000 * 10) / 10;
+          i++;
+      }
+      this.data.accountsPayable += " " + this.format[i];
+
+      i = 0;
+      while(this.data.accountsReceivable> 1000){
+          this.data.accountsReceivable = Math.round(this.data.accountsReceivable/1000 * 10) / 10;
+          i++;
+      }
+      this.data.accountsReceivable += " " + this.format[i];
     }
 
 
