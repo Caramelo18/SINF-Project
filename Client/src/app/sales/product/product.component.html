@@ -84,10 +84,10 @@
                             <tbody>
                                 <ng-container *ngFor="let order of data">
                                     <tr >
-                                        <td style="padding-right:0px;">{{order.invoice.InvoiceDate}}</td>
-                                        <td style="padding-right:0px;">{{order.invoice.CustomerID}}</td>
-                                        <td style="padding-right:0px;">{{order.docs.InvoiceNo}}</td>
-                                        <td style="padding-right:0px;">{{order.docs.GrossTotal}}</td>
+                                        <td style="padding-right:0px;">{{order?.invoice?.InvoiceDate}}</td>
+                                        <td style="padding-right:0px;">{{order?.invoice?.CustomerID}}</td>
+                                        <td style="padding-right:0px;">{{order?.docs?.InvoiceNo}}</td>
+                                        <td style="padding-right:0px;">{{order?.docs?.GrossTotal}}</td>
                                     </tr>
                                 </ng-container>
                             </tbody>
