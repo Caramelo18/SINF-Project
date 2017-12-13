@@ -28,16 +28,16 @@ export class SalesInvoicesService {
                         .catch(this.handleError);
     }
 
-    getSaleInvoiceByProduct(clientCode): Promise <string[]> {
-        const url = this.serverUrl + "/salesInvoices/ClientSales?client=" + clientCode;
+    getSaleInvoicesByProduct(productCode): Promise <string[]> {
+        const url = this.serverUrl + "/salesInvoices/GetByProduct/" + productCode;
         return this.http.get(url)
             .toPromise()
             .then(response => response.json() as string[])
             .catch(this.handleError);
     }
 
-    getByProduct(productCode): Promise <string[]> {
-        const url = this.serverUrl + "/salesInvoices/GetByProduct/" + productCode;
+    getSaleInvoicesByClient(clientCode): Promise <string[]> {
+        const url = this.serverUrl + "/salesInvoices/GetByClient/" + clientCode;
         return this.http.get(url)
             .toPromise()
             .then(response => response.json() as string[])
