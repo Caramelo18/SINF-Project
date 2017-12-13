@@ -37,7 +37,7 @@ export class SalesInvoicesService {
     }
 
     getClientSalesInvoices(clientCode): Promise <string[]> {
-        const url = this.serverUrl + "/salesInvoices/ClientSales?client=" + clientCode;
+        const url = this.serverUrl + "/salesInvoices/getByClient?id=" + clientCode;
         return this.http.get(url)
             .toPromise()
             .then(response => response.json() as string[])
@@ -45,7 +45,7 @@ export class SalesInvoicesService {
     }
 
     getProductSalesInvoices(productCode): Promise <string[]> {
-        const url = this.serverUrl + "/salesInvoices/GetByProduct/" + productCode;
+        const url = this.serverUrl + "/salesInvoices/GetByProduct?id=" + productCode;
         return this.http.get(url)
             .toPromise()
             .then(response => response.json() as string[])
