@@ -99,6 +99,24 @@ namespace FirstREST.Controllers
         }
 
         [HttpGet]
+        public List<Models.DocCompra> GetBySupplier(string id)
+        {
+            try
+            {
+                List<Models.DocCompra> docs = (from d in db.DocCompra
+                                               where d.Entidade == id
+                                               select d).ToList();
+
+                return docs;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return null;
+            }
+        }
+
+        [HttpGet]
         public IEnumerable<Lib_Primavera.Model.DocCompra> ProductPurchases()
         {
             var allUrlKeyValues = ControllerContext.Request.GetQueryNameValuePairs();

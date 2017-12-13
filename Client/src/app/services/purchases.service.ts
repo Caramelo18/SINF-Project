@@ -29,7 +29,15 @@ export class PurchasesService {
     }
 
     getByProduct(id): Promise<string[]> {
-        const url = this.serverUrl + "/docCompra/GetByProduct/" + id;
+        const url = this.serverUrl + "/docCompra/GetByProduct?id=" + id;
+        return this.http.get(url)
+                        .toPromise()
+                        .then(response => response.json() as string[])
+                        .catch(this.handleError);
+    }
+
+    getBySupplier(id): Promise<string[]> {
+        const url = this.serverUrl + "/docCompra/GetBySupplier?id=" + id;
         return this.http.get(url)
                         .toPromise()
                         .then(response => response.json() as string[])
